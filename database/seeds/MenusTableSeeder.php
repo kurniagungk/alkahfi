@@ -197,9 +197,9 @@ class MenusTableSeeder extends Seeder
         $this->insertLink('guest,user,admin', 'Try CoreUI PRO', 'https://coreui.io/pro/', 'cil-layers');
         $this->insertTitle('user,admin', 'MASTER');
         $this->beginDropdown('user,admin', 'DATA PONDOK', 'cil-library');
-        $id = $this->insertLink('user,admin', 'Santri',                   '/pondok/santri');
+        $id = $this->insertLink('user,admin', 'Santri',                   '/santri');
         $id = $this->insertLink('user,admin', 'Pengurus',                   '/pondok/pengurus');
-        $id = $this->insertLink('user,admin', 'Asrama',                   '/pondok/asrama');
+        $id = $this->insertLink('user,admin', 'Asrama',                   '/asrama');
         $this->endDropdown();
         $this->beginDropdown('user,admin', 'PENGATURAN', 'cil-settings');
         $id = $this->insertLink('user,admin', 'DASHBOARD', '/pondok');
