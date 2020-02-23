@@ -22,6 +22,7 @@ class CreateTagihanTable extends Migration
             $table->char('id_bayar', 12);
             $table->enum('status', ['lunas', 'belum']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

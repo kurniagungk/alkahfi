@@ -17,6 +17,7 @@ class CreateDaftarTahunAjaranTable extends Migration
             $table->bigIncrements('id_tahun');
             $table->char('nama', 100);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

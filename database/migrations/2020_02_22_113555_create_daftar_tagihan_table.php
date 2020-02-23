@@ -19,6 +19,7 @@ class CreateDaftarTagihanTable extends Migration
             $table->char('id_jenis', 100);
             $table->char('id_tahun', 100);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

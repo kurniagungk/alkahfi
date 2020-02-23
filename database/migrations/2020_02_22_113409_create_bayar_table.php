@@ -19,6 +19,7 @@ class CreateBayarTable extends Migration
             $table->char('id_tagihan', 100);
             $table->char('id_transaksi', 100);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

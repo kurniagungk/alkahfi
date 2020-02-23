@@ -19,6 +19,7 @@ class CreateTransaksiTable extends Migration
             $table->double('jumlah', 8, 2);
             $table->enum('jenis', ['debit', 'credit']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

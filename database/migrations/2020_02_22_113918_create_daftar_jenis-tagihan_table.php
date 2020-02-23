@@ -17,6 +17,7 @@ class CreateDaftarJenisTagihanTable extends Migration
             $table->bigIncrements('id_jens tagihan');
             $table->char('name', 100);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
