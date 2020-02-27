@@ -129,4 +129,13 @@ class AlkahfiController extends Controller
     {
         return view ('menu.mutasi');
     }
+
+
+     /** 
+     * @return \Illuminate\Http\Response
+     */
+    public function akun()
+    {
+        return view ('menu.akun');
+    }
 }

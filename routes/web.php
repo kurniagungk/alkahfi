@@ -130,6 +130,7 @@ Route::group(['middleware' => ['get.menu']], function () {
             Route::get('/lap_khaul', 'AlkahfiController@lap_khaul');
             Route::get('/lap_daftarbaru', 'AlkahfiController@lap_daftarbaru');
             Route::get('/mutasi', 'AlkahfiController@mutasi');
+            Route::get('/akun', 'AlkahfiController@akun');
 
             
             //Route::get('/santri', 'AlkahfiController@index');
