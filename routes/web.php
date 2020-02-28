@@ -203,9 +203,10 @@ Route::group(['middleware' => ['get.menu']], function () {
         });
 
         route::prefix('santri')->group(function () {
-            Route::get('/', 'santri@index');
-            Route::get('/create', 'santri@create');
-            Route::get('/photos/{santri}/edit', 'santri@edit');
+            Route::get('/', 'SantriController@index');
+            Route::POST('/', 'SantriController@getBasicData')->name('santri.GetData');
+            Route::get('/create', 'SantriController@create');
+            Route::get('/photos/{santri}/edit', 'SantriController@edit');
         });
 
         route::prefix('asrama')->group(function () {

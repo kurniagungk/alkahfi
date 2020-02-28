@@ -75,11 +75,16 @@
     "@coreui/coreui-chartjs": "2.0.0-beta.0",
     "@coreui/icons": "1.0.0-beta.3",
     "axios": "^0.19.0",
+    "bootstrap": "^4.4.1",
     "chart.js": "^2.8.0",
     "cropperjs": "^1.5.6",
+    "datatables.net-bs4": "^1.10.20",
+    "datatables.net-scroller-bs4": "^2.0.1",
+    "datatables.net-searchpanes-bs4": "^1.0.1",
     "laravel-mix": "^5.0.0",
     "pace-progress": "1.0.2",
     "perfect-scrollbar": "1.4.0",
+    "popper.js": "^1.16.1",
     "serialize-javascript": "^3.0.0"
   },
   "devDependencies": {

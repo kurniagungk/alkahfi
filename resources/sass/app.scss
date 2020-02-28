@@ -1,7 +1,7 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
-@import "node_modules/font-awesome/scss/font-awesome.scss";
+//@import "node_modules/font-awesome/scss/font-awesome.scss";
 
 
 
@@ -10,5 +10,8 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import '~datatables.net-bs4/css/dataTables.bootstrap4.css';
+@import '~datatables.net-scroller-bs4/css/scroller.bootstrap4.css';
+@import '~datatables.net-searchpanes-bs4/css/searchPanes.bootstrap4.css';
 
 
