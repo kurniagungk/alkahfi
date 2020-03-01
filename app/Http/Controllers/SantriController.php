@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Datatables;
+use App\santri;
+use Redirect, Response, DB, Config;
 
-class santri extends Controller
+class SantriController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -83,5 +86,14 @@ class santri extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function getBasicData()
+    {
+
+        return datatables()->eloquent(santri::query())
+            ->addColumn('alamat', 'alamat')
+            ->only(['id_santri', 'no_induk', 'nama', 'alamat'])
+
+            ->toJson();
     }
 }
