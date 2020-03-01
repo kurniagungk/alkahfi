@@ -6,13 +6,19 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="card">
-            <div class="card-header"><h4>Data Santri</h4></div>
-            <!-- /.box-header -->
+            <div class="card-header"><h4>Mutasi Santri</h4></div>
+			<!-- /.box-header -->
 			<div class="box-body">
+
+			<div class="col-sm-6">
 								<form method="GET" action="" class="form-horizontal">
 					<input type="hidden" name="view" value="siswa">
-					<table class="table table-striped">
+					<table class="table-responsive">
 						<tbody>
+							<br>
+							<tr>
+							<div class="container-fluid"><h5>Data Awal </h5></div>
+							</tr>
 							<tr>
 								<td>
 									<select id="kelas" name="kelas" class="form-control">
@@ -20,8 +26,7 @@
                                         <option value="1">ASRAMA</option>
                                         <option value="3">SEKOLAH</option>
                                         <option value="5">JENIS KELAMIN</option>
-                                        <option value="6">TAHUN MASUK</option>
-                                        
+                                        <option value="6">TAHUN MASUK</option>                     
                                     </select>
 								</td>
 								<td>
@@ -35,21 +40,52 @@
 									</select>
 								</td>
 								<td width="100">
-									<input type="submit" name="tampil" value="Tampilkan" class="btn btn-primary pull-right">
-								</td>
-								<td>
-								
-									<span class="pull-right">
-										<a class="btn btn-warning" href="index.php?view=siswa&amp;act=import">
-											<i class="fa fa-file-excel-o"></i> Import Data Santri
-										</a>
-										<a class="btn btn-success" href="index.php?view=siswa&amp;act=tambah">Tambahkan Data</a>
-									</span>
+									<input type="submit" name="tampil" value="Tampilkan" class="btn btn-outline-primary">
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</form>
+			</div>
+
+			<div class="col-sm-6">
+								<form method="GET" action="" class="form-horizontal">
+					<input type="hidden" name="view" value="siswa">
+					<table class="table-responsive">
+						<tbody>
+							<br>
+							<tr>
+							<div class="container-fluid"><h5>Pindah Ke-</h5></div>
+							</tr>
+							<tr>
+								<td>
+									<select id="kelas" name="kelas" class="form-control">
+										<option value="" selected=""> - Pilih Filter - </option>
+                                        <option value="1">ASRAMA</option>
+                                        <option value="3">SEKOLAH</option>
+                                        <option value="5">JENIS KELAMIN</option>
+                                        <option value="6">TAHUN MASUK</option>                     
+                                    </select>
+								</td>
+								<td>
+									<select class="form-control" name="status">
+										<option value="">- Rincian Filter -</option>
+										<option value="Aktif">Aktif</option>
+										<option value="Non Aktif">Non Aktif</option>
+										<option value="Drop Out">Drop Out</option>
+										<option value="Pindah">Pindah</option>
+										<option value="Lulus">Lulus</option>
+									</select>
+								</td>
+								<td width="100">
+									<input type="submit" name="tampil" value="PINDAH !" class="btn btn-success pull-right">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+<br>
 				<div class="table-responsive">
 					<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                         <div class="row">
@@ -79,7 +115,7 @@
                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Alamat: activate to sort column ascending" style="width: 35px;">JK</th>
                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="No.Hp: activate to sort column ascending" style="width: 150px;">ALAMAT (KOTA)</th>
                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Saldo Tabungan: activate to sort column ascending" style="width: 35px;">MASUK </th>
-                                <th width="40" class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Aksi: activate to sort column ascending" style="width: 120px;"><center>Aksi</center></th>
+                                <th width="40" class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Aksi: activate to sort column ascending" style="width: 90px;"><input type="checkbox" id="parent"> Semua</th>
                             </tr>
 						</thead>
 						<tbody>
@@ -93,8 +129,7 @@
 								<td>BANDUNG</td>
 								<td>2020</td>
 								<td><center>
-								<button class="btn btn-sm btn-success" type="submit"> Edit</button>
-                                <button class="btn btn-sm btn-danger" type="reset"> Hapus</button>
+								<input type="checkbox" name="pilih[]" value="302" class="child">
 								</center></td></tr></tbody>
 					</table></div></div><div class="row"><div class="col-sm-5"><div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing 1 to 10 of 111 entries</div></div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="example1_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="example1_previous"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0">Previous</a></li><li class="paginate_button active"><a href="#" aria-controls="example1" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button "><a href="#" aria-controls="example1" data-dt-idx="2" tabindex="0">2</a></li><li class="paginate_button "><a href="#" aria-controls="example1" data-dt-idx="3" tabindex="0">3</a></li><li class="paginate_button "><a href="#" aria-controls="example1" data-dt-idx="4" tabindex="0">4</a></li><li class="paginate_button "><a href="#" aria-controls="example1" data-dt-idx="5" tabindex="0">5</a></li><li class="paginate_button disabled" id="example1_ellipsis"><a href="#" aria-controls="example1" data-dt-idx="6" tabindex="0">…</a></li><li class="paginate_button "><a href="#" aria-controls="example1" data-dt-idx="7" tabindex="0">12</a></li><li class="paginate_button next" id="example1_next"><a href="#" aria-controls="example1" data-dt-idx="8" tabindex="0">Next</a></li></ul></div></div></div></div>
 				</div>

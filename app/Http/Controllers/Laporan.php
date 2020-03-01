@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class asrama extends Controller
+class Laporan extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class asrama extends Controller
     public function index()
     {
         //
-        return view('asrama.index');
+        return view('laporan.index');
     }
 
     /**
@@ -25,7 +25,7 @@ class asrama extends Controller
     public function create()
     {
         //
-        return view('asrama.create');
+        return view('laporan.create');
     }
 
     /**
@@ -48,7 +48,6 @@ class asrama extends Controller
     public function show($id)
     {
         //
-
     }
 
     /**
@@ -60,7 +59,7 @@ class asrama extends Controller
     public function edit($id)
     {
         //
-        return view('asrama.edit');
+        return view('laporan.edit');
     }
 
     /**

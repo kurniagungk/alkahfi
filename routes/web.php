@@ -209,10 +209,74 @@ Route::group(['middleware' => ['get.menu']], function () {
         });
 
         route::prefix('asrama')->group(function () {
-            Route::get('/', 'santri@index');
-            Route::get('/create', 'santri@create');
-            Route::get('/photos/{asrama}/edit', 'santri@edit');
+            Route::get('/', 'asrama@index');
+            Route::get('/create', 'asrama@create');
+            Route::get('/photos/{asrama}/edit', 'asrama@edit');
         });
+
+        route::prefix('pengurus')->group(function () {
+            Route::get('/', 'pengurus@index');
+            Route::get('/create', 'pengurus@create');
+            Route::get('/photos/{asrama}/edit', 'pengurus@edit');
+        });
+
+        route::prefix('pengguna')->group(function () {
+            Route::get('/', 'pengguna@index');
+            Route::get('/create', 'pengguna@create');
+            Route::get('/photos/{asrama}/edit', 'pengguna@edit');
+        });
+
+        route::prefix('bayarjenis')->group(function () {
+            Route::get('/', 'bayarjenis@index');
+            Route::get('/create', 'bayarjenis@create');
+            Route::get('/{asrama}/edit', 'bayarjenis@edit');
+        });
+
+        route::prefix('bayarpos')->group(function () {
+            Route::get('/', 'bayarpos@index');
+            Route::get('/create', 'bayarpos@create');
+            Route::get('/{asrama}/edit', 'bayarpos@edit');
+        });
+
+        route::prefix('jurnal')->group(function () {
+            Route::get('/', 'jurnal@index');
+            Route::get('/create', 'jurnal@create');
+            Route::get('/{asrama}/edit', 'jurnal@edit');
+        });
+
+        route::prefix('laporan')->group(function () {
+            Route::get('/', 'laporan@index');
+            Route::get('/create', 'laporan@create');
+            Route::get('/{asrama}/edit', 'laporan@edit');
+        });
+
+        route::prefix('santrimutasi')->group(function () {
+            Route::get('/', 'santrimutasi@index');
+            Route::get('/create', 'santrimutasi@create');
+            Route::get('/{asrama}/edit', 'santrimutasi@edit');
+        });
+
+        route::prefix('tahunajaran')->group(function () {
+            Route::get('/', 'tahunajaran@index');
+            Route::get('/create', 'tahunajaran@create');
+            Route::get('/{asrama}/edit', 'tahunajaran@edit');
+        });
+
+        route::prefix('transaksi')->group(function () {
+            Route::get('/', 'transaksi@index');
+            Route::get('/create', 'transaksi@create');
+            Route::get('/{asrama}/edit', 'transaksi@edit');
+        });
+
+        route::prefix('pengeluaran')->group(function () {
+            Route::get('/', 'pengeluaran@index');
+            Route::get('/create', 'pengeluaran@create');
+            Route::get('/{asrama}/edit', 'pengeluaran@edit');
+        });
+
+
+
+
     });
 });
 

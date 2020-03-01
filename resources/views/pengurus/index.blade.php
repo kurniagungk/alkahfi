@@ -6,7 +6,7 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="card">
-            <div class="card-header"><h4>Data Santri</h4></div>
+            <div class="card-header"><h4>Data Pengurus</h4></div>
             <!-- /.box-header -->
 			<div class="box-body">
 								<form method="GET" action="" class="form-horizontal">
@@ -35,15 +35,13 @@
 									</select>
 								</td>
 								<td width="100">
-									<input type="submit" name="tampil" value="Tampilkan" class="btn btn-primary pull-right">
+									<input type="submit" name="tampil" value="Tampilkan" class="btn btn-success pull-right">
 								</td>
 								<td>
 								
 									<span class="pull-right">
-										<a class="btn btn-warning" href="index.php?view=siswa&amp;act=import">
-											<i class="fa fa-file-excel-o"></i> Import Data Santri
-										</a>
-										<a class="btn btn-success" href="index.php?view=siswa&amp;act=tambah">Tambahkan Data</a>
+										
+										<a class="btn btn-primary" href="index.php?view=siswa&amp;act=tambah">Tambahkan Data</a>
 									</span>
 								</td>
 							</tr>
