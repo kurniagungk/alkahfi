@@ -91,9 +91,21 @@ class SantriController extends Controller
     {
 
         return datatables()->eloquent(santri::query())
-            ->addColumn('alamat', 'alamat')
-            ->only(['id_santri', 'no_induk', 'nama', 'alamat'])
 
-            ->toJson();
+            ->only(['id_santri', 'no_induk', 'jenis_kelamin', 'nama', 'alamat', 'asrama', 'sekolah', 'id_kelas', 'id_tahun', 'aksi'])
+            ->orderColumn('nama', '-nama $1')
+            ->addIndexColumn()
+            ->addColumn(
+                'aksi',
+                function ($santri) {
+                    return
+                        '<center>
+                    <button class="btn btn-sm btn-success" type="submit"> Edit</button>
+                    <button class="btn btn-sm btn-danger" type="reset"> Hapus</button>
+                 </center>';
+                }
+            )
+            ->rawColumns(['aksi'])
+            ->make(true);
     }
 }
