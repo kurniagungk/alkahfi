@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\asrama;
 use Illuminate\Http\Request;
 
-class asrama extends Controller
+class asramaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,6 @@ class asrama extends Controller
      */
     public function index()
     {
-        //
         return view('asrama.index');
     }
 
@@ -24,7 +24,6 @@ class asrama extends Controller
      */
     public function create()
     {
-        //
         return view('asrama.create');
     }
 
@@ -42,35 +41,33 @@ class asrama extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\asrama  $asrama
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(asrama $asrama)
     {
         //
-
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\asrama  $asrama
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(asrama $asrama)
     {
         //
-        return view('asrama.edit');
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\asrama  $asrama
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, asrama $asrama)
     {
         //
     }
@@ -78,11 +75,32 @@ class asrama extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\asrama  $asrama
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(asrama $asrama)
     {
         //
+    }
+    public function getBasicData()
+    {
+
+        return datatables()->eloquent(asrama::query())
+
+            ->only(['kode', 'nama', 'jenis_kelamin', 'jumlah', 'kelamin', 'Keterangan'])
+            ->orderColumn('nama', '-nama $1')
+            ->addIndexColumn()
+            ->addColumn(
+                'aksi',
+                function ($santri) {
+                    return
+                        '<center>
+                    <button class="btn btn-sm btn-success" type="submit"> Edit</button>
+                    <button class="btn btn-sm btn-danger" type="reset"> Hapus</button>
+                 </center>';
+                }
+            )
+            ->rawColumns(['aksi'])
+            ->make(true);
     }
 }

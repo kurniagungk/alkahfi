@@ -210,9 +210,10 @@ Route::group(['middleware' => ['get.menu']], function () {
         });
 
         route::prefix('asrama')->group(function () {
-            Route::get('/', 'asrama@index');
-            Route::get('/create', 'asrama@create');
-            Route::get('/photos/{asrama}/edit', 'asrama@edit');
+            Route::get('/', 'asramaController@index');
+            Route::get('/create', 'asramaController@create');
+            Route::get('/photos/{asrama}/edit', 'asramaController@edit');
+            Route::POST('/', 'asramaController@getBasicData')->name('asrama.GetData');
         });
 
         route::prefix('pengurus')->group(function () {
@@ -274,10 +275,6 @@ Route::group(['middleware' => ['get.menu']], function () {
             Route::get('/create', 'pengeluaran@create');
             Route::get('/{asrama}/edit', 'pengeluaran@edit');
         });
-
-
-
-
     });
 });
 
