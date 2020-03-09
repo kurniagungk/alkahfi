@@ -62,7 +62,11 @@ class SantriController extends Controller
 
 
 
-        $validator = Validator::make($request->all(), [ // <---
+
+
+
+
+        $validator = Validator::make($request->all(), [
             'no_induk' => 'required|unique:santri|max:255',
             'nama' => 'required',
             'tempat_lahir' => 'required',
@@ -74,7 +78,7 @@ class SantriController extends Controller
             'jenis_kelamin' => 'required',
             'id_tahun' => 'required',
             'nama_wali' => 'required',
-            'foto' => 'required|image',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ], $messages);
 
 
@@ -84,11 +88,29 @@ class SantriController extends Controller
             return redirect('post/create')
                 ->withErrors($validator)
                 ->withInput();
-        } else {
-            Santri::create($request->all());
-            return redirect()->route('Santri.Index')
-                ->with('success', 'berhasil manambah data santri');
         }
+        $imageName = time() . '.' . $request->foto->extension();
+        $request->foto->move(public_path('images/santri'), $imageName);
+        $data = array(
+            'no_induk' => $request->no_induk,
+            'nama' => $request->nama,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tgl_lahir' => $request->tgl_lahir,
+            'alamat' => $request->alamat,
+            'sekolah' => $request->sekolah,
+            'asrama' => $request->asrama,
+            'telepon' => $request->telepon,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'id_tahun' => $request->id_tahun,
+            'nama_wali' => $request->nama_wali,
+            'foto' => $imageName,
+        );
+
+
+
+        Santri::create($data);
+        return redirect()->route('Santri.Index')
+            ->with('success', 'berhasil manambah data santri');
     }
 
     /**
