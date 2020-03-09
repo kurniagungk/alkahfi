@@ -46,14 +46,19 @@
                                                 <a class="btn btn-warning" href="index.php?view=siswa&amp;act=import">
                                                     <i class="fa fa-file-excel-o"></i> Import Data Santri
                                                 </a>
-                                                <a class="btn btn-success" href="index.php?view=siswa&amp;act=tambah">Tambahkan Data</a>
+                                                <a class="btn btn-success" href="{{route('Santri.Create')}}">Tambahkan Data</a>
                                             </span>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </form>
-
+                        @if ($message = Session::get('success'))
+                        <div class="alert alert-success alert-block">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>{{ $message }}</strong>
+                        </div>
+                        @endif
 
                         <div class="row">
                             <div class="col-sm-12">

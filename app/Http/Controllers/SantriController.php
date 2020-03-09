@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Datatables;
-use App\santri;
+use App\Santri;
 use Redirect, Response, DB, Config;
+use Validator;
 
 class SantriController extends Controller
 {
@@ -39,7 +40,55 @@ class SantriController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+        $messages = [
+            'no_induk.required'    => 'NIS TIDAK BOLEH KOSONG',
+            'no_induk.unique'    => 'NIS TIDAK BOLEH SAMA',
+            'nama.required'    => 'NAMA TIDAK BOLEH KOSONG',
+            'tgl_lahir.required'    => 'TANGGAL LAHIR TIDAK BOLEH KOSONG',
+            'alamat.required'    => 'ALAMAT TIDAK BOLEH KOSONG',
+            'sekolah.required'    => 'SEKOLAH TIDAK BOLEH KOSONG',
+            'asrama.required'    => 'ASRAMA TIDAK BOLEH KOSONG',
+            'jenis_kelamin.required'    => 'JENIS KELAMIN TIDAK BOLEH KOSONG',
+            'id_tahun.required'    => 'TAHUN MASUK TIDAK BOLEH KOSONG',
+            'nama_wali.required'    => 'NAMA WALI TIDAK BOLEH KOSONG',
+            'tempat_lahir.required'    => 'TEMPAT LAHIR TIDAK BOLEH KOSONG',
+            'telepon.required'    => 'NO HP TIDAK BOLEH KOSONG',
+            'foto.required'    => 'FOTO TIDAK BOLEH KOSONG',
+
+
+        ];
+
+
+
+        $validator = Validator::make($request->all(), [ // <---
+            'no_induk' => 'required|unique:santri|max:255',
+            'nama' => 'required',
+            'tempat_lahir' => 'required',
+            'tgl_lahir' => 'date',
+            'alamat' => 'required',
+            'sekolah' => 'required',
+            'asrama' => 'required',
+            'telepon' => 'required',
+            'jenis_kelamin' => 'required',
+            'id_tahun' => 'required',
+            'nama_wali' => 'required',
+            'foto' => 'required|image',
+        ], $messages);
+
+
+
+
+        if ($validator->fails()) {
+            return redirect('post/create')
+                ->withErrors($validator)
+                ->withInput();
+        } else {
+            Santri::create($request->all());
+            return redirect()->route('Santri.Index')
+                ->with('success', 'berhasil manambah data santri');
+        }
     }
 
     /**

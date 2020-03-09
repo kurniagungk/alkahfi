@@ -9,4 +9,18 @@ class santri extends Model
     // 
     protected $table = 'santri';
     protected $primaryKey = 'id_santri';
+    protected $fillable = [
+        'no_induk',
+        'nama',
+        'tgl_lahir',
+        'alamat',
+        'sekolah',
+        'asrama',
+        'jenis_kelamin',
+        'id_tahun',
+        'nama_wali',
+        'foto',
+        'tempat_lahir',
+        'telepon'
+    ];
 }
