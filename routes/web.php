@@ -198,12 +198,13 @@ Route::group(['middleware' => ['get.menu']], function () {
             Route::get('/akun', 'AlkahfiController@akun');
         });
 
+        Route::resources([
+            'santri' => 'SantriController',
+
+        ]);
+
         route::prefix('santri')->group(function () {
-            Route::get('/', 'SantriController@index')->name('Santri.Index');
-            Route::POST('/', 'SantriController@getBasicData')->name('santri.GetData');
-            Route::get('/create', 'SantriController@create')->name('Santri.Create');
-            Route::post('/create', 'SantriController@store');
-            Route::get('/photos/{santri}/edit', 'SantriController@edit');
+            Route::POST('/GetData', 'SantriController@getBasicData')->name('santri.getData');
         });
 
         route::prefix('asrama')->group(function () {

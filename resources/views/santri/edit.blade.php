@@ -1,202 +1,158 @@
   @extends('dashboard.base')
 
   @section('content')
+
   <div class="container-fluid">
       <div class="fade-in">
           <div class="row">
               <div class="col-md-12">
                   <div class="card">
-                      <div class="card-header"><strong>Basic Form</strong> Elements</div>
+                      <div class="card-header"><strong>Input</strong> Data Santri</div>
                       <div class="card-body">
-                          <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
-                              <div class="form-group row">
+                          @if ($errors->any())
+                          <div class="alert alert-danger">
+                              <ul>
+                                  @foreach ($errors->all() as $error)
+                                  <li>{{ $error }}</li>
+                                  @endforeach
+                              </ul>
+                          </div>
+                          @endif
+                          <form class="form-horizontal" action="{{ route('santri.update',$santri->id_santri) }}" method="post" enctype="multipart/form-data">
+                              @csrf
+                              @method('PUT')
+                              <!-- <div class="form-group row">
                                   <label class="col-md-3 col-form-label">Static</label>
                                   <div class="col-md-9">
                                       <p class="form-control-static">Username</p>
                                   </div>
-                              </div>
+                              </div> -->
                               <div class="form-group row">
-                                  <label class="col-md-3 col-form-label" for="text-input">Text Input</label>
+                                  <label class="col-md-3 col-form-label" for="text-input">NIS</label>
                                   <div class="col-md-9">
-                                      <input class="form-control" id="text-input" type="text" name="text-input" placeholder="Text"><span class="help-block">This is a help text</span>
+                                      <input value="{{$santri->no_induk}}" class="form-control" id="text-input" type="text" name="no_induk">
                                   </div>
                               </div>
                               <div class="form-group row">
-                                  <label class="col-md-3 col-form-label" for="email-input">Email Input</label>
+                                  <label class="col-md-3 col-form-label" for="text-input">Nama Lengkap</label>
                                   <div class="col-md-9">
-                                      <input class="form-control" id="email-input" type="email" name="email-input" placeholder="Enter Email" autocomplete="email"><span class="help-block">Please enter your email</span>
+                                      <input class="form-control" type="text" name="nama" value="{{$santri->nama}}"><span class="help-block">* Sesuai ijazah</span>
                                   </div>
                               </div>
                               <div class="form-group row">
-                                  <label class="col-md-3 col-form-label" for="password-input">Password</label>
+                                  <label class="col-md-3 col-form-label" for="date-input">tempat Lahir</label>
                                   <div class="col-md-9">
-                                      <input class="form-control" id="password-input" type="password" name="password-input" placeholder="Password" autocomplete="new-password"><span class="help-block">Please enter a complex password</span>
+                                      <input class="form-control" value="{{$santri->tempat_lahir}}" id="text-input" name="tempat_lahir" placeholder="date">
                                   </div>
                               </div>
                               <div class="form-group row">
-                                  <label class="col-md-3 col-form-label" for="date-input">Date Input</label>
+                                  <label class="col-md-3 col-form-label" for="date-input">Tanggal Lahir</label>
                                   <div class="col-md-9">
-                                      <input class="form-control" id="date-input" type="date" name="date-input" placeholder="date"><span class="help-block">Please enter a valid date</span>
+                                      <input class="form-control" value="{{$santri->tgl_lahir}}" id="date-input" type="date" name="tgl_lahir" placeholder="date">
                                   </div>
                               </div>
                               <div class="form-group row">
-                                  <label class="col-md-3 col-form-label" for="disabled-input">Disabled Input</label>
+                                  <label class="col-md-3 col-form-label" for="textarea-input">Alamat</label>
                                   <div class="col-md-9">
-                                      <input class="form-control" id="disabled-input" type="text" name="disabled-input" placeholder="Disabled" disabled="">
+                                      <textarea class="form-control" id="textarea-input" name="alamat" rows="5" placeholder="Isi Sesuai KK . . .">{{$santri->alamat}}</textarea>
                                   </div>
                               </div>
                               <div class="form-group row">
-                                  <label class="col-md-3 col-form-label" for="textarea-input">Textarea</label>
+                                  <label class="col-md-3 col-form-label" for="select1">Lembaga</label>
                                   <div class="col-md-9">
-                                      <textarea class="form-control" id="textarea-input" name="textarea-input" rows="9" placeholder="Content.."></textarea>
-                                  </div>
-                              </div>
-                              <div class="form-group row">
-                                  <label class="col-md-3 col-form-label" for="select1">Select</label>
-                                  <div class="col-md-9">
-                                      <select class="form-control" id="select1" name="select1">
-                                          <option value="0">Please select</option>
-                                          <option value="1">Option #1</option>
-                                          <option value="2">Option #2</option>
-                                          <option value="3">Option #3</option>
+                                      <select class="form-control" id="select1" name="sekolah">
+
+
+                                          <option value="0">- Pilih Lembaga -</option>
+                                          <option selected value="1">Pondok</option>
+                                          <option value="2">SMK</option>
+                                          <option value="3">SMA</option>
+                                          <option value="3">SMP</option>
                                       </select>
                                   </div>
                               </div>
                               <div class="form-group row">
-                                  <label class="col-md-3 col-form-label" for="select2">Select Large</label>
+                                  <label class="col-md-3 col-form-label" for="select1">Sub lembaga</label>
                                   <div class="col-md-9">
-                                      <select class="form-control form-control-lg" id="select2" name="select2">
-                                          <option value="0">Please select</option>
-                                          <option value="1">Option #1</option>
-                                          <option value="2">Option #2</option>
-                                          <option value="3">Option #3</option>
+                                      <select class="form-control" id="select1" name="asrama">
+                                          <option value="0">- Pilih Sub Lembaga -</option>
+                                          <option selected value="1">Abdurl Kahfi</option>
+                                          <option value="2">Abdurahman</option>
+                                          <option value="3">XI-IPA</option>
+                                          <option value="3">IX-A</option>
                                       </select>
                                   </div>
                               </div>
                               <div class="form-group row">
-                                  <label class="col-md-3 col-form-label" for="select3">Select Small</label>
-                                  <div class="col-md-9">
-                                      <select class="form-control form-control-sm" id="select3" name="select3">
-                                          <option value="0">Please select</option>
-                                          <option value="1">Option #1</option>
-                                          <option value="2">Option #2</option>
-                                          <option value="3">Option #3</option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="form-group row">
-                                  <label class="col-md-3 col-form-label" for="disabledSelect">Disabled Select</label>
-                                  <div class="col-md-9">
-                                      <select class="form-control" id="disabledSelect" disabled="">
-                                          <option value="0">Please select</option>
-                                          <option value="1">Option #1</option>
-                                          <option value="2">Option #2</option>
-                                          <option value="3">Option #3</option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="form-group row">
-                                  <label class="col-md-3 col-form-label" for="multiple-select">Multiple select</label>
-                                  <div class="col-md-9">
-                                      <select class="form-control" id="multiple-select" name="multiple-select" size="5" multiple="">
-                                          <option value="1">Option #1</option>
-                                          <option value="2">Option #2</option>
-                                          <option value="3">Option #3</option>
-                                          <option value="4">Option #4</option>
-                                          <option value="5">Option #5</option>
-                                          <option value="6">Option #6</option>
-                                          <option value="7">Option #7</option>
-                                          <option value="8">Option #8</option>
-                                          <option value="9">Option #9</option>
-                                          <option value="10">Option #10</option>
-                                      </select>
-                                  </div>
-                              </div>
-                              <div class="form-group row">
-                                  <label class="col-md-3 col-form-label">Radios</label>
+                                  <label class="col-md-3 col-form-label">Jenis Kelamin</label>
                                   <div class="col-md-9 col-form-label">
-                                      <div class="form-check">
-                                          <input class="form-check-input" id="radio1" type="radio" value="radio1" name="radios">
-                                          <label class="form-check-label" for="radio1">Option 1</label>
+                                      @if ($santri->jenis_kelamin == 'Laki-Laki')
+                                      <div class="form-check form-check-inline mr-1">
+                                          <input checked class="form-check-input" id="inline-radio1" type="radio" value="1" name="jenis_kelamin">
+                                          <label class="form-check-label" for="inline-radio1">Laki-laki</label>
                                       </div>
-                                      <div class="form-check">
-                                          <input class="form-check-input" id="radio2" type="radio" value="radio2" name="radios">
-                                          <label class="form-check-label" for="radio2">Option 2</label>
+                                      <div class="form-check form-check-inline mr-1">
+                                          <input class="form-check-input" id="inline-radio2" type="radio" value="2" name="jenis_kelamin">
+                                          <label class="form-check-label" for="inline-radio2">Perempuan</label>
                                       </div>
-                                      <div class="form-check">
-                                          <input class="form-check-input" id="radio3" type="radio" value="radio2" name="radios">
-                                          <label class="form-check-label" for="radio3">Option 3</label>
+                                      @else
+                                      <div class="form-check form-check-inline mr-1">
+                                          <input class="form-check-input" id="inline-radio1" type="radio" value="1" name="jenis_kelamin">
+                                          <label class="form-check-label" for="inline-radio1">Laki-laki</label>
                                       </div>
+                                      <div class="form-check form-check-inline mr-1">
+                                          <input checked class="form-check-input" id="inline-radio2" type="radio" value="2" name="jenis_kelamin">
+                                          <label class="form-check-label" for="inline-radio2">Perempuan</label>
+                                      </div>
+                                      @endif
+
+
                                   </div>
                               </div>
                               <div class="form-group row">
-                                  <label class="col-md-3 col-form-label">Inline Radios</label>
-                                  <div class="col-md-9 col-form-label">
-                                      <div class="form-check form-check-inline mr-1">
-                                          <input class="form-check-input" id="inline-radio1" type="radio" value="option1" name="inline-radios">
-                                          <label class="form-check-label" for="inline-radio1">One</label>
-                                      </div>
-                                      <div class="form-check form-check-inline mr-1">
-                                          <input class="form-check-input" id="inline-radio2" type="radio" value="option2" name="inline-radios">
-                                          <label class="form-check-label" for="inline-radio2">Two</label>
-                                      </div>
-                                      <div class="form-check form-check-inline mr-1">
-                                          <input class="form-check-input" id="inline-radio3" type="radio" value="option3" name="inline-radios">
-                                          <label class="form-check-label" for="inline-radio3">Three</label>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="form-group row">
-                                  <label class="col-md-3 col-form-label">Checkboxes</label>
-                                  <div class="col-md-9 col-form-label">
-                                      <div class="form-check checkbox">
-                                          <input class="form-check-input" id="check1" type="checkbox" value="">
-                                          <label class="form-check-label" for="check1">Option 1</label>
-                                      </div>
-                                      <div class="form-check checkbox">
-                                          <input class="form-check-input" id="check2" type="checkbox" value="">
-                                          <label class="form-check-label" for="check2">Option 2</label>
-                                      </div>
-                                      <div class="form-check checkbox">
-                                          <input class="form-check-input" id="check3" type="checkbox" value="">
-                                          <label class="form-check-label" for="check3">Option 3</label>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="form-group row">
-                                  <label class="col-md-3 col-form-label">Inline Checkboxes</label>
-                                  <div class="col-md-9 col-form-label">
-                                      <div class="form-check form-check-inline mr-1">
-                                          <input class="form-check-input" id="inline-checkbox1" type="checkbox" value="check1">
-                                          <label class="form-check-label" for="inline-checkbox1">One</label>
-                                      </div>
-                                      <div class="form-check form-check-inline mr-1">
-                                          <input class="form-check-input" id="inline-checkbox2" type="checkbox" value="check2">
-                                          <label class="form-check-label" for="inline-checkbox2">Two</label>
-                                      </div>
-                                      <div class="form-check form-check-inline mr-1">
-                                          <input class="form-check-input" id="inline-checkbox3" type="checkbox" value="check3">
-                                          <label class="form-check-label" for="inline-checkbox3">Three</label>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="form-group row">
-                                  <label class="col-md-3 col-form-label" for="file-input">File input</label>
+                                  <label class="col-md-3 col-form-label" for="text-input">Tahun Masuk</label>
                                   <div class="col-md-9">
-                                      <input id="file-input" type="file" name="file-input">
+                                      <select class="form-control" id="ccyear" name="id_tahun" width="100">
+                                          <option>2014</option>
+                                          <option>2015</option>
+                                          <option selected>2016</option>
+                                          <option>2017</option>
+                                          <option>2018</option>
+                                          <option>2019</option>
+                                          <option>2020</option>
+                                          <option>2021</option>
+                                          <option>2022</option>
+                                          <option>2023</option>
+                                          <option>2024</option>
+                                          <option>2025</option>
+                                      </select>
                                   </div>
                               </div>
                               <div class="form-group row">
-                                  <label class="col-md-3 col-form-label" for="file-multiple-input">Multiple File input</label>
+                                  <label class="col-md-3 col-form-label" for="text-input">Orang Tua / Wali</label>
                                   <div class="col-md-9">
-                                      <input id="file-multiple-input" type="file" name="file-multiple-input" multiple="">
+                                      <input class="form-control" value="{{$santri->nama_wali}}" id="text-input" type="text" name="nama_wali" placeholder="Ex. Ahmad . . .">
                                   </div>
                               </div>
-                          </form>
+                              <div class="form-group row">
+                                  <label class="col-md-3 col-form-label" value="{{$santri->telepon}}" for="text-input">No Telp / Hp</label>
+                                  <div class="col-md-9">
+                                      <input class="form-control" value="{{$santri->telepon}}" id="text-input" type="text" name="telepon" placeholder="08128888xxxx">
+                                  </div>
+                              </div>
+                              <div class="form-group row">
+                                  <label class="col-md-3 col-form-label" for="file-input">Pas Foto</label>
+                                  <div class="col-md-9">
+                                      <input id="file-input" type="file" name="foto"><span class="help-block">* Ukuran (3x4) Format .jpg</span>
+                                  </div>
+                              </div>
+
+
                       </div>
                       <div class="card-footer">
-                          <button class="btn btn-sm btn-primary" type="submit"> Submit</button>
+                          <button class="btn btn-sm btn-success" type="submit"> Simpan</button>
                           <button class="btn btn-sm btn-danger" type="reset"> Reset</button>
+                          </form>
                       </div>
                   </div>
 
@@ -205,6 +161,7 @@
               <!-- /.col-->
           </div>
       </div>
+
   </div>
 
 

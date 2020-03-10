@@ -1,5 +1,6 @@
   @extends('dashboard.base')
 
+
   @section('content')
   <div class="container-fluid">
       <div class="fade-in">
@@ -17,7 +18,7 @@
                               </ul>
                           </div>
                           @endif
-                          <form class="form-horizontal" action="{{ url('santri/create') }}" method="post" enctype="multipart/form-data">
+                          <form class="form-horizontal" action="{{ route('santri.store') }}" method="post" enctype="multipart/form-data">
                               @csrf
                               <!-- <div class="form-group row">
                                   <label class="col-md-3 col-form-label">Static</label>
@@ -149,6 +150,7 @@
 
 
   @endsection
+
 
   @section('javascript')
 

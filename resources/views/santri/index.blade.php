@@ -46,7 +46,7 @@
                                                 <a class="btn btn-warning" href="index.php?view=siswa&amp;act=import">
                                                     <i class="fa fa-file-excel-o"></i> Import Data Santri
                                                 </a>
-                                                <a class="btn btn-success" href="{{route('Santri.Create')}}">Tambahkan Data</a>
+                                                <a class="btn btn-success" href="{{route('santri.create')}}">Tambahkan Data</a>
                                             </span>
                                         </td>
                                     </tr>
@@ -98,10 +98,13 @@
 
 
 @endsection
+@section('css')
+<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+@endsection
 
 @section('javascript')
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<script src="js/app.js"></script>
+<script src="{{ asset('/js/app.js') }}"></script>
 <script>
     $(function() {
         $('#TabelSantri').DataTable({
@@ -111,7 +114,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                "url": "{{route('santri.GetData')}}",
+                "url": "{{route('santri.getData')}}",
                 "type": "POST"
             },
             columns: [{
