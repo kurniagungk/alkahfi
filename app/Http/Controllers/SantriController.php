@@ -263,8 +263,9 @@ class SantriController extends Controller
     public function destroy($id)
     {
         //
-        $santri = Santri::findOrFail($id);
-        $users->delete();
+        Santri::where('id_santri', $id)
+            ->delete();
+        return session()->flash('success', 'Data berhasil di hapus');
     }
     public function getBasicData()
     {
@@ -282,7 +283,7 @@ class SantriController extends Controller
                     return
                         '<center>
                     <a href="' . route('santri.edit', $santri->id_santri) . '" class="btn btn-ghost-warning btn-sm" role="button" aria-pressed="true">EDIT</a>
-                    <a href="#" class="btn btn-ghost-danger btn-sm" role="button" aria-pressed="true">HAPUS</a>
+                    <button class="btn btn-ghost-danger btn-sm delete" id="' . $santri->id_santri . '" role="button" aria-pressed="true">HAPUS</button>
                  </center>';
                 }
             )

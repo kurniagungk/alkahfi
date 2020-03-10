@@ -153,6 +153,33 @@
 
         });
     });
+
+    $(document).on('click', '.delete', function() {
+        var id = $(this).attr('id');
+        var token = $("meta[name='csrf-token']").attr("content");
+        var r = confirm('Are you sure you want to Remove?')
+        if (r == true) {
+            $.ajax({
+                url: "{{route('santri.index')}}" + "/" + id,
+                type: 'DELETE',
+                data: {
+
+                    "id": id,
+
+                    "_token": token,
+
+                },
+                success: function(data) {
+                    location.reload(true);
+                }
+            })
+
+        } else {
+
+        }
+
+
+    });
 </script>
 
 @endsection
