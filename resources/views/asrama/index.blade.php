@@ -12,6 +12,12 @@
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
+						@if ($message = Session::get('success'))
+						<div class="alert alert-success alert-block">
+							<button type="button" class="close" data-dismiss="alert">×</button>
+							<strong>{{ $message }}</strong>
+						</div>
+						@endif
 						<form method="GET" action="" class="form-horizontal">
 							<input type="hidden" name="view" value="siswa">
 							<table class="table table-striped">
@@ -46,7 +52,7 @@
 												<a class="btn btn-warning" href="index.php?view=siswa&amp;act=import">
 													<i class="fa fa-file-excel-o"></i> Import Data Santri
 												</a>
-												<a class="btn btn-success" href="index.php?view=siswa&amp;act=tambah">Tambahkan Data</a>
+												<a class="btn btn-success" href="{{route('asrama.create')}}">Tambahkan Data</a>
 											</span>
 										</td>
 									</tr>
@@ -86,14 +92,17 @@
 </div>
 
 
-
-
-
+@endsection
+@section('css')
+<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 @endsection
 
 @section('javascript')
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<script src="js/app.js"></script>
+<script src="{{ asset('/js/app.js') }}"></script>
+
+
+
 <script>
 	$(function() {
 		$('#TabelSantri').DataTable({
@@ -107,10 +116,10 @@
 				"type": "POST"
 			},
 			columns: [{
-					data: 'DT_RowIndex'
+					data: 'kode'
 				},
 				{
-					data: 'kode'
+					data: 'DT_RowIndex'
 				},
 				{
 					data: 'nama'
@@ -122,7 +131,7 @@
 					data: 'kelamin'
 				},
 				{
-					data: 'Keterangan'
+					data: 'keterangan'
 				},
 				{
 					data: 'aksi'
@@ -131,6 +140,32 @@
 
 
 		});
+	});
+	$(document).on('click', '.delete', function() {
+		var id = $(this).attr('id');
+		var token = $("meta[name='csrf-token']").attr("content");
+		var r = confirm('Are you sure you want to Remove?')
+		if (r == true) {
+			$.ajax({
+				url: "{{route('asrama.index')}}" + "/" + id,
+				type: 'DELETE',
+				data: {
+
+					"id": id,
+
+					"_token": token,
+
+				},
+				success: function(data) {
+					location.reload(true);
+				}
+			})
+
+		} else {
+
+		}
+
+
 	});
 </script>
 

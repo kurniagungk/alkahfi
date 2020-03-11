@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\asrama;
 use Illuminate\Http\Request;
+use Redirect, Response, DB, Config;
+use Validator;
+use Datatables;
 
 class asramaController extends Controller
 {
@@ -36,6 +39,31 @@ class asramaController extends Controller
     public function store(Request $request)
     {
         //
+
+        $messages = [
+            'kode.unique'    => 'KODE ASRAMA TIDAK BOLEH SAMA',
+            'nama.required'    => 'NAMA TIDAK BOLEH KOSONG',
+            'jumlah.required'    => 'JUMLAH TIDAK BOLEH KOSONG',
+            'kelamin.required'    => 'TIPE TIDAK BOLEH KOSONG',
+            'keterangan.required'    => 'KETERANGAN TIDAK BOLEH KOSONG',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'kode' => 'required|unique:asrama|max:255',
+            'nama' => 'required',
+            'jumlah' => 'required',
+            'kelamin' => 'required',
+            'keterangan' => 'required',
+        ], $messages);
+        if ($validator->fails()) {
+            return redirect()->route('asrama.create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        asrama::create($request->all());
+        return redirect()->route('asrama.index')
+            ->with('success', 'berhasil manambah data asrama');
     }
 
     /**
@@ -57,7 +85,7 @@ class asramaController extends Controller
      */
     public function edit(asrama $asrama)
     {
-        //
+        return view('asrama.edit', compact('asrama'));
     }
 
     /**
@@ -69,7 +97,40 @@ class asramaController extends Controller
      */
     public function update(Request $request, asrama $asrama)
     {
-        //
+        $messages = [
+            'kode.required'    => 'KODE ASRAMA TIDAK BOLEH SAMA',
+            'nama.required'    => 'NAMA TIDAK BOLEH KOSONG',
+            'jumlah.required'    => 'JUMLAH TIDAK BOLEH KOSONG',
+            'kelamin.required'    => 'TIPE TIDAK BOLEH KOSONG',
+            'Keterangan.required'    => 'KETERANGAN TIDAK BOLEH KOSONG',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'kode' => 'required',
+            'nama' => 'required',
+            'jumlah' => 'required',
+            'kelamin' => 'required',
+            'Keterangan' => 'required',
+        ], $messages);
+        if ($validator->fails()) {
+            return redirect()->route('asrama.edit', $asrama)
+                ->withErrors($validator)
+                ->withInput();
+        }
+        $data = array(
+            'kode' => $request->kode,
+            'nama' => $request->nama,
+            'jumlah' => $request->jumlah,
+            'kelamin' => $request->kelamin,
+            'Keterangan' => $request->Keterangan,
+
+        );
+
+
+        asrama::where('kode', $asrama->kode)->update($data);
+
+        return redirect()->route('asrama.index')
+            ->with('success', 'Data berhasil di update');
     }
 
     /**
@@ -80,23 +141,28 @@ class asramaController extends Controller
      */
     public function destroy(asrama $asrama)
     {
-        //
+        $asrama->delete();
+        return session()->flash('success', 'Data berhasil di hapus');
     }
     public function getBasicData()
     {
-
-        return datatables()->eloquent(asrama::query())
-
-            ->only(['kode', 'nama', 'jenis_kelamin', 'jumlah', 'kelamin', 'Keterangan'])
+        $data = asrama::select([
+            'kode',
+            'nama',
+            'jumlah',
+            'kelamin',
+            'keterangan',
+        ]);
+        return datatables()->eloquent($data)
             ->orderColumn('nama', '-nama $1')
             ->addIndexColumn()
             ->addColumn(
                 'aksi',
-                function ($santri) {
+                function ($data) {
                     return
                         '<center>
-                    <button class="btn btn-sm btn-success" type="submit"> Edit</button>
-                    <button class="btn btn-sm btn-danger" type="reset"> Hapus</button>
+                    <a href="' . route('asrama.edit', $data->kode) . '" class="btn btn-ghost-warning btn-sm" role="button" aria-pressed="true">EDIT</a>
+                    <button class="btn btn-ghost-danger btn-sm delete" id="' . $data->kode . '" role="button" aria-pressed="true">HAPUS</button>
                  </center>';
                 }
             )

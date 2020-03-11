@@ -207,11 +207,13 @@ Route::group(['middleware' => ['get.menu']], function () {
             Route::POST('/GetData', 'SantriController@getBasicData')->name('santri.getData');
         });
 
+        Route::resources([
+            'asrama' => 'asramaController',
+
+        ]);
+
         route::prefix('asrama')->group(function () {
-            Route::get('/', 'asramaController@index');
-            Route::get('/create', 'asramaController@create');
-            Route::get('/photos/{asrama}/edit', 'asramaController@edit');
-            Route::POST('/', 'asramaController@getBasicData')->name('asrama.GetData');
+            Route::POST('/getBasicData', 'asramaController@getBasicData')->name('asrama.GetData');
         });
 
         route::prefix('pengurus')->group(function () {
