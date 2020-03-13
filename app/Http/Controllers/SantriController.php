@@ -7,6 +7,7 @@ use Datatables;
 use App\Santri;
 use Redirect, Response, DB, Config;
 use Validator;
+use Illuminate\Validation\Rule;
 
 class SantriController extends Controller
 {
@@ -144,7 +145,7 @@ class SantriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Santri $santri)
     {
         //
         $CekImage = $request->foto;
@@ -167,7 +168,11 @@ class SantriController extends Controller
             ];
 
             $validator = Validator::make($request->all(), [
-                'no_induk' => 'required|max:255',
+                'no_induk' => [
+                    'required',
+                    'max:255',
+                    Rule::unique('santri')->ignore($santri->no_induk, 'no_induk'),
+                ],
                 'nama' => 'required',
                 'tempat_lahir' => 'required',
                 'tgl_lahir' => 'date',
@@ -212,7 +217,11 @@ class SantriController extends Controller
             ];
 
             $validator = Validator::make($request->all(), [
-                'no_induk' => 'required|max:255',
+                'no_induk' => [
+                    'required',
+                    'max:255',
+                    Rule::unique('santri')->ignore($santri->no_induk, 'no_induk'),
+                ],
                 'nama' => 'required',
                 'tempat_lahir' => 'required',
                 'tgl_lahir' => 'date',
@@ -245,11 +254,11 @@ class SantriController extends Controller
         }
 
         if ($validator->fails()) {
-            return redirect()->route('santri.edit', $id)
+            return redirect()->route('santri.edit', $santri->id_santri)
                 ->withErrors($validator)
                 ->withInput();
         }
-        Santri::where('id_santri', $id)->update($data);
+        Santri::where('id_santri', $santri->id_santri)->update($data);
         return redirect()->route('santri.index')
             ->with('success', 'Data berhasil di update');
     }
