@@ -201,6 +201,12 @@ class MenusTableSeeder extends Seeder
         $id = $this->insertLink('user,admin', 'Pengurus',                   '/pondok/pengurus');
         $id = $this->insertLink('user,admin', 'Asrama',                   '/asrama');
         $this->endDropdown();
+        $this->beginDropdown('user,admin', 'TAGIHAN', 'cil-library');
+        $id = $this->insertLink('user,admin', 'DAFTAR TAGIHAN',                   '/tagihan');
+        $id = $this->insertLink('user,admin', 'TAMBAH TAGIHAN',                   '/tagihan/create');
+        $id = $this->insertLink('user,admin', 'JENIS TAGIHAN',                   '');
+
+        $this->endDropdown();
         $this->beginDropdown('user,admin', 'PENGATURAN', 'cil-settings');
         $id = $this->insertLink('user,admin', 'DASHBOARD', '/pondok');
         $id = $this->insertLink('user,admin', 'Pos Keuangan', '/pondok/pos_uang');

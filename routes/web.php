@@ -211,6 +211,10 @@ Route::group(['middleware' => ['get.menu']], function () {
             'asrama' => 'asramaController',
 
         ]);
+        Route::resources([
+            'tagihan' => 'TagihanController',
+
+        ]);
 
         route::prefix('asrama')->group(function () {
             Route::POST('/getBasicData', 'asramaController@getBasicData')->name('asrama.GetData');
