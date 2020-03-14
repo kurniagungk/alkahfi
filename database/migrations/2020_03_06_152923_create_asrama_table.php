@@ -14,7 +14,8 @@ class CreateAsramaTable extends Migration
     public function up()
     {
         Schema::create('asrama', function (Blueprint $table) {
-            $table->bigIncrements('kode');
+            $table->bigIncrements('id');
+            $table->char('kode', 100);
             $table->char('nama', 100);
             $table->integer('jumlah');
             $table->enum('kelamin', ['L', 'P']);

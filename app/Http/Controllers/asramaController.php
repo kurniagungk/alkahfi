@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Redirect, Response, DB, Config;
 use Validator;
 use Datatables;
+use Illuminate\Validation\Rule;
 
 class asramaController extends Controller
 {
@@ -98,7 +99,7 @@ class asramaController extends Controller
     public function update(Request $request, asrama $asrama)
     {
         $messages = [
-            'kode.required'    => 'KODE ASRAMA TIDAK BOLEH SAMA',
+            'kode.unique'    => 'KODE ASRAMA TIDAK BOLEH SAMA',
             'nama.required'    => 'NAMA TIDAK BOLEH KOSONG',
             'jumlah.required'    => 'JUMLAH TIDAK BOLEH KOSONG',
             'kelamin.required'    => 'TIPE TIDAK BOLEH KOSONG',
@@ -106,7 +107,11 @@ class asramaController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'kode' => 'required',
+            'kode' => [
+                'required',
+                'max:255',
+                Rule::unique('asrama')->ignore($asrama->kode, 'kode'),
+            ],
             'nama' => 'required',
             'jumlah' => 'required',
             'kelamin' => 'required',
@@ -127,7 +132,7 @@ class asramaController extends Controller
         );
 
 
-        asrama::where('kode', $asrama->kode)->update($data);
+        asrama::where('id', $asrama->id)->update($data);
 
         return redirect()->route('asrama.index')
             ->with('success', 'Data berhasil di update');
@@ -147,6 +152,7 @@ class asramaController extends Controller
     public function getBasicData()
     {
         $data = asrama::select([
+            'id',
             'kode',
             'nama',
             'jumlah',
@@ -156,13 +162,14 @@ class asramaController extends Controller
         return datatables()->eloquent($data)
             ->orderColumn('nama', '-nama $1')
             ->addIndexColumn()
+            ->removeColumn('id')
             ->addColumn(
                 'aksi',
                 function ($data) {
                     return
                         '<center>
-                    <a href="' . route('asrama.edit', $data->kode) . '" class="btn btn-ghost-warning btn-sm" role="button" aria-pressed="true">EDIT</a>
-                    <button class="btn btn-ghost-danger btn-sm delete" id="' . $data->kode . '" role="button" aria-pressed="true">HAPUS</button>
+                    <a href="' . route('asrama.edit', $data->id) . '" class="btn btn-ghost-warning btn-sm" role="button" aria-pressed="true">EDIT</a>
+                    <button class="btn btn-ghost-danger btn-sm delete" id="' . $data->id . '" role="button" aria-pressed="true">HAPUS</button>
                  </center>';
                 }
             )

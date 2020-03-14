@@ -116,10 +116,11 @@
 				"type": "POST"
 			},
 			columns: [{
-					data: 'kode'
+					data: 'DT_RowIndex'
+
 				},
 				{
-					data: 'DT_RowIndex'
+					data: 'kode'
 				},
 				{
 					data: 'nama'
@@ -136,7 +137,11 @@
 				{
 					data: 'aksi'
 				}
-			]
+			],
+			columnDefs: [{
+				targets: [0, 4, 5], //first name & last name
+				orderable: false
+			}, ]
 
 
 		});
