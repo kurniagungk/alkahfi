@@ -272,6 +272,8 @@ Route::group(['middleware' => ['get.menu']], function () {
             Route::get('/', 'transaksi@index');
             Route::get('/create', 'transaksi@create');
             Route::get('/{asrama}/edit', 'transaksi@edit');
+            Route::get('/bayarspp', 'transaksi@bayarspp');
+            Route::get('/bayartagihan', 'transaksi@bayartagihan');
         });
 
         route::prefix('pengeluaran')->group(function () {

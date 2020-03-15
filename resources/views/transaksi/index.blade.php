@@ -153,7 +153,7 @@
 								<td>Rp 660.000</td>
 								<td><span class="badge badge-success">Lunas</span></td>
 								<td width="40" style="text-align:center">
-                                <button class="btn btn-sm btn-success" type="submit"> Bayar</button>
+                                <button class="btn btn-sm btn-primary" type="submit"> Detail</button>
                                 </td>
                         </tr>
                     </tbody>
