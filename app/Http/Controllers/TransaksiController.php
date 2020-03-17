@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\DaftarTagihan;
+use App\Tagihan;
+use Illuminate\Support\Facades\DB;
 
-class Transaksi extends Controller
+class TransaksiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,6 +40,7 @@ class Transaksi extends Controller
     public function store(Request $request)
     {
         //
+
     }
 
     /**
@@ -48,6 +52,40 @@ class Transaksi extends Controller
     public function show($id)
     {
         //
+        $TagihanBulanan = Tagihan::select(
+            'id_tagihan',
+            DB::raw('sum(jumlah) as total'),
+            DB::raw('sum(if(jatuh_tempo < CURDATE() AND status = "belum" ,jumlah, 0 )) as tunggakan'),
+            DB::raw('sum(if(status = "lunas",jumlah, 0 )) as dibayar'),
+            DB::raw('sum(jumlah) - sum(if(status = "lunas", jumlah, 0)) as status'),
+        )
+            ->where('id_santri', $id)
+            ->with('jenis')
+            ->whereHas('jenis', function ($query) {
+                $query->where('id_jenis', 1);
+            })
+            ->groupBy('id_tagihan')
+            ->get();
+        $tagihanPeriode = Tagihan::select(
+            'id_tagihan',
+            DB::raw('sum(jumlah) as total'),
+            DB::raw('sum(if(jatuh_tempo < CURDATE() AND status = "belum" ,jumlah, 0 )) as tunggakan'),
+            DB::raw('sum(if(status = "lunas",jumlah, 0 )) as dibayar'),
+            DB::raw('sum(jumlah) - sum(if(status = "lunas", jumlah, 0)) as status'),
+        )
+            ->where('id_santri', $id)
+            ->with('jenis')
+            ->whereHas('jenis', function ($query) {
+                $query->where('id_jenis', 2);
+            })
+            ->groupBy('id_tagihan')
+            ->get();
+
+
+        return view('transaksi.show', [
+            'bulanan' => $TagihanBulanan,
+            'periode' => $tagihanPeriode
+        ]);
     }
 
     /**

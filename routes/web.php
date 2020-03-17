@@ -198,23 +198,18 @@ Route::group(['middleware' => ['get.menu']], function () {
             Route::get('/akun', 'AlkahfiController@akun');
         });
 
-        Route::resources([
-            'santri' => 'SantriController',
-
-        ]);
 
         route::prefix('santri')->group(function () {
             Route::POST('/GetData', 'SantriController@getBasicData')->name('santri.getData');
         });
 
         Route::resources([
+            'santri' => 'SantriController',
             'asrama' => 'asramaController',
-
-        ]);
-        Route::resources([
             'tagihan' => 'TagihanController',
-
+            'transaksi' => 'TransaksiController',
         ]);
+
 
         route::prefix('asrama')->group(function () {
             Route::POST('/getBasicData', 'asramaController@getBasicData')->name('asrama.GetData');
@@ -269,9 +264,6 @@ Route::group(['middleware' => ['get.menu']], function () {
         });
 
         route::prefix('transaksi')->group(function () {
-            Route::get('/', 'transaksi@index');
-            Route::get('/create', 'transaksi@create');
-            Route::get('/{asrama}/edit', 'transaksi@edit');
             Route::get('/bayarspp', 'transaksi@bayarspp');
             Route::get('/bayartagihan', 'transaksi@bayartagihan');
         });
