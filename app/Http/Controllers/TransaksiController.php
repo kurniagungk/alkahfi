@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\DaftarTagihan;
 use App\Tagihan;
 use App\santri;
+use App\asrama;
 use Illuminate\Support\Facades\DB;
 
 class TransaksiController extends Controller
@@ -83,6 +84,8 @@ class TransaksiController extends Controller
             ->get();
         $profil = santri::where('id_santri', $id)
             ->get();
+
+
         return view('transaksi.show', [
             'bulanan' => $TagihanBulanan,
             'periode' => $tagihanPeriode,

@@ -40,7 +40,7 @@
                                   <tr>
                                       <td>Asrama</td>
                                       <td>:</td>
-                                      <td>{{$s->asrama}}</td>
+                                      <td>{{$s->asrama->nama}}</td>
                                   </tr>
                                   @endforeach
                               </tbody>
@@ -86,7 +86,7 @@
                                           <td>{{$loop->index +1}}</td>
                                           <td>{{$tbulan->jenis->id_tahun}}</td>
                                           <td>{{$tbulan->jenis->nama}}</td>
-                                          <td>{{$tbulan->jenis->nama}}</td>
+                                          <td>{{$tbulan->jenis->asrama}}</td>
                                           <td>{{$tbulan->total}}</td>
                                           <td>{{$tbulan->tunggakan}}</td>
                                           <td>{{$tbulan->dibayar}}</td>
@@ -123,7 +123,6 @@
                       <div class="card-header">
                           <h5>Tagihan Lainnya</h5>
                       </div>
-
                       <div class="box box-warning box-solid">
                           <div class="box-body" style="display: block;">
                               <table class="table table-striped table-hover">

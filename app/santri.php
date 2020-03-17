@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class santri extends Model
 {
-    // 
+    //
     protected $table = 'santri';
     protected $primaryKey = 'id_santri';
     protected $fillable = [
@@ -23,4 +23,9 @@ class santri extends Model
         'tempat_lahir',
         'telepon'
     ];
+
+    public function asrama()
+    {
+        return $this->belongsTo('App\asrama', 'asrama_id');
+    }
 }

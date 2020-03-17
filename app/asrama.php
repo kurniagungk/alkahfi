@@ -14,4 +14,9 @@ class asrama extends Model
         'kelamin',
         'keterangan',
     ];
+
+    function penghuni()
+    {
+        return $this->hasMany('App\Santri');
+    }
 }

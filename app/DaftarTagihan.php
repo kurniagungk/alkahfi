@@ -16,7 +16,7 @@ class DaftarTagihan extends Model
         'id_tahun'
     ];
 
-    public function jenis()
+    public function tagihan()
     {
         return $this->hasMany('App\Tagihan', 'id_tagihan');
     }
