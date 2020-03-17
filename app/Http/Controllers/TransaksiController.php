@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\DaftarTagihan;
 use App\Tagihan;
+use App\santri;
 use Illuminate\Support\Facades\DB;
 
 class TransaksiController extends Controller
@@ -80,11 +81,12 @@ class TransaksiController extends Controller
             })
             ->groupBy('id_tagihan')
             ->get();
-
-
+        $profil = santri::where('id_santri', $id)
+            ->get();
         return view('transaksi.show', [
             'bulanan' => $TagihanBulanan,
-            'periode' => $tagihanPeriode
+            'periode' => $tagihanPeriode,
+            'profil' => $profil
         ]);
     }
 

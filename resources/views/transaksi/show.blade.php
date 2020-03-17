@@ -4,7 +4,6 @@
 
 
 
-
   <div class="container-fluid">
       <div class="fade-in">
           <div class="row">
@@ -17,6 +16,7 @@
                       <div class="box-body" style="display: block;">
                           <table class="table-responsive">
                               <tbody>
+                                  @foreach ($profil as $s)
                                   <tr>
                                       <td width="200">Tahun Ajaran</td>
                                       <td width="4">:</td>
@@ -25,24 +25,24 @@
                                   <tr>
                                       <td>NIS</td>
                                       <td>:</td>
-                                      <td>373/046/110</td>
+                                      <td>{{$s->no_induk}}</td>
                                   </tr>
                                   <tr>
                                       <td>Nama Lengkap</td>
                                       <td>:</td>
-                                      <td>Amalia Ilmiah</td>
+                                      <td>{{$s->nama}}</td>
                                   </tr>
                                   <tr>
                                       <td>Sekolah - Kelas</td>
                                       <td>:</td>
-                                      <td>SMP - 7</td>
+                                      <td>{{$s->sekolah}}</td>
                                   </tr>
                                   <tr>
                                       <td>Asrama</td>
                                       <td>:</td>
-                                      <td>Abdul Kahfi</td>
+                                      <td>{{$s->asrama}}</td>
                                   </tr>
-
+                                  @endforeach
                               </tbody>
                           </table>
                           <br>
