@@ -279,13 +279,13 @@ class SantriController extends Controller
     public function getBasicData()
     {
 
-        $santri = Santri::select(['id_santri', 'no_induk', 'jenis_kelamin', 'nama', 'alamat', 'asrama', 'sekolah', 'id_kelas', 'id_tahun',]);
+        $santri = Santri::with('asrama');
 
 
         return datatables()->eloquent($santri)
 
             ->orderColumn('nama', '-nama $1')
-            ->addIndexColumn()
+
             ->addColumn(
                 'aksi',
                 function ($santri) {
@@ -296,6 +296,14 @@ class SantriController extends Controller
                  </center>';
                 }
             )
+            ->addColumn(
+                'asrama',
+                function ($santri) {
+                    return $santri->asrama->nama;
+                }
+            )
+            ->only(['id_santri', 'aksi', 'no_induk', 'jenis_kelamin', 'nama', 'alamat', 'sekolah', 'id_kelas', 'id_tahun', 'asrama',])
+            ->addIndexColumn()
             ->rawColumns(['aksi'])
             ->make(true);
     }
