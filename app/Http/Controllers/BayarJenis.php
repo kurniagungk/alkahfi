@@ -69,6 +69,19 @@ class BayarJenis extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function tertagih()
+    {
+        //
+        return view('bayarjenis.tertagih');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
         //

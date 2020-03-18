@@ -231,6 +231,7 @@ Route::group(['middleware' => ['get.menu']], function () {
             Route::get('/', 'bayarjenis@index');
             Route::get('/create', 'bayarjenis@create');
             Route::get('/{asrama}/edit', 'bayarjenis@edit');
+            Route::get('/tertagih', 'bayarjenis@tertagih');
         });
 
         route::prefix('bayarpos')->group(function () {
