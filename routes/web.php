@@ -264,7 +264,7 @@ Route::group(['middleware' => ['get.menu']], function () {
         });
 
         route::prefix('transaksi')->group(function () {
-            Route::get('/bayarspp', 'transaksi@bayarspp');
+            Route::get('{santri}/bayarspp/{transaksi}', 'TransaksiController@bayarspp')->name('bayarspp');
             Route::get('/bayartagihan', 'transaksi@bayartagihan');
         });
 

@@ -99,7 +99,7 @@
 
                                           </td>
                                           <td width="40" style="text-align:center">
-                                              <button class="btn btn-sm btn-success" type="submit"> Bayar</button>
+                                              <a href="{{route('bayarspp',['santri' => $tbulan->id_santri,'transaksi' => $tbulan->id_tagihan] )}}" class="btn btn-ghost-warning btn-sm" role="button" aria-pressed="true">EDIT</a>
                                           </td>
                                       </tr>
                                       @endforeach

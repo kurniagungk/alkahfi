@@ -56,6 +56,7 @@ class TransaksiController extends Controller
         //
         $TagihanBulanan = Tagihan::select(
             'id_tagihan',
+            'id_santri',
             DB::raw('sum(jumlah) as total'),
             DB::raw('sum(if(jatuh_tempo < CURDATE() AND status = "belum" ,jumlah, 0 )) as tunggakan'),
             DB::raw('sum(if(status = "lunas",jumlah, 0 )) as dibayar'),
@@ -70,6 +71,7 @@ class TransaksiController extends Controller
             ->get();
         $tagihanPeriode = Tagihan::select(
             'id_tagihan',
+            'id_santri',
             DB::raw('sum(jumlah) as total'),
             DB::raw('sum(if(jatuh_tempo < CURDATE() AND status = "belum" ,jumlah, 0 )) as tunggakan'),
             DB::raw('sum(if(status = "lunas",jumlah, 0 )) as dibayar'),
@@ -112,10 +114,13 @@ class TransaksiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function bayarspp()
+    public function bayarspp($santri, $tagihan)
     {
         //
-        return view('transaksi.bayarspp');
+        $tagihan = Tagihan::where('id_tagihan', $tagihan)
+            ->get();
+
+        return view('transaksi.bayarspp', ['tagihan' => $tagihan]);
     }
 
     /**
@@ -125,10 +130,12 @@ class TransaksiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function bayartagihan()
+    public function bayartagihan($santri, $tagihan)
     {
         //
-        return view('transaksi.bayartagihan');
+        $tagihan = Tagihan::where('id_tagihan', $tagihan)
+            ->get();
+        return view('transaksi.bayartagihan', compact('tagihan'));
     }
 
     /**

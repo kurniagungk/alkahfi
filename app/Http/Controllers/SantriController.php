@@ -291,7 +291,7 @@ class SantriController extends Controller
                 function ($santri) {
                     return
                         '<center>
-                    <a href="' . route('santri.edit', $santri->id_santri) . '" class="btn btn-ghost-warning btn-sm" role="button" aria-pressed="true">EDIT</a>
+                    <a href="' . route('bayarspp', $santri->id_santri) . '" class="btn btn-ghost-warning btn-sm" role="button" aria-pressed="true">EDIT</a>
                     <button class="btn btn-ghost-danger btn-sm delete" id="' . $santri->id_santri . '" role="button" aria-pressed="true">HAPUS</button>
                  </center>';
                 }
