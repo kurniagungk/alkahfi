@@ -63,11 +63,12 @@
      <tr role="row">
        <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="No: activate to sort column descending" style="width: 42px;">No</th>
        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="POS: activate to sort column ascending" style="width: 60px;">POS</th>
-       <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Nama Pembayaran: activate to sort column ascending" style="width: 273px;">Nama Pembayaran</th>
+       <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Nama Pembayaran: activate to sort column ascending" style="width: 210px;">Nama Pembayaran</th>
        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Tipe: activate to sort column ascending" style="width: 56px;">Tipe</th>
-       <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Tahun: activate to sort column ascending" style="width: 88px;">Tahun</th>
+       <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Tipe: activate to sort column ascending" style="width: 56px;">Metode</th>
+       <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Tahun: activate to sort column ascending" style="width: 60px;">Tahun</th>
        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Tahun: activate to sort column ascending" style="width: 88px;">Tarif</th>
-       <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Tarif Pembayaran: activate to sort column ascending" style="width: 100px;">Data Tertagih</th>
+       <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Tarif Pembayaran: activate to sort column ascending" style="width: 100px;">Tertagih</th>
        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Aksi: activate to sort column ascending" style="width: 100px;">Aksi</th></tr>
   </thead>
   <tbody>
@@ -75,6 +76,7 @@
       <td>SMK</td>
       <td>DANA BULANAN</td>
       <td>bulanan</td>
+      <td>Tunai</td>
       <td>2019/2020</td>
       <td>20.000</td>
       <td><a data-toggle="tooltip" data-placement="top" title="Ubah" style="margin-right:5px" class="btn btn-warning btn-xs" href="index.php?view=tarif&amp;jenis=5&amp;tipe=bulanan">Setting</a></td>
@@ -87,6 +89,7 @@
       <td>Pondok</td>
       <td>DANA Khatmil</td>
       <td>Tahunan</td>
+      <td>Angsuran</td>
       <td>2019/2020</td>
       <td>500.000</td>
       <td><a data-toggle="tooltip" data-placement="top" title="Ubah" style="margin-right:5px" class="btn btn-warning btn-xs" href="index.php?view=tarif&amp;jenis=5&amp;tipe=bulanan">Setting</a></td>
