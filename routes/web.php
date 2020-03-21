@@ -206,10 +206,11 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::resources([
             'santri' => 'SantriController',
             'asrama' => 'asramaController',
-            'tagihan' => 'TagihanController',
-            'transaksi' => 'TransaksiController',
+            'tagihan' => 'TagihanController'
         ]);
-
+        Route::resource('transaksi', 'TransaksiController', [
+            'only' => ['index', 'create', 'store']
+        ]);
 
         route::prefix('asrama')->group(function () {
             Route::POST('/getBasicData', 'asramaController@getBasicData')->name('asrama.GetData');
@@ -265,8 +266,9 @@ Route::group(['middleware' => ['get.menu']], function () {
         });
 
         route::prefix('transaksi')->group(function () {
+            Route::get('/get', 'TransaksiController@get')->name('transaksi.get');
             Route::get('{santri}/bayarspp/{transaksi}', 'TransaksiController@bayarspp')->name('bayarspp');
-            Route::get('/bayartagihan', 'transaksi@bayartagihan');
+            Route::get('/bayartagihan', 'TransaksiController@bayartagihan');
         });
 
         route::prefix('pengeluaran')->group(function () {
