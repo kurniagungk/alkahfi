@@ -15,6 +15,7 @@ class TagihanController extends Controller
     public function index()
     {
         //
+
     }
 
     /**
@@ -25,6 +26,7 @@ class TagihanController extends Controller
     public function create()
     {
         //
+        return view('tagihan.create');
     }
 
     /**
