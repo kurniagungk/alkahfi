@@ -11,6 +11,7 @@ class Create extends Component
     public $periode;
     public $tahun;
 
+
     public function store()
     {
         $this->validate([
