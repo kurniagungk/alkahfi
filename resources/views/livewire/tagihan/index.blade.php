@@ -1,6 +1,11 @@
 <div class="card">
     <div class="card-header"><i class="fa fa-align-justify"></i> Simple Table</div>
     <div class="card-body">
+        @if (session()->has('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+        @endif
         <table class="table table-responsive-sm">
             <thead>
                 <tr>
@@ -20,7 +25,7 @@
                     <td>{{$data->id_tahun}}</td>
                     <td>
                         <span class="badge badge-warning">edit</span>
-                        <span class="badge badge-danger">hapus</span>
+                        <button wire:click="destroy({{$data->id_tagihan}})" class="btn btn-outline-danger" type="button">Hapus</button>
                     </td>
                 </tr>
 
@@ -28,13 +33,6 @@
 
             </tbody>
         </table>
-        <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul>
+        {{$DaftarTagihan->links()}}
     </div>
 </div>

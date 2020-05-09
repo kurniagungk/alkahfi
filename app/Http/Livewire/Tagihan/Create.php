@@ -12,6 +12,12 @@ class Create extends Component
     public $tahun;
 
 
+
+    public function render()
+    {
+        return view('livewire.tagihan.create');
+    }
+
     public function store()
     {
         $this->validate([
@@ -29,17 +35,6 @@ class Create extends Component
 
         ]);
         session()->flash('message', 'taguhan ' . $this->nama . ' berhasil di tambahkan');
-        $this->ResetInput();
-    }
-    private function ResetInput()
-    {
-        $this->nama = null;
-        $this->periode = null;
-        $this->tahun = null;
-    }
-
-    public function render()
-    {
-        return view('livewire.tagihan.create');
+        $this->reset();
     }
 }
