@@ -48,7 +48,6 @@ class TagihanController extends Controller
      */
     public function show(Tagihan $tagihan)
     {
-        //
     }
 
     /**
@@ -57,9 +56,9 @@ class TagihanController extends Controller
      * @param  \App\Tagihan  $tagihan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tagihan $tagihan)
+    public function edit($tagihan)
     {
-        //
+        return view('tagihan.edit', ['id' => $tagihan]);
     }
 
     /**

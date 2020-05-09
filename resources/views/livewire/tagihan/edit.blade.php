@@ -19,8 +19,8 @@
              <label class="col-md-3 col-form-label" for="select1">periode</label>
              <div class="col-md-9">
                  <select class="form-control" wire:model="periode">
-                     <option value="1">bulanan</option>
-                     <option value="2">tahun</option>
+                     <option {{$periode == '1'? 'selected':''}} value="1">bulanan</option>
+                     <option {{$periode == '2'? 'selected':''}} value="2">tahun</option>
                  </select>
                  @error('periode') <span class="error">{{ $message }}</span> @enderror
              </div>
@@ -31,9 +31,9 @@
              <div class="col-md-9">
                  <select class="form-control" id="select1" wire:model="tahun">
 
-                     <option value="2020">2020</option>
-                     <option value="2021">2021</option>
-                     <option value="2022">2022</option>
+                     <option {{$tahun == '2020'? 'selected':''}} value="2020">2020</option>
+                     <option {{$tahun == '2021'? 'selected':''}} value="2021">2021</option>
+                     <option {{$tahun == '2022'? 'selected':''}} value="2022">2022</option>
                  </select>
                  @error('tahun') <span class="error">{{ $message }}</span> @enderror
              </div>
@@ -43,7 +43,7 @@
 
      </div>
      <div class="card-footer">
-         <button wire:click="store" class=" btn btn-sm btn-primary" type="submit"> Submit</button>
+         <button wire:click="update" class=" btn btn-sm btn-primary" type="submit"> Submit</button>
          <button class="btn btn-sm btn-danger" type="reset"> Reset</button>
      </div>
 

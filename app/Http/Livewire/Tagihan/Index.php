@@ -25,4 +25,8 @@ class Index extends Component
             session()->flash('message', 'berhasil di hapus');
         }
     }
+    public function edit($id)
+    {
+        return redirect()->to(route('tagihan.edit', $id));
+    }
 }
