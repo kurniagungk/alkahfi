@@ -207,7 +207,9 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::resources([
             'santri' => 'SantriController',
             'asrama' => 'asramaController',
-            'tagihan' => 'TagihanController'
+            'tagihan' => 'TagihanController',
+            'tahun' => 'tahunajaran'
+
         ]);
         Route::resource('transaksi', 'TransaksiController', [
             'only' => ['index', 'create', 'store']
@@ -258,12 +260,6 @@ Route::group(['middleware' => ['get.menu']], function () {
             Route::get('/', 'santrimutasi@index');
             Route::get('/create', 'santrimutasi@create');
             Route::get('/{asrama}/edit', 'santrimutasi@edit');
-        });
-
-        route::prefix('tahunajaran')->group(function () {
-            Route::get('/', 'tahunajaran@index');
-            Route::get('/create', 'tahunajaran@create');
-            Route::get('/{asrama}/edit', 'tahunajaran@edit');
         });
 
         route::prefix('transaksi')->group(function () {
