@@ -83,4 +83,8 @@ class TagihanController extends Controller
     {
         //
     }
+    public function tambah()
+    {
+        return view('tagihan.tambah');
+    }
 }
