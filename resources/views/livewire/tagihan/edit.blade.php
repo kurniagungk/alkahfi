@@ -30,10 +30,9 @@
              <label class="col-md-3 col-form-label" for="select1">tahun ajaran</label>
              <div class="col-md-9">
                  <select class="form-control" id="select1" wire:model="tahun">
-
-                     <option {{$tahun == '2020'? 'selected':''}} value="2020">2020</option>
-                     <option {{$tahun == '2021'? 'selected':''}} value="2021">2021</option>
-                     <option {{$tahun == '2022'? 'selected':''}} value="2022">2022</option>
+                     @foreach ($TahunAjaran as $data)
+                     <option {{$tahun == $data->id_tahun ? 'selected':''}} value="{{$data->id_tahun}}">{{$data->nama}}</option>
+                     @endforeach
                  </select>
                  @error('tahun') <span class="error">{{ $message }}</span> @enderror
              </div>

@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Tagihan;
 
 use Livewire\Component;
 use App\DaftarTagihan;
+use App\TahunAjaran;
 
 class Edit extends Component
 {
@@ -11,16 +12,17 @@ class Edit extends Component
     public $periode;
     public $tahun;
     public $idt;
+    public $TahunAjaran;
 
 
     public function mount($id)
     {
         $data = DaftarTagihan::find($id);
-
         $this->nama = $data->nama;
         $this->periode = $data->id_jenis;
         $this->tahun = $data->id_tahun;
         $this->idt = $id;
+        $this->TahunAjaran = TahunAjaran::latest()->get();
     }
 
     public function update()

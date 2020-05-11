@@ -20,4 +20,9 @@ class DaftarTagihan extends Model
     {
         return $this->hasMany('App\Tagihan', 'id_tagihan');
     }
+
+    public function tahun()
+    {
+        return $this->belongsTo('App\TahunAjaran', 'id_tahun');
+    }
 }

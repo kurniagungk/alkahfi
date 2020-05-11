@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\DaftarTagihan;
 use Livewire\WithPagination;
 
+
 class Index extends Component
 {
     use WithPagination;
@@ -13,7 +14,9 @@ class Index extends Component
     {
 
         return view('livewire.tagihan.index', [
-            'DaftarTagihan' => DaftarTagihan::latest()->paginate(10)
+            'DaftarTagihan' => DaftarTagihan::latest()
+                ->with('tahun')
+                ->paginate(10),
         ]);
     }
     public function destroy($id)

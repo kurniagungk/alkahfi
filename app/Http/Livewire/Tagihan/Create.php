@@ -4,18 +4,25 @@ namespace App\Http\Livewire\Tagihan;
 
 use Livewire\Component;
 use App\DaftarTagihan;
+use App\TahunAjaran;
 
 class Create extends Component
 {
     public $nama;
     public $periode;
     public $tahun;
+    public $TahunAjaran;
 
+    public function mount()
+    {
+        $this->TahunAjaran = TahunAjaran::latest()->get();
+        $this->tahun = $this->TahunAjaran['0']->id_tahun;
+    }
 
 
     public function render()
     {
-        return view('livewire.tagihan.create');
+        return view('livewire.tagihan.create',);
     }
 
     public function store()
@@ -34,7 +41,8 @@ class Create extends Component
             'id_tahun' => $this->tahun,
 
         ]);
+
         session()->flash('message', 'taguhan ' . $this->nama . ' berhasil di tambahkan');
-        $this->reset();
+        $this->reset('nama');
     }
 }
