@@ -13,7 +13,9 @@ class Index extends Component
     {
 
         return view('livewire.tahun-ajaran.index', [
-            'tahun' => TahunAjaran::latest()->paginate(10)
+            'tahun' => TahunAjaran::latest()
+
+                ->paginate(10)
         ]);
     }
     public function destroy($id)
@@ -27,6 +29,6 @@ class Index extends Component
     }
     public function edit($id)
     {
-        return redirect()->to(route('tagihan.edit', $id));
+        return redirect()->to(route('tahun.edit', $id));
     }
 }

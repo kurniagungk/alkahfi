@@ -59,7 +59,7 @@ class TahunAjaran extends Controller
     public function edit($id)
     {
         //
-        return view('tahunajaran.edit');
+        return view('tahunajaran.edit', ['id' => $id]);
     }
 
     /**

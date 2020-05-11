@@ -19,8 +19,8 @@
              <label class="col-md-3 col-form-label" for="select1">Semester</label>
              <div class="col-md-9">
                  <select class="form-control" wire:model="semester">
-                     <option value="1">Ganjil</option>
-                     <option value="2">Genap</option>
+                     <option value="ganjil">Ganjil</option>
+                     <option value="genap">Genap</option>
                  </select>
                  @error('semester') <span class="error">{{ $message }}</span> @enderror
              </div>
