@@ -208,8 +208,8 @@ Route::group(['middleware' => ['get.menu']], function () {
             'santri' => 'SantriController',
             'asrama' => 'asramaController',
             'tagihan' => 'TagihanController',
-            'tahun' => 'tahunajaran'
-
+            'tahun' => 'tahunajaran',
+            'kelas' => 'KelasControler'
         ]);
         Route::resource('transaksi', 'TransaksiController', [
             'only' => ['index', 'create', 'store']
