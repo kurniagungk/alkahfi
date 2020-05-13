@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-sm-12">
 
-                @livewire('tahun-ajaran.index')
+                @livewire('kelas.index')
 
             </div>
         </div>
