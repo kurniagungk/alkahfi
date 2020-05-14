@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-sm-12">
 
-                @livewire('tahun-ajaran.edit', ['id' => $id])
+                @livewire('kelas.edit', ['id' => $id])
 
             </div>
         </div>

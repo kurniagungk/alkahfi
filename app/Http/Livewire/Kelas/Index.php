@@ -30,6 +30,6 @@ class Index extends Component
     }
     public function edit($id)
     {
-        return redirect()->to(route('tahun.edit', $id));
+        return redirect()->to(route('kelas.edit', $id));
     }
 }
