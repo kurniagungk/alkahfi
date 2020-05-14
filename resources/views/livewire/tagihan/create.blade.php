@@ -15,16 +15,9 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="select1">periode</label>
-            <div class="col-md-9">
-                <select class="form-control" wire:model="periode">
-                    <option value="1">bulanan</option>
-                    <option value="2">tahun</option>
-                </select>
-                @error('periode') <span class="error">{{ $message }}</span> @enderror
-            </div>
-        </div>
+
+
+
 
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="select1">tahun ajaran</label>
@@ -35,6 +28,25 @@
                     @endforeach
                 </select>
                 @error('tahun') <span class="error">{{ $message }}</span> @enderror
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">Periode</label>
+            <div class="col-md-9 col-form-label">
+                <div class="form-check form-check-inline mr-1">
+                    <input wire:model="periode" class="form-check-input" id="inline-radio1" type="radio" value="1" name="inline-radios">
+                    <label class="form-check-label" for="inline-radio1">Bulanan</label>
+                </div>
+                <div class="form-check form-check-inline mr-1">
+                    <input wire:model="periode" class="form-check-input" id="inline-radio2" type="radio" value="2" name="inline-radios">
+                    <label class="form-check-label" for="inline-radio2">Tahunan</label>
+                </div>
+
+            </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-9">
+                @error('periode') <span class="error">{{ $message }}</span> @enderror
             </div>
         </div>
 

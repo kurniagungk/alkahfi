@@ -15,16 +15,6 @@
              </div>
          </div>
 
-         <div class="form-group row">
-             <label class="col-md-3 col-form-label" for="select1">periode</label>
-             <div class="col-md-9">
-                 <select class="form-control" wire:model="periode">
-                     <option {{$periode == '1'? 'selected':''}} value="1">bulanan</option>
-                     <option {{$periode == '2'? 'selected':''}} value="2">tahun</option>
-                 </select>
-                 @error('periode') <span class="error">{{ $message }}</span> @enderror
-             </div>
-         </div>
 
          <div class="form-group row">
              <label class="col-md-3 col-form-label" for="select1">tahun ajaran</label>
@@ -38,7 +28,20 @@
              </div>
          </div>
 
-
+         <div class="form-group row">
+             <label class="col-md-3 col-form-label">Periode</label>
+             <div class="col-md-9 col-form-label">
+                 <div class="form-check form-check-inline mr-1">
+                     <input {{$periode == '1'? 'selected':''}} wire:model="periode" class="form-check-input" id="inline-radio1" type="radio" value="1" name="inline-radios">
+                     <label class="form-check-label" for="inline-radio1">Bulanan</label>
+                 </div>
+                 <div class="form-check form-check-inline mr-1">
+                     <input {{$periode == '2'? 'selected':''}} wire:model="periode" class="form-check-input" id="inline-radio2" type="radio" value="2" name="inline-radios">
+                     <label class="form-check-label" for="inline-radio2">Tahunan</label>
+                 </div>
+                 @error('periode') <span class="error">{{ $message }}</span> @enderror
+             </div>
+         </div>
 
      </div>
      <div class="card-footer">

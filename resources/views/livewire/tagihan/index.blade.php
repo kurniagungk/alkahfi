@@ -22,10 +22,16 @@
             </thead>
             <tbody>
                 @foreach ($DaftarTagihan as $data)
+
+
                 <tr>
                     <td>{{$loop->index+1}}</td>
                     <td>{{$data->nama}}</td>
-                    <td>{{$data->id_jenis}}</td>
+                    @if($data->id_jenis == 1)
+                    <td>Bulanan</td>
+                    @else
+                    <td>tahunan</td>
+                    @endif
                     <td>{{$data->tahun->nama}}</td>
                     <td>
                         <button wire:click="edit({{$data->id_tagihan}})" class="btn btn-outline-warning">edit</button>

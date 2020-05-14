@@ -6,15 +6,18 @@ use Livewire\Component;
 use App\DaftarTagihan;
 use App\santri;
 use App\Tagihan;
+use App\Kelas;
 
 class Tambah extends Component
 {
 
     public $periode;
     public $dataJenis = [];
+    public $DataKelas = [];
     public $jenis;
-    public $kelas = [];
+    public $kelas;
     public $biaya;
+    public $select = 1;
 
 
 
@@ -24,9 +27,14 @@ class Tambah extends Component
     }
     public function updatedperiode($value)
     {
-        $this->dataJenis = DaftarTagihan::where('id_jenis', $value)
-            ->get();
+        $this->dataJenis = DaftarTagihan::where('id_jenis', $value)->get();
         $this->jenis = $this->dataJenis['0']->id_tagihan;
+        $this->jenis = $this->dataJenis['0']->id_tagihan;
+    }
+
+    public function mount()
+    {
+        $this->DataKelas = Kelas::latest()->get();
     }
 
 
@@ -34,6 +42,7 @@ class Tambah extends Component
 
     public function tambah()
     {
+
 
         if ($this->periode == 1) {
             $tanggal = "2020-07-10";

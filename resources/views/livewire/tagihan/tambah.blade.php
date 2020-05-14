@@ -8,7 +8,7 @@
          @endif
 
          <div class="form-group row">
-             <label class="col-md-3 col-form-label" for="select1">Jenis Pembayaran</label>
+             <label class="col-md-3 col-form-label" for="select1">Periode Pembayaran</label>
              <div class="col-md-9">
                  <select class="form-control" wire:model="periode">
                      <option value=''>pilih salah satu</option>
@@ -36,20 +36,6 @@
          </div>
 
          <div class="form-group row">
-             <label class="col-md-3 col-form-label" for="select1">kelas</label>
-             <div class="col-md-9">
-
-                 <select class="form-control" wire:model="kelas">
-
-                     <option value="1">12</option>
-                     <option value="2">13</option>
-
-                 </select>
-                 @error('periode') <span class="error">{{ $message }}</span> @enderror
-             </div>
-         </div>
-
-         <div class="form-group row">
              <label class="col-md-3 col-form-label" for="text-input">biaya</label>
              <div class="col-md-9">
                  <input wire:model="biaya" class="form-control" id="text-input" type="number" name="text-input">
@@ -57,7 +43,43 @@
              </div>
          </div>
 
+         <div class="form-group row">
+             <label class="col-md-3 col-form-label">Santri</label>
+             <div class="col-md-9 col-form-label">
+                 <div class="form-check form-check-inline mr-1">
+                     <input wire:model="select" class="form-check-input" id="inline-radio1" type="radio" value="1" name="inline-radios">
+                     <label class="form-check-label" for="inline-radio1">Semua</label>
+                 </div>
+                 <div class="form-check form-check-inline mr-1">
+                     <input wire:model="select" class="form-check-input" id="inline-radio2" type="radio" value="2" name="inline-radios">
+                     <label class="form-check-label" for="inline-radio2">Kelas</label>
+                 </div>
+             </div>
+         </div>
 
+         @if($select == 1)
+
+
+         @else
+
+         <div class="form-group row">
+             <label class="col-md-3 col-form-label" for="select1">kelas</label>
+             <div class="col-md-9">
+
+                 <select class="form-control" wire:model="kelas">
+
+                     @foreach ($DataKelas as $data)
+
+                     <option value="{{$data->id}}">{{$data->kelas}}</option>
+
+                     @endforeach
+
+                 </select>
+                 @error('kelas') <span class="error">{{ $message }}</span> @enderror
+             </div>
+         </div>
+
+         @endif
 
 
 
