@@ -18,6 +18,7 @@ class Tambah extends Component
     public $kelas;
     public $biaya;
     public $select = 1;
+    public $tahun = [];
 
 
 
@@ -27,9 +28,22 @@ class Tambah extends Component
     }
     public function updatedperiode($value)
     {
-        $this->dataJenis = DaftarTagihan::where('id_jenis', $value)->get();
+        $this->dataJenis = DaftarTagihan::where('id_jenis', $value)->with('tahun')->get();
         $this->jenis = $this->dataJenis['0']->id_tagihan;
-        $this->jenis = $this->dataJenis['0']->id_tagihan;
+    }
+
+    function updatedjenis()
+    {
+
+        $awal = date_create_from_format('Y-m-d', substr($this->dataJenis['0']->tahun->awal, 0, 8) . '01');
+        $akhir = date_create_from_format('Y-m-d', substr($this->dataJenis['0']->tahun->akhir, 0, 8) . '01');
+        $selisih = date_diff($awal, $akhir);
+
+        $this->tahun = array(
+            'awal' => $awal,
+            'akhir' => $akhir,
+            'selisih' => $selisih->m
+        );
     }
 
     public function mount()
@@ -43,15 +57,20 @@ class Tambah extends Component
     public function tambah()
     {
 
+        $santri = santri::select('id_santri')->get();
+        if ($this->select == 2) {
+
+            $santri = santri::where('kelas', $this->kelas)->get();
+        }
+
+
 
         if ($this->periode == 1) {
-            $tanggal = "2020-07-10";
 
-            $santri = santri::select('id_santri')->get();
             foreach ($santri as $data) {
                 $id_santri = $data->id_santri;
-                for ($i = 0; $i < 12; $i++) {
-                    $tempo = date('Y-m-d', strtotime("+$i month", strtotime($tanggal)));
+                for ($i = 0; $i <= $this->tahun['selisih']; $i++) {
+                    $tempo = date('Y-m-d', strtotime("+$i month", strtotime($this->tahun['awal']['date'])));
                     $data = array(
                         'id_tagihan' => $this->jenis,
                         'id_santri' => $id_santri,
@@ -61,6 +80,7 @@ class Tambah extends Component
                     );
 
                     Tagihan::insert($data);
+                    session()->flash('message', 'tagihan berhasil ditambah');
                 }
             }
         }
