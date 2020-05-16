@@ -19,6 +19,7 @@ class Tambah extends Component
     public $biaya;
     public $select = 1;
     public $tahun = [];
+    public $tempo;
 
 
 
@@ -82,6 +83,20 @@ class Tambah extends Component
                     Tagihan::insert($data);
                     session()->flash('message', 'tagihan berhasil ditambah');
                 }
+            }
+        } else {
+            foreach ($santri as $data) {
+                $id_santri = $data->id_santri;
+
+                $data = array(
+                    'id_tagihan' => $this->jenis,
+                    'id_santri' => $id_santri,
+                    'jatuh_tempo' => $this->tempo,
+                    'jumlah' => $this->biaya,
+                    'status' => 2
+                );
+                Tagihan::insert($data);
+                session()->flash('message', 'tagihan berhasil ditambah');
             }
         }
     }

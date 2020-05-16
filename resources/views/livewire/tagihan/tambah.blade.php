@@ -19,6 +19,18 @@
              </div>
          </div>
 
+         <div class="form-group row">
+             <label class="col-md-3 col-form-label" for="text-input">Tanggal Jatuh Tempo</label>
+             <div class="col-md-9">
+                 @if($periode == 1 )
+                 <input wire:model="tempo" class="form-control" min="1" max="31" id="number-input" type="number" name="text-input">
+                 @elseif ($periode == 2 )
+                 <input wire:model="tempo" class="form-control" id="date-input" type="date" name="date-input" placeholder="date">
+                 @endif
+                 @error('tempo') <span class="error">{{ $message }}</span> @enderror
+             </div>
+         </div>
+
 
          <div class="form-group row">
              <label class="col-md-3 col-form-label" for="select1">Jenis Pembayaran</label>
