@@ -201,10 +201,10 @@
                           <button class="btn btn-sm btn-primary" type="submit"> Submit</button>
                           <button class="btn btn-sm btn-danger" type="reset"> Reset</button>
                       </div>
-                  
-                  
- <!-- end form -->                 
-                    </div>
+
+
+                      <!-- end form -->
+                  </div>
 
               </div>
 
@@ -212,6 +212,7 @@
           </div>
       </div>
   </div>
+
 
 
   @endsection
