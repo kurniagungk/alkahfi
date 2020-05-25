@@ -8,6 +8,9 @@
             <div class="col-sm-12">
                 @livewire('transaksi.profil', ['id' => $nis])
             </div>
+
+            @livewire('transaksi.detail', ['id' => $nis])
+
             @else
             <div class="col-sm-12">
                 <div class="card">
