@@ -34,7 +34,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach ($tagihan as $t)
+                                                            @foreach ($DetailTagihan as $t)
 
                                                             @if ($t->status == 'lunas')
                                                             <tr style="color:green">

@@ -9,8 +9,11 @@ use Illuminate\Support\Facades\DB;
 class Detail extends Component
 {
 
-    public $TagihanBulanan;
-    public $tagihanPeriode;
+    public $TagihanBulanan  = [];
+    public $tagihanPeriode  = [];
+    public $detail = true;
+    public $DetailTagihan = [];
+    public $nama;
 
     public function mount($id)
     {
@@ -46,6 +49,20 @@ class Detail extends Component
             ->groupBy('id_tagihan')
             ->get();
     }
+
+    public function detail($id, $nama)
+    {
+        $this->detail = false;
+
+        $this->DetailTagihan = Tagihan::where('id_tagihan', $id)->get();
+
+        $this->nama = $nama;
+    }
+
+    public function asd()
+    {
+    }
+
 
 
     public function render()
