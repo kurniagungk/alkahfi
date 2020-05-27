@@ -4,6 +4,8 @@ namespace App\Http\Livewire\Transaksi;
 
 use Livewire\Component;
 use App\Tagihan;
+use App\Transaksi;
+use App\Bayar;
 use Illuminate\Support\Facades\DB;
 
 class Detail extends Component
@@ -12,8 +14,11 @@ class Detail extends Component
     public $TagihanBulanan  = [];
     public $tagihanPeriode  = [];
     public $detail = false;
+    public $jenis;
     public $DetailTagihan = [];
+    public $DetailBayar = [];
     public $nama;
+    public $biaya;
 
     public function mount($id)
     {
@@ -53,10 +58,33 @@ class Detail extends Component
     public function detail($id, $nama)
     {
         $this->detail = true;
+        $this->jenis = true;
 
         $this->dataTagihan($id);
 
         $this->nama = $nama;
+    }
+
+    public function periode($id, $nama)
+    {
+        $this->detail = true;
+
+        $this->jenis = false;
+
+        $this->dataTagihan($id);
+
+        $this->nama = $nama;
+
+        $bayar = Bayar::where('id_tagihan', $id)->get();
+        $data = [];
+        foreach ($bayar as $b) {
+            $transaksi = Transaksi::where('id_transaksi', $b->id_transaksi)->first();
+            $data[] = array(
+                'tanggal' => $transaksi->tanggal,
+                'jumlah' => $transaksi->jumlah
+            );
+        }
+        $this->DetailBayar = $data;
     }
 
     public function bayar($id, $idt)

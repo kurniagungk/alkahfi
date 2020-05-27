@@ -2,6 +2,7 @@
 
     @if($detail)
 
+    @if($jenis)
     <div class="col-sm-12">
         <div class="card">
             <div class="card-header">
@@ -80,7 +81,102 @@
             </div><!-- /.box -->
         </div>
     </div>
+    @else
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>{{$nama}}</h4>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <br>
 
+
+                <div class="col-sm-12">
+                    @if (session()->has('message'))
+                    {!! session('message')!!}
+                    @endif
+                    <div class="col-sm-12">
+
+                        <table class="table-responsive">
+                            <tbody>
+                                @foreach ($DetailTagihan as $t)
+
+                                <tr>
+                                    <td>Tagihan</td>
+                                    <td> : </td>
+                                    <td> {{$t->jumlah}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Di Bayar</td>
+                                    <td> : </td>
+                                    <td> {{$t->jumlah}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Status</td>
+                                    <td> : </td>
+                                    <td>
+                                        @if ($t->status == 'lunas')
+                                        <span class="badge badge-success">Lunas</span>
+                                        @else
+                                        <span class="badge badge-warning">Belum Bayar</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <br>
+                        <table class="table table-striped">
+
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Tanggal Bayar</th>
+                                    <th>Jumlah</th>
+                                    <th>Bayar</th>
+                                    <th>Cetak</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($DetailBayar as $t)
+
+
+                                <tr>
+                                    <td>{{$loop->index +1}}</td>
+                                    <td>{{$t['tanggal']}}</td>
+                                    <td>{{$t['jumlah']}}</td>
+                                    <td width="40" style="text-align:center">
+                                        <button class=" btn btn-sm btn-success"> Bayar</button>
+                                    </td>
+                                    <td width="40" style="text-align:center">
+                                        <button class="btn btn-sm btn-primary" type="submit"> Cetak</button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                <tr>
+                                    <td></td>
+                                    <td><input class="form-control" type="date" name="date-input" value="{{date('Y-m-d')}}"></td>
+                                    <td><input class="form-control" type="number"></td>
+                                    <td width="40" style="text-align:center">
+                                        <button class=" btn btn-sm btn-success"> Bayar</button>
+                                    </td>
+                                    <td width="40" style="text-align:center">
+                                        <button class="btn btn-sm btn-primary" type="submit"> Cetak</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                    <br>
+
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div>
+    </div>
+    @endif
 
     <div class="col-sm-12" style="visibility: hidden;">
         <div class="card">
@@ -230,7 +326,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <button wire:click="detail({{$data->id_tagihan}}, '{{$data->jenis->nama}}')" class="btn btn-success">Bayar</button>
+                                        <button wire:click="periode({{$data->id_tagihan}}, '{{$data->jenis->nama}}')" class="btn btn-success">Bayar</button>
                                     </td>
                                     <td>Cetak</td>
 
