@@ -11,7 +11,7 @@ class Detail extends Component
 
     public $TagihanBulanan  = [];
     public $tagihanPeriode  = [];
-    public $detail = true;
+    public $detail = false;
     public $DetailTagihan = [];
     public $nama;
 
@@ -52,17 +52,42 @@ class Detail extends Component
 
     public function detail($id, $nama)
     {
-        $this->detail = false;
+        $this->detail = true;
 
-        $this->DetailTagihan = Tagihan::where('id_tagihan', $id)->get();
+        $this->dataTagihan($id);
 
         $this->nama = $nama;
     }
 
-    public function asd()
+    public function bayar($id, $idt)
     {
+
+        $data = array(
+            'status' => 'lunas',
+        );
+        Tagihan::where('id', $id)->update($data);
+        $this->dataTagihan($idt);
+        session()->flash('message', '<div class="alert alert-success">
+                    tagihan berhasil di bayar
+                </div>');
+    }
+    public function hapus($id, $idt)
+    {
+
+        $data = array(
+            'status' => 'belum',
+        );
+        Tagihan::where('id', $id)->update($data);
+        $this->dataTagihan($idt);
+        session()->flash('message', '<div class="alert alert-danger">
+                    tagihan berhasil di bayar
+                </div>');
     }
 
+    private function dataTagihan($id)
+    {
+        $this->DetailTagihan = Tagihan::where('id_tagihan', $id)->get();
+    }
 
 
     public function render()
