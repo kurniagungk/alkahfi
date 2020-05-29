@@ -31,7 +31,9 @@
                     <td>{{$data->akhir}}</td>
                     <td>
                         <button wire:click="edit({{$data->id_tahun}})" class="btn btn-outline-warning">edit</button>
-                        <button wire:click="destroy({{$data->id_tahun}})" class="btn btn-outline-danger" type="button">Hapus</button>
+                        <button wire:click="destroy({{$data->id_tahun}})" class="btn btn-outline-danger" type="button">
+                            Hapus
+                        </button>
                     </td>
                 </tr>
 

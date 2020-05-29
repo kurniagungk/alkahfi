@@ -45,7 +45,12 @@
 
      </div>
      <div class="card-footer">
-         <button wire:click="update" class=" btn btn-sm btn-primary" type="submit"> Submit</button>
+         <button wire:click="update" class=" btn btn-sm btn-primary" type="submit">
+             <div wire:loading wire:target="update">
+                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+             </div>
+             Submit
+         </button>
          <button class="btn btn-sm btn-danger" type="reset"> Reset</button>
      </div>
 
