@@ -90,6 +90,23 @@ class Detail extends Component
     public function bayar($id, $idt)
     {
 
+        $tagihan = Tagihan::where('id', $id)->first();
+        $codeBayar = CodeBayar();
+        $codeTransaksi = CodeTransaksi();
+
+        Bayar::create([
+            'id_tagihan' => $id,
+            'id_bayar' =>  $codeBayar
+        ]);
+
+        Transaksi::create([
+            'id_transaksi' => $codeTransaksi,
+            'tanggal' => date("Y-m-d"),
+            'jumlah' => $tagihan->jumlah,
+            'jenis' => 1
+        ]);
+
+
         $data = array(
             'status' => 'lunas',
         );

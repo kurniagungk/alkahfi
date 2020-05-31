@@ -46,7 +46,7 @@
 
                                     <td>{{$loop->index +1}}</td>
                                     <td>asd</td>
-                                    <td>{{$t->jumlah}}</td>
+                                    <td>{{FormatRupiah($t->jumlah)}}</td>
                                     <td>
                                         @if ($t->status == 'lunas')
                                         <span class="badge badge-success">Lunas</span>
@@ -105,12 +105,12 @@
                                 <tr>
                                     <td>Tagihan</td>
                                     <td> : </td>
-                                    <td> {{$t->jumlah}}</td>
+                                    <td> {{FormatRupiah($t->jumlah)}}</td>
                                 </tr>
                                 <tr>
                                     <td>Di Bayar</td>
                                     <td> : </td>
-                                    <td> {{$t->jumlah}}</td>
+                                    <td> {{FormatRupiah($t->jumlah)}}</td>
                                 </tr>
                                 <tr>
                                     <td>Status</td>
@@ -255,9 +255,9 @@
                                 <tr>
                                     <td>{{$loop->index+1}}</td>
                                     <td>{{$data->jenis->nama}}</td>
-                                    <td>{{$data->tunggakan}}</td>
-                                    <td>{{$data->dibayar}}</td>
-                                    <td>{{$data->total}}</td>
+                                    <td>{{FormatRupiah($data->tunggakan)}}</td>
+                                    <td>{{FormatRupiah($data->dibayar)}}</td>
+                                    <td>{{FormatRupiah($data->total)}}</td>
                                     <td>
                                         @if($data->status == 0)
                                         <span class="badge badge-success">lunas</span>
@@ -315,9 +315,9 @@
                                 <tr>
                                     <td>{{$loop->index+1}}</td>
                                     <td>{{$data->jenis->nama}}</td>
-                                    <td>{{$data->tunggakan}}</td>
-                                    <td>{{$data->dibayar}}</td>
-                                    <td>{{$data->total}}</td>
+                                    <td>{{FormatRupiah($data->tunggakan)}}</td>
+                                    <td>{{FormatRupiah($data->dibayar)}}</td>
+                                    <td>{{FormatRupiah($data->total)}}</td>
                                     <td>
                                         @if($data->status == 0)
                                         <span class="badge badge-success">lunas</span>
