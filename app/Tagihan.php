@@ -14,4 +14,8 @@ class Tagihan extends Model
     {
         return $this->belongsTo('App\DaftarTagihan', 'id_tagihan');
     }
+    public function bayar()
+    {
+        return $this->hasOne('App\Bayar', 'id_bayar', 'id_bayar');
+    }
 }
