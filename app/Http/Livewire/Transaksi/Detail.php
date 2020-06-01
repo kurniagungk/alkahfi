@@ -19,6 +19,8 @@ class Detail extends Component
     public $DetailBayar = [];
     public $nama;
     public $biaya;
+    public $t;
+
 
     public function mount($id)
     {
@@ -41,6 +43,7 @@ class Detail extends Component
         $this->tagihanPeriode = Tagihan::select(
             'id_tagihan',
             'id_santri',
+            'id_bayar',
             DB::raw('sum(jumlah) as total'),
             DB::raw('sum(if(jatuh_tempo < CURDATE() AND status = "belum" ,jumlah, 0 )) as tunggakan'),
             DB::raw('sum(if(status = "lunas",jumlah, 0 )) as dibayar'),
@@ -74,17 +77,9 @@ class Detail extends Component
         $this->dataTagihan($id);
 
         $this->nama = $nama;
+        $this->t = $id;
 
-        $bayar = Bayar::where('id_tagihan', $id)->get();
-        $data = [];
-        foreach ($bayar as $b) {
-            $transaksi = Transaksi::where('id_transaksi', $b->id_transaksi)->first();
-            $data[] = array(
-                'tanggal' => $transaksi->tanggal,
-                'jumlah' => $transaksi->jumlah
-            );
-        }
-        $this->DetailBayar = $data;
+        $this->transaksi();
     }
 
     public function bayar($id, $idt)
@@ -93,6 +88,7 @@ class Detail extends Component
         $tagihan = Tagihan::where('id', $id)->first();
         $codeBayar = CodeBayar();
         $codeTransaksi = CodeTransaksi();
+
 
         Bayar::create([
             'id_tagihan' => $id,
@@ -112,13 +108,67 @@ class Detail extends Component
         $data = array(
             'status' => 'lunas',
             'id_bayar' => $codeBayar,
+            'id_bayar' => null
         );
-        Tagihan::where('id', $id)->update($data);
+        Tagihan::where('id_tagihan', $id)->update($data);
         $this->dataTagihan($idt);
         session()->flash('message', '<div class="alert alert-success">
                     tagihan berhasil di bayar
                 </div>');
     }
+
+    public function bayarp($id, $idb)
+    {
+
+        $codeBayar = CodeBayar();
+        if (!$idb) {
+            $codeTransaksi = CodeTransaksi();
+        }
+
+        Bayar::create([
+            'id_tagihan' => $id,
+            'id_bayar' =>  $codeBayar,
+            'id_transaksi' => $codeTransaksi
+        ]);
+
+        Transaksi::create([
+            'id_transaksi' => $codeTransaksi,
+            'tanggal' => date("Y-m-d"),
+            'jumlah' => $this->biaya,
+            'jenis' => 1
+        ]);
+
+
+        $data = array(
+            'status' => 'lunas',
+            'id_bayar' => $codeBayar,
+        );
+        Tagihan::where('id_tagihan', $id)->update($data);
+        $this->transaksi();
+        session()->flash('message', '<div class="alert alert-success">
+                    tagihan berhasil di bayar
+                </div>');
+    }
+
+    private function transaksi()
+    {
+        $bayar = Bayar::where('id_tagihan', $this->t)->get();
+
+
+        $data = [];
+        foreach ($bayar as $b) {
+            $transaksi = Transaksi::where('id_transaksi', $b->id_transaksi)->first();
+
+            $data[] = array(
+                'id_transaksi' => $transaksi->id_transaksi,
+                'tanggal' => $transaksi->tanggal,
+                'jumlah' => $transaksi->jumlah
+            );
+        }
+        $this->DetailBayar = $data;
+    }
+
+
     public function hapus($id, $idt)
     {
 
@@ -132,6 +182,16 @@ class Detail extends Component
         $this->dataTagihan($idt);
         session()->flash('message', '<div class="alert alert-danger">
                     tagihan berhasil di bayar
+                </div>');
+    }
+
+    public function hapusp($id)
+    {
+        Bayar::where('id_transaksi', $id)->delete();
+        Transaksi::where('id_transaksi', $id)->delete();
+        $this->transaksi();
+        session()->flash('message', '<div class="alert alert-danger">
+                    tagihan berhasil di hapus
                 </div>');
     }
 

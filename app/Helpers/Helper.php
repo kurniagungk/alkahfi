@@ -34,7 +34,8 @@ function CodeBayar()
 
 function CodeTransaksi()
 {
-    $data = Transaksi::latest()->first();
+    $data = Transaksi::orderBy('id_transaksi', 'desc')->first();
+
 
     $date = date("Ymd");
     if ($data) {

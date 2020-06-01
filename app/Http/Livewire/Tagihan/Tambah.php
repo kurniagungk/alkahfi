@@ -31,6 +31,17 @@ class Tambah extends Component
     {
         $this->dataJenis = DaftarTagihan::where('id_jenis', $value)->with('tahun')->get();
         $this->jenis = $this->dataJenis['0']->id_tagihan;
+
+
+        $awal = date_create_from_format('Y-m-d', substr($this->dataJenis['0']->tahun->awal, 0, 8) . '01');
+        $akhir = date_create_from_format('Y-m-d', substr($this->dataJenis['0']->tahun->akhir, 0, 8) . '01');
+        $selisih = date_diff($awal, $akhir);
+
+        $this->tahun = array(
+            'awal' => $awal,
+            'akhir' => $akhir,
+            'selisih' => $selisih->m
+        );
     }
 
     function updatedjenis()
@@ -67,7 +78,6 @@ class Tambah extends Component
 
 
         if ($this->periode == 1) {
-
             foreach ($santri as $data) {
                 $id_santri = $data->id_santri;
                 for ($i = 0; $i <= $this->tahun['selisih']; $i++) {

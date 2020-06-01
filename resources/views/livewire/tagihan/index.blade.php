@@ -21,6 +21,7 @@
                 </tr>
             </thead>
             <tbody>
+
                 @foreach ($DaftarTagihan as $data)
 
 

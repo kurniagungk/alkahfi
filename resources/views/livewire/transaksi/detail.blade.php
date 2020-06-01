@@ -139,6 +139,8 @@
                                 </tr>
                             </thead>
                             <tbody>
+
+
                                 @foreach ($DetailBayar as $t)
 
 
@@ -147,7 +149,7 @@
                                     <td>{{$t['tanggal']}}</td>
                                     <td>{{$t['jumlah']}}</td>
                                     <td width="40" style="text-align:center">
-                                        <button class=" btn btn-sm btn-success"> Bayar</button>
+                                        <button wire:click="hapusp('{{$t["id_transaksi"]}}')" class=" btn btn-sm btn-danger"> hapus</button>
                                     </td>
                                     <td width="40" style="text-align:center">
                                         <button class="btn btn-sm btn-primary" type="submit"> Cetak</button>
@@ -156,10 +158,12 @@
                                 @endforeach
                                 <tr>
                                     <td></td>
-                                    <td><input class="form-control" type="date" name="date-input" value="{{date('Y-m-d')}}"></td>
-                                    <td><input class="form-control" type="number"></td>
+                                    <td><input class="form-control" readonly type="date" name="date-input" value="{{date('Y-m-d')}}"></td>
+                                    <td><input class="form-control" wire:model="biaya" type="number"></td>
                                     <td width="40" style="text-align:center">
-                                        <button class=" btn btn-sm btn-success"> Bayar</button>
+                                        @foreach ($DetailTagihan as $t)
+                                        <button wire:click="bayarp({{$t->id_tagihan}} )" class=" btn btn-sm btn-success"> Bayar</button>
+                                        @endforeach
                                     </td>
                                     <td width="40" style="text-align:center">
                                         <button class="btn btn-sm btn-primary" type="submit"> Cetak</button>
@@ -311,6 +315,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+
                                 @foreach($tagihanPeriode as $data)
                                 <tr>
                                     <td>{{$loop->index+1}}</td>
@@ -326,7 +331,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <button wire:click="periode({{$data->id_tagihan}}, '{{$data->jenis->nama}}')" class="btn btn-success">Bayar</button>
+                                        <button wire:click="periode('{{$data->id_tagihan}}','{{$data->id_bayar}}', '{{$data->jenis->nama}}')" class="btn btn-success">Bayar</button>
                                     </td>
                                     <td>Cetak</td>
 
