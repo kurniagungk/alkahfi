@@ -141,15 +141,15 @@
                             <tbody>
 
 
-                                @foreach ($DetailBayar as $t)
+                                @foreach ($DetailBayar as $data)
 
 
                                 <tr>
                                     <td>{{$loop->index +1}}</td>
-                                    <td>{{$t['tanggal']}}</td>
-                                    <td>{{$t['jumlah']}}</td>
+                                    <td>{{$data->transaksi->tanggal}}</td>
+                                    <td>{{$data->transaksi->jumlah}}</td>
                                     <td width="40" style="text-align:center">
-                                        <button wire:click="hapusp('{{$t["id_transaksi"]}}')" class=" btn btn-sm btn-danger"> hapus</button>
+                                        <button wire:click="hapusp('{{$data->transaksi->id_transaksi}}')" class=" btn btn-sm btn-danger"> hapus</button>
                                     </td>
                                     <td width="40" style="text-align:center">
                                         <button class="btn btn-sm btn-primary" type="submit"> Cetak</button>
@@ -161,9 +161,9 @@
                                     <td><input class="form-control" readonly type="date" name="date-input" value="{{date('Y-m-d')}}"></td>
                                     <td><input class="form-control" wire:model="biaya" type="number"></td>
                                     <td width="40" style="text-align:center">
-                                        @foreach ($DetailTagihan as $t)
-                                        <button wire:click="bayarp({{$t->id_tagihan}} )" class=" btn btn-sm btn-success"> Bayar</button>
-                                        @endforeach
+
+                                        <button wire:click="bayarp()" class=" btn btn-sm btn-success"> Bayar</button>
+
                                     </td>
                                     <td width="40" style="text-align:center">
                                         <button class="btn btn-sm btn-primary" type="submit"> Cetak</button>

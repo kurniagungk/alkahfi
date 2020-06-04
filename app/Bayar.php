@@ -12,4 +12,10 @@ class Bayar extends Model
         'id_tagihan',
         'id_transaksi',
     ];
+    protected $primaryKey = 'id_bayar';
+
+    public function transaksi()
+    {
+        return $this->hasOne('App\Transaksi', 'id_transaksi', 'id_transaksi');
+    }
 }
