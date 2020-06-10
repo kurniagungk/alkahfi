@@ -203,6 +203,7 @@ Route::group(['middleware' => ['get.menu']], function () {
             Route::POST('/GetData', 'SantriController@getBasicData')->name('santri.getData');
         });
         Route::get('tagihan/tambah', 'TagihanController@tambah')->name('tagihan.tambah');
+        Route::get('transaksi/cetak/{id}', 'TransaksiController@cetak')->name('transaksi.cetak');
 
         Route::resources([
             'santri' => 'SantriController',

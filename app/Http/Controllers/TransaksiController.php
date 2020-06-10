@@ -8,6 +8,7 @@ use App\Tagihan;
 use App\santri;
 use App\asrama;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class TransaksiController extends Controller
 {
@@ -124,47 +125,10 @@ class TransaksiController extends Controller
         //
     }
 
-    public function get(Request $request)
+    public function cetak($id)
     {
-        $id = $request->input('id');
-        $TagihanBulanan = Tagihan::select(
-            'id_tagihan',
-            'id_santri',
-            DB::raw('sum(jumlah) as total'),
-            DB::raw('sum(if(jatuh_tempo < CURDATE() AND status = "belum" ,jumlah, 0 )) as tunggakan'),
-            DB::raw('sum(if(status = "lunas",jumlah, 0 )) as dibayar'),
-            DB::raw('sum(jumlah) - sum(if(status = "lunas", jumlah, 0)) as status'),
-        )
-            ->where('id_santri', $id)
-            ->with('jenis')
-            ->whereHas('jenis', function ($query) {
-                $query->where('id_jenis', 1);
-            })
-            ->groupBy('id_tagihan')
-            ->get();
-        $tagihanPeriode = Tagihan::select(
-            'id_tagihan',
-            'id_santri',
-            DB::raw('sum(jumlah) as total'),
-            DB::raw('sum(if(jatuh_tempo < CURDATE() AND status = "belum" ,jumlah, 0 )) as tunggakan'),
-            DB::raw('sum(if(status = "lunas",jumlah, 0 )) as dibayar'),
-            DB::raw('sum(jumlah) - sum(if(status = "lunas", jumlah, 0)) as status'),
-        )
-            ->where('id_santri', $id)
-            ->with('jenis')
-            ->whereHas('jenis', function ($query) {
-                $query->where('id_jenis', 2);
-            })
-            ->groupBy('id_tagihan')
-            ->get();
-        $profil = santri::where('id_santri', $id)
-            ->get();
-
-
-        return view('transaksi.show', [
-            'bulanan' => $TagihanBulanan,
-            'periode' => $tagihanPeriode,
-            'profil' => $profil
-        ]);
+        $data = Tagihan::all();
+        $pdf = PDF::loadview('transaksi.pdf', $data);
+        return $pdf->download('invoice.pdf');
     }
 }

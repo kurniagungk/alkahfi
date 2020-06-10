@@ -16,6 +16,6 @@ class Tagihan extends Model
     }
     public function bayar()
     {
-        return $this->hasOne('App\Bayar', 'id_bayar', 'id_bayar');
+        return $this->hasOne('App\Bayar', 'id_tagihan');
     }
 }

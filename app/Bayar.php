@@ -12,4 +12,9 @@ class Bayar extends Model
         'id_tagihan',
         'id_transaksi',
     ];
+
+    function transaksi()
+    {
+        return $this->belongsTo('App\Transaksi', 'id_transaksi');
+    }
 }
