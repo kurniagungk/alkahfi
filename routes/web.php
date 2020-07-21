@@ -11,6 +11,12 @@
 |
 */
 
+
+
+
+
+
+
 Route::group(['middleware' => ['get.menu']], function () {
     Route::get('/', function () {
         return view('dashboard.homepage');
@@ -204,6 +210,7 @@ Route::group(['middleware' => ['get.menu']], function () {
         });
         Route::get('tagihan/tambah', 'TagihanController@tambah')->name('tagihan.tambah');
         Route::get('transaksi/cetak/{id}', 'TransaksiController@cetak')->name('transaksi.cetak');
+        Route::livewire('/santri/asd', 'santri.create');
 
         Route::resources([
             'santri' => 'SantriController',
@@ -212,6 +219,8 @@ Route::group(['middleware' => ['get.menu']], function () {
             'tahun' => 'tahunajaran',
             'kelas' => 'KelasControler'
         ]);
+
+
         Route::resource('transaksi', 'TransaksiController', [
             'only' => ['index', 'create', 'store']
         ]);

@@ -41,77 +41,6 @@ class SantriController extends Controller
      */
     public function store(Request $request)
     {
-
-
-        $messages = [
-            'no_induk.required'    => 'NIS TIDAK BOLEH KOSONG',
-            'no_induk.unique'    => 'NIS TIDAK BOLEH SAMA',
-            'nama.required'    => 'NAMA TIDAK BOLEH KOSONG',
-            'tgl_lahir.required'    => 'TANGGAL LAHIR TIDAK BOLEH KOSONG',
-            'alamat.required'    => 'ALAMAT TIDAK BOLEH KOSONG',
-            'sekolah.required'    => 'SEKOLAH TIDAK BOLEH KOSONG',
-            'asrama.required'    => 'ASRAMA TIDAK BOLEH KOSONG',
-            'jenis_kelamin.required'    => 'JENIS KELAMIN TIDAK BOLEH KOSONG',
-            'id_tahun.required'    => 'TAHUN MASUK TIDAK BOLEH KOSONG',
-            'nama_wali.required'    => 'NAMA WALI TIDAK BOLEH KOSONG',
-            'tempat_lahir.required'    => 'TEMPAT LAHIR TIDAK BOLEH KOSONG',
-            'telepon.required'    => 'NO HP TIDAK BOLEH KOSONG',
-            'foto.required'    => 'FOTO TIDAK BOLEH KOSONG',
-
-
-        ];
-
-
-
-
-
-
-
-        $validator = Validator::make($request->all(), [
-            'no_induk' => 'required|unique:santri|max:255',
-            'nama' => 'required',
-            'tempat_lahir' => 'required',
-            'tgl_lahir' => 'date',
-            'alamat' => 'required',
-            'sekolah' => 'required',
-            'asrama' => 'required',
-            'telepon' => 'required',
-            'jenis_kelamin' => 'required',
-            'id_tahun' => 'required',
-            'nama_wali' => 'required',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ], $messages);
-
-
-
-
-        if ($validator->fails()) {
-            return redirect()->route('santri.create')
-                ->withErrors($validator)
-                ->withInput();
-        }
-        $imageName = time() . '.' . $request->foto->extension();
-        $request->foto->move(public_path('images/santri'), $imageName);
-        $data = array(
-            'no_induk' => $request->no_induk,
-            'nama' => $request->nama,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tgl_lahir' => $request->tgl_lahir,
-            'alamat' => $request->alamat,
-            'sekolah' => $request->sekolah,
-            'asrama' => $request->asrama,
-            'telepon' => $request->telepon,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'id_tahun' => $request->id_tahun,
-            'nama_wali' => $request->nama_wali,
-            'foto' => $imageName,
-        );
-
-
-
-        Santri::create($data);
-        return redirect()->route('santri.index')
-            ->with('success', 'berhasil manambah data santri');
     }
 
     /**
@@ -280,6 +209,8 @@ class SantriController extends Controller
     {
 
         $santri = Santri::with('asrama');
+
+
 
 
         return datatables()->eloquent($santri)

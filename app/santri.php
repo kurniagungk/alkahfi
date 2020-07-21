@@ -26,6 +26,6 @@ class santri extends Model
 
     public function asrama()
     {
-        return $this->belongsTo('App\asrama', 'asrama_id');
+        return $this->hasOne('App\asrama', 'id', 'asrama_id');
     }
 }
