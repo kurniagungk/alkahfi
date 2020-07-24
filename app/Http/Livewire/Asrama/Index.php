@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Livewire\Santri;
+namespace App\Http\Livewire\Asrama;
 
 use Livewire\Component;
-use App\santri;
 use Livewire\WithPagination;
+use App\asrama;
 
 class Index extends Component
 {
@@ -38,6 +38,7 @@ class Index extends Component
         $this->resetPage();
     }
 
+
     public function confirmDelete($id)
     {
         $this->confirming = $id;
@@ -45,22 +46,18 @@ class Index extends Component
 
     public function kill($id)
     {
-        santri::destroy($id);
+        asrama::destroy($id);
         session()->flash('success', 'Test successfully deleted.');
     }
 
 
     public function render()
     {
-        $santri =
-            santri::with('asrama')
-            ->where('nama', 'like', '%' . $this->search . '%')
-            ->orWhere('no_induk', 'like', '%' . $this->search . '%')
-            ->orWhere('alamat', 'like', '%' . $this->search . '%')
+        $asrama = asrama::where('nama', 'like', '%' . $this->search . '%')
+            ->orWhere('kode', 'like', '%' . $this->search . '%')
             ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
             ->paginate($this->perpage);
 
-
-        return view('livewire.santri.index', compact('santri'));
+        return view('livewire.asrama.index', compact('asrama'));
     }
 }

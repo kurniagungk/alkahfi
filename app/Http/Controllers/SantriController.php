@@ -63,7 +63,6 @@ class SantriController extends Controller
     public function edit(Santri $santri)
     {
         //
-
         return view('santri.edit', compact('santri'));
     }
 

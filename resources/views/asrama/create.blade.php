@@ -34,7 +34,7 @@
                               <div class="form-group row">
                                   <label class="col-md-3 col-form-label" for="password-input">JUMLAH KAMAR</label>
                                   <div class="col-md-9">
-                                      <input class="form-control" id="password-input" type="number" name="jumlah" placeholder="Password" autocomplete="new-password"><span class="help-block"></span>
+                                      <input class="form-control" type="number" name="jumlah" placeholder="Password"><span class="help-block"></span>
                                   </div>
                               </div>
                               <div class="form-group row">
