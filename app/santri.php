@@ -19,6 +19,7 @@ class santri extends Model
         'jenis_kelamin',
         'id_tahun',
         'nama_wali',
+        'asrama_id',
         'foto',
         'tempat_lahir',
         'telepon'

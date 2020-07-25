@@ -127,9 +127,8 @@
                                 <div class="col-md-9">
                                     <select wire:model="id_tahun" class="custom-select @error('id_tahun') is-invalid @enderror" id="ccyear" name="id_tahun" width="100">
                                         <option value="0">- Pilih Tahun Ajaran -</option>
-                                        @foreach($DataTahun as $data)
-                                        <option value="{{$data->id_tahun}}">{{$data->nama}}</option>
-                                        @endforeach
+                                        @for($i = date('yy')-7; $i <= date('yy'); $i++) <option value="{{$i}}">{{$i}}</option>
+                                            @endfor
                                     </select>
                                     @error('id_tahun')
                                     <div class="invalid-feedback">
@@ -197,3 +196,4 @@
     </div>
 
 </div>
+

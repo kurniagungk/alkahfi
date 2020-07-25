@@ -153,7 +153,7 @@ class Edit extends Component
         $santri->nama_wali = $this->nama_wali;
 
         $santri->save();
-
+        session()->flash('success', 'Data Santri successfully edite.');
         return redirect()->route('santri.index');
     }
 

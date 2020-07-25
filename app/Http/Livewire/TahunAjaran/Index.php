@@ -9,6 +9,8 @@ use Livewire\WithPagination;
 class Index extends Component
 {
     use WithPagination;
+    public $confirming;
+
     public function render()
     {
 
@@ -18,15 +20,19 @@ class Index extends Component
                 ->paginate(10)
         ]);
     }
-    public function destroy($id)
+
+    public function confirmDelete($id)
     {
-
-        if ($id) {
-            $data =  TahunAjaran::Where('id_tahun', $id)->delete();
-
-            session()->flash('message', 'berhasil di hapus');
-        }
+        $this->confirming = $id;
     }
+
+    public function kill($id)
+    {
+        TahunAjaran::destroy($id);
+        session()->flash('success', 'Tahun ajaran successfully deleted.');
+    }
+
+
     public function edit($id)
     {
         return redirect()->to(route('tahun.edit', $id));

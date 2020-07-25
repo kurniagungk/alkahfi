@@ -76,8 +76,6 @@ class Create extends Component
     public function store()
     {
 
-
-
         $messages = [
             'no_induk.required'    => 'NIS TIDAK BOLEH KOSONG',
             'no_induk.unique'    => 'NIS TIDAK BOLEH SAMA',
@@ -126,7 +124,11 @@ class Create extends Component
             'foto' => $photo,
         );
 
+
+
         santri::create($data);
+
+        session()->flash('success', 'Data Santri successfully add.');
 
         return redirect()->route('santri.index');
     }

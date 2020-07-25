@@ -46,7 +46,7 @@ class Index extends Component
     public function kill($id)
     {
         santri::destroy($id);
-        session()->flash('success', 'Test successfully deleted.');
+        session()->flash('success', 'Data Santri successfully deleted.');
     }
 
 
