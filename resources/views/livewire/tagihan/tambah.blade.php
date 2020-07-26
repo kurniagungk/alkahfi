@@ -8,51 +8,56 @@
          @endif
 
          <div class="form-group row">
-             <label class="col-md-3 col-form-label" for="select1">Periode Pembayaran</label>
+             <label class="col-md-3 col-form-label">Periode Pembayaran</label>
              <div class="col-md-9">
-                 <select class="form-control" wire:model="periode">
+                 <select class="form-control  @error('periode') is-invalid @enderror" wire:model="periode">
                      <option value=''>pilih salah satu</option>
                      <option {{$periode == '1' ? 'selected':''}} value="1">bulanan</option>
                      <option {{$periode == '2' ? 'selected':''}} value="2">tahun</option>
                  </select>
-                 @error('periode') <span class="error">{{ $message }}</span> @enderror
+                 @error('periode')
+                 <div class="invalid-feedback">{{ $message }}</div>
+                 @enderror
              </div>
          </div>
 
          <div class="form-group row">
-             <label class="col-md-3 col-form-label" for="text-input">Tanggal Jatuh Tempo</label>
+             <label class="col-md-3 col-form-label">Tanggal Jatuh Tempo</label>
              <div class="col-md-9">
                  @if($periode == 1 )
-                 <input wire:model="tempo" class="form-control" min="1" max="31" id="number-input" type="number" name="text-input">
+                 <input wire:model="tempo" class="form-control @error('tempo') is-invalid @enderror" min="1" max="29" id="number-input" type="number" name="text-input">
                  @elseif ($periode == 2 )
-                 <input wire:model="tempo" class="form-control" id="date-input" type="date" name="date-input" placeholder="date">
+                 <input wire:model="tempo" class="form-control @error('tempo') is-invalid @enderror" id="date-input" type="date" name="date-input" placeholder="date">
                  @endif
-                 @error('tempo') <span class="error">{{ $message }}</span> @enderror
+                 @error('tempo') <div class="invalid-feedback">{{ $message }}</div> @enderror
              </div>
          </div>
 
 
          <div class="form-group row">
-             <label class="col-md-3 col-form-label" for="select1">Jenis Pembayaran</label>
+             <label class="col-md-3 col-form-label">Jenis Pembayaran</label>
              <div class="col-md-9">
 
-                 <select class="form-control" wire:model="jenis">
+                 <select class="form-control @error('jenis') is-invalid @enderror" wire:model="jenis">
+                     <option value=''>pilih salah satu</option>
                      @foreach ($dataJenis as $data)
 
                      <option {{$data->id_tagihan == $jenis ? 'selected':''}} value="{{$data->id_tagihan}}">{{$data->nama}}</option>
 
                      @endforeach
+
                  </select>
-                 @error('jenis') <span class="error">{{ $message }}</span> @enderror
+                 @error('jenis') <div class="invalid-feedback">{{ $message }}</div> @enderror
              </div>
          </div>
 
          <div class="form-group row">
-             <label class="col-md-3 col-form-label" for="text-input">biaya</label>
+             <label class="col-md-3 col-form-label">biaya</label>
              <div class="col-md-9">
-                 <input wire:model="biaya" class="form-control" id="text-input" type="number" name="text-input">
-                 @error('nama') <span class="error">{{ $message }}</span> @enderror
+                 <input wire:model="biaya" class="form-control @error('biaya') is-invalid @enderror" id="text-input" type="number" name="text-input">
+                 @error('biaya') <div class="invalid-feedback">{{ $message }}</div> @enderror
              </div>
+
          </div>
 
          <div class="form-group row">
@@ -66,21 +71,22 @@
                      <input wire:model="select" class="form-check-input" id="inline-radio2" type="radio" value="2" name="inline-radios">
                      <label class="form-check-label" for="inline-radio2">Kelas</label>
                  </div>
+                 <div class="form-check form-check-inline mr-1">
+                     <input wire:model="select" class="form-check-input" id="inline-radio3" type="radio" value="3" name="inline-radios">
+                     <label class="form-check-label" for="inline-radio3">Asrama</label>
+                 </div>
              </div>
          </div>
 
-         @if($select == 1)
-
-
-         @else
+         @if($select == 2)
 
          <div class="form-group row">
-             <label class="col-md-3 col-form-label" for="select1">kelas</label>
+             <label class="col-md-3 col-form-label">kelas</label>
              <div class="col-md-9">
 
                  <select class="form-control" wire:model="kelas">
-
-                     @foreach ($DataKelas as $data)
+                     <option value=''>pilih salah satu</option>
+                     @foreach ($DataSelect as $data)
 
                      <option value="{{$data->id}}">{{$data->kelas}}</option>
 
@@ -90,6 +96,27 @@
                  @error('kelas') <span class="error">{{ $message }}</span> @enderror
              </div>
          </div>
+
+         @elseif($select == 3)
+
+         <div class="form-group row">
+             <label class="col-md-3 col-form-label">Asrama</label>
+             <div class="col-md-9">
+
+                 <select class="form-control" wire:model="kelas">
+                     <option value=''>pilih salah satu</option>
+                     @foreach ($DataSelect as $data)
+
+                     <option value="{{$data->id}}">{{$data->nama}}</option>
+
+                     @endforeach
+
+                 </select>
+                 @error('kelas') <span class="error">{{ $message }}</span> @enderror
+             </div>
+         </div>
+
+         @else
 
          @endif
 
