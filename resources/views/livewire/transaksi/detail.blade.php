@@ -3,84 +3,9 @@
     @if($detail)
 
     @if($jenis)
-    <div class="col-sm-12">
-        <div class="card">
-            <div class="card-header">
-                <h4>{{$nama}}</h4>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <br>
 
+    @livewire('transaksi.bulanan', ['id' => $t, 'nama' => $nama], key($t))
 
-                <div class="col-sm-12">
-                    @if (session()->has('message'))
-                    {!! session('message')!!}
-                    @endif
-                    <div class="col-sm-12">
-
-                        <table class="table table-striped">
-
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Bulan</th>
-                                    <th>Tagihan</th>
-                                    <th>Status</th>
-                                    <th>Tgl Bayar</th>
-                                    <th>Opsi</th>
-                                    <th>Bayar</th>
-                                    <th>Cetak</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($DetailTagihan as $t)
-
-                                @if ($t->status == 'lunas')
-                                <tr style="color:green">
-                                    @elseif ($t->jatuh_tempo < date("Y-m-d") ) <tr style="color:red">
-
-                                        @else
-                                <tr style="color:#f9b115">
-                                    @endif
-
-                                    <td>{{$loop->index +1}}</td>
-                                    <td>asd</td>
-                                    <td>{{FormatRupiah($t->jumlah)}}</td>
-                                    <td>
-                                        @if ($t->status == 'lunas')
-                                        <span class="badge badge-success">Lunas</span>
-                                        @elseif ($t->jatuh_tempo < date("Y-m-d") ) <span class="badge badge-danger">jatuh tempo</span>
-                                            @else
-                                            <span class="badge badge-warning">Belum Bayar</span>
-                                            @endif
-                                    </td>
-                                    <td>12-03-2020</td>
-                                    <td>Tunai</td>
-                                    <td width="40" style="text-align:center">
-                                        @if ($t->status == 'belum')
-                                        <button wire:click="bayar({{$t->id}})" class=" btn btn-sm btn-success"> Bayar</button>
-                                        @else
-                                        <button wire:click="hapus({{$t->id}})" class="btn btn-sm btn-danger"> Hapus</button>
-                                        @endif
-
-                                    </td>
-                                    <td width="40" style="text-align:center">
-                                        <a href="{{route('transaksi.cetak', $t->id )}}" class="btn btn-sm btn-primary" type="button"> Cetak</a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-
-                        </table>
-
-                    </div>
-                    <br>
-
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
-        </div>
-    </div>
     @else
     <div class="col-sm-12">
         <div class="card">

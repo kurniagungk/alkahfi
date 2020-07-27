@@ -171,7 +171,7 @@ class Detail extends Component
         $tagihan = Tagihan::where('id', $id)->with('bayar')->first();
         Transaksi::where('id_transaksi', $tagihan->bayar->id_transaksi)->delete();
         Bayar::where('id_bayar', $tagihan->id_bayar)->delete();
-        $this->dataTagihan($idt);
+        $this->dataTagihan();
         session()->flash('message', '<div class="alert alert-danger">
                     tagihan berhasil di bayar
                 </div>');

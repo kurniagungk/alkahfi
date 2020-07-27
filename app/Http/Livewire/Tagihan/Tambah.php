@@ -93,9 +93,9 @@ class Tambah extends Component
         ]);
 
 
-        if ($this->select == 1) {
-            $santri = santri::where('kelas', $this->kelas)->get();
-        } elseif ($this->select == 2) {
+        if ($this->select == 2) {
+            $santri = santri::where('id_kelas', $this->kelas)->get();
+        } elseif ($this->select == 3) {
             $santri = santri::whereHas('asrama', function (Builder $query) {
                 $query->where('id', $this->kelas);
             })->get();
@@ -125,6 +125,7 @@ class Tambah extends Component
                 }
             }
         } else {
+
             foreach ($santri as $data) {
                 $id_santri = $data->id_santri;
 
