@@ -46,15 +46,19 @@ class Detail extends Component
             'id_tagihan',
             'id_santri',
             DB::raw('sum(jumlah) as total'),
-            DB::raw('sum(if(jatuh_tempo < CURDATE() AND status = "belum" ,jumlah, 0 )) as tunggakan'),
-            DB::raw('sum(if(status = "lunas",jumlah, 0 )) as dibayar'),
             DB::raw('sum(jumlah) - sum(if(status = "lunas", jumlah, 0)) as status'),
         )
+
             ->where('id_santri', $id)
             ->with('jenis')
+            ->with('bayar')
             ->whereHas('jenis', function ($query) {
                 $query->where('id_jenis', 2);
             })
+            ->withCount(['bayar' => function ($query) {
+                $query->select(DB::raw('sum(jumlah) as dibayar'));
+            }])
+
             ->groupBy('id_tagihan')
             ->get();
     }
@@ -65,7 +69,7 @@ class Detail extends Component
         $this->jenis = true;
 
         $this->t = $id;
-        $this->dataTagihan();
+
 
         $this->nama = $nama;
     }
@@ -76,8 +80,6 @@ class Detail extends Component
         $this->t = $id;
         $this->detail = true;
         $this->jenis = false;
-        $this->dataTagihan();
-        $this->transaksi();
     }
 
     public function bayar($id)
@@ -175,21 +177,6 @@ class Detail extends Component
         session()->flash('message', '<div class="alert alert-danger">
                     tagihan berhasil di bayar
                 </div>');
-    }
-
-    public function hapusp($id)
-    {
-        Bayar::where('id_transaksi', $id)->delete();
-        Transaksi::where('id_transaksi', $id)->delete();
-        $this->transaksi();
-        session()->flash('message', '<div class="alert alert-danger">
-                    tagihan berhasil di hapus
-                </div>');
-    }
-
-    private function dataTagihan()
-    {
-        $this->DetailTagihan = Tagihan::where('id_tagihan', $this->t)->get();
     }
 
 

@@ -7,104 +7,7 @@
     @livewire('transaksi.bulanan', ['id' => $t, 'nama' => $nama], key($t))
 
     @else
-    <div class="col-sm-12">
-        <div class="card">
-            <div class="card-header">
-                <h4>{{$nama}}</h4>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <br>
-
-
-                <div class="col-sm-12">
-                    @if (session()->has('message'))
-                    {!! session('message')!!}
-                    @endif
-                    <div class="col-sm-12">
-
-                        <table class="table-responsive">
-                            <tbody>
-                                @foreach ($DetailTagihan as $t)
-
-                                <tr>
-                                    <td>Tagihan</td>
-                                    <td> : </td>
-                                    <td> {{FormatRupiah($t->jumlah)}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Di Bayar</td>
-                                    <td> : </td>
-                                    <td> {{FormatRupiah($t->jumlah)}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Status</td>
-                                    <td> : </td>
-                                    <td>
-                                        @if ($t->status == 'lunas')
-                                        <span class="badge badge-success">Lunas</span>
-                                        @else
-                                        <span class="badge badge-warning">Belum Bayar</span>
-                                        @endif
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <br>
-                        <table class="table table-striped">
-
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Tanggal Bayar</th>
-                                    <th>Jumlah</th>
-                                    <th>Bayar</th>
-                                    <th>Cetak</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-
-                                @foreach ($DetailBayar as $d)
-
-
-                                <tr>
-                                    <td>{{$loop->index +1}}</td>
-                                    <td>{{$d['tanggal']}}</td>
-                                    <td>{{$d['jumlah']}}</td>
-                                    <td width="40" style="text-align:center">
-                                        <button wire:click="hapusp('{{$d["id_transaksi"]}}')" class=" btn btn-sm btn-danger"> hapus</button>
-                                    </td>
-                                    <td width="40" style="text-align:center">
-                                        <button class="btn btn-sm btn-primary" type="submit"> Cetak</button>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                <tr>
-                                    <td></td>
-                                    <td><input class="form-control" readonly type="date" name="date-input" value="{{date('Y-m-d')}}"></td>
-                                    <td><input class="form-control" wire:model="biaya" type="number"></td>
-                                    <td width="40" style="text-align:center">
-
-                                        <button wire:click="bayarp({{$t}})" class=" btn btn-sm btn-success"> Bayar</button>
-
-                                    </td>
-                                    <td width="40" style="text-align:center">
-                                        <button class="btn btn-sm btn-primary" type="submit"> Cetak</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-
-                        </table>
-
-                    </div>
-                    <br>
-
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
-        </div>
-    </div>
+    @livewire('transaksi.tahunan', ['id' => $t, 'nama' => $nama], key($t))
     @endif
 
     <div class="col-sm-12" style="visibility: hidden;">
@@ -244,11 +147,11 @@
                                 <tr>
                                     <td>{{$loop->index+1}}</td>
                                     <td>{{$data->jenis->nama}}</td>
-                                    <td>{{FormatRupiah($data->tunggakan)}}</td>
-                                    <td>{{FormatRupiah($data->dibayar)}}</td>
+                                    <td>{{FormatRupiah($data->total - $data->bayar_count)}}</td>
+                                    <td>{{FormatRupiah($data->bayar_count)}}</td>
                                     <td>{{FormatRupiah($data->total)}}</td>
                                     <td>
-                                        @if($data->status == 0)
+                                        @if($data->total - $data->bayar_count == 0)
                                         <span class="badge badge-success">lunas</span>
                                         @else
                                         <span class="badge badge-danger">belum lunas</span>

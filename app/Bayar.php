@@ -10,11 +10,13 @@ class Bayar extends Model
     protected $fillable = [
         'id_bayar',
         'id_tagihan',
+        'jumlah',
         'id_transaksi',
     ];
+    protected $primaryKey = 'id_bayar';
 
     function transaksi()
     {
-        return $this->belongsTo('App\Transaksi', 'id_transaksi');
+        return $this->belongsToMany('App\Transaksi', 'id_transaksi');
     }
 }

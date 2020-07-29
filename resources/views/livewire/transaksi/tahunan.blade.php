@@ -1,44 +1,44 @@
 <div class="col-sm-12">
-    <div class="row">
 
+    <div class="row">
         <div class="col-sm-4 col-md-4">
             <div class="card border-info">
                 <div class="card-header">detail</div>
                 <div class="card-body">
-                    @foreach($Tagihan as $data)
+
 
                     <div class="form-group row">
                         <label class="col-md-6 col-form-label">Nama Tagihan</label>
                         <div class="col-md-6">
-                            <p class="form-control-static">{{$data->jenis->nama}}</p>
+                            <p class="form-control-static">{{$Tagihan->jenis->nama}}</p>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-md-6 col-form-label">Total Tagihan</label>
                         <div class="col-md-6">
-                            <p class="form-control-static">{{FormatRupiah($data->total)}}</p>
+                            <p class="form-control-static">{{FormatRupiah($Total)}}</p>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-md-6 col-form-label">Tunggakan</label>
                         <div class="col-md-6">
-                            <p class="form-control-static">{{FormatRupiah($data->tunggakan)}}</p>
+                            <p class="form-control-static">{{FormatRupiah($Tunggakan)}}</p>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-md-6 col-form-label">Dibayar</label>
                         <div class="col-md-6">
-                            <p class="form-control-static">{{FormatRupiah($data->dibayar)}}</p>
+                            <p class="form-control-static">{{FormatRupiah($Dibayar)}}</p>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-md-6 col-form-label">Status</label>
                         <div class="col-md-6">
-                            @if($data->status == 0)
+                            @if($Tunggakan == 0)
                             <span class="badge badge-success">lunas</span>
                             @else
                             <span class="badge badge-danger">belum lunas</span>
@@ -46,23 +46,20 @@
                         </div>
                     </div>
 
-                    @endforeach
+
 
                 </div>
             </div>
         </div>
 
-
         <div class="col-sm-8">
-
             <div class="card">
                 <div class="card-header">
-                    <h4>Detail</h4>
+                    <h4></h4>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
                     <br>
-
 
 
 
@@ -71,58 +68,62 @@
                     @endif
                     <div class="col-sm-12">
 
+
                         <table class="table table-striped">
 
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Bulan</th>
-                                    <th>Tagihan</th>
-                                    <th>Status</th>
-                                    <th>Tgl Bayar</th>
-                                    <th>Opsi</th>
+                                    <th>Tanggal Bayar</th>
+                                    <th>Jumlah</th>
                                     <th>Bayar</th>
                                     <th>Cetak</th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                                @foreach ($DetailTagihan as $t)
 
-                                @if ($t->status == 'lunas')
-                                <tr style="color:green">
-                                    @elseif ($t->jatuh_tempo < date("Y-m-d") ) <tr style="color:red">
+                                @foreach ($DetailTagihan as $d)
 
-                                        @else
-                                <tr style="color:#f9b115">
-                                    @endif
 
+                                <tr>
                                     <td>{{$loop->index +1}}</td>
-                                    <td>asd</td>
-                                    <td>{{FormatRupiah($t->jumlah)}}</td>
-                                    <td>
-                                        @if ($t->status == 'lunas')
-                                        <span class="badge badge-success">Lunas</span>
-                                        @elseif ($t->jatuh_tempo < date("Y-m-d") ) <span class="badge badge-danger">jatuh tempo</span>
-                                            @else
-                                            <span class="badge badge-warning">Belum Bayar</span>
-                                            @endif
-                                    </td>
-                                    <td>{{ $t->updated_at ? Date_format($t->updated_at, "d/m/Y"): null }}</td>
-                                    <td>Tunai</td>
+                                    <td>{{$d['tanggal']}}</td>
+                                    <td>{{$d['jumlah']}}</td>
                                     <td width="40" style="text-align:center">
-                                        @if ($t->status == 'belum')
-                                        <button wire:click="bayar({{$t->id}})" class=" btn btn-sm btn-success"> Bayar</button>
-                                        @else
-                                        <button wire:click="hapus({{$t->id}})" class="btn btn-sm btn-danger"> Hapus</button>
-                                        @endif
-
+                                        <button wire:click="hapus('{{$d["id_transaksi"]}}')" class=" btn btn-sm btn-danger"> hapus</button>
                                     </td>
                                     <td width="40" style="text-align:center">
-                                        <a href="{{route('transaksi.cetak', $t->id )}}" class="btn btn-sm btn-primary" type="button"> Cetak</a>
+                                        <button class="btn btn-sm btn-primary" type="submit"> Cetak</button>
                                     </td>
                                 </tr>
                                 @endforeach
+                                @if($Tagihan->total - $Tagihan->bayar_count >= 0)
+                                <tr>
+                                    <td></td>
+                                    <td><input class="form-control" readonly type="date" name="date-input" value="{{date('Y-m-d')}}"></td>
+                                    <td>
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <input wire:model="biaya" class="form-control @error('biaya') is-invalid @enderror" id="text-input" type="number" name="nama_wali">
+                                                @error('biaya')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td width="40" style="text-align:center">
+
+                                        <button wire:click="bayar({{$IdTagihan}})" class=" btn btn-sm btn-success"> Bayar</button>
+
+                                    </td>
+                                    <td width="40" style="text-align:center">
+
+                                    </td>
+                                </tr>
+                                @endif
                             </tbody>
 
                         </table>
@@ -133,11 +134,8 @@
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
             </div>
-
         </div>
     </div>
-
-
 
 
 

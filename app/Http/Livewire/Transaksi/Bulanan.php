@@ -33,8 +33,8 @@ class Bulanan extends Component
         Bayar::create([
             'id_tagihan' => $id,
             'id_bayar' =>  $codeBayar,
-            'id_transaksi' => $codeTransaksi
-
+            'id_transaksi' => $codeTransaksi,
+            'status' => 1
         ]);
 
         Transaksi::create([
@@ -74,6 +74,7 @@ class Bulanan extends Component
     {
         $this->DetailTagihan = Tagihan::where('id_tagihan', $this->IdTagihan)->get();
         $this->Tagihan = Tagihan::select(
+            'id',
             'id_tagihan',
             DB::raw('sum(jumlah) as total'),
             DB::raw('sum(if(jatuh_tempo < CURDATE() AND status = "belum" ,jumlah, 0 )) as tunggakan'),

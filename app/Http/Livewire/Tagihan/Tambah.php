@@ -118,7 +118,6 @@ class Tambah extends Component
                         'id_santri' => $id_santri,
                         'jatuh_tempo' => $tempo,
                         'jumlah' => $this->biaya,
-                        'status' => 2
                     );
 
                     Tagihan::insert($data);
@@ -134,7 +133,6 @@ class Tambah extends Component
                     'id_santri' => $id_santri,
                     'jatuh_tempo' => $this->tempo,
                     'jumlah' => $this->biaya,
-                    'status' => 2
                 );
                 Tagihan::insert($data);
             }
