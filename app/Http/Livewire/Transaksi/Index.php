@@ -11,6 +11,11 @@ class Index extends Component
     public $find = false;
 
 
+    protected $updatesQueryString = [
+        'nis',
+    ];
+
+
     public function render()
     {
         return view('livewire.transaksi.index');

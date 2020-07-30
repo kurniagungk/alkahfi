@@ -5,6 +5,7 @@
             <div class="card border-info">
                 <div class="card-header">detail</div>
                 <div class="card-body">
+
                     @foreach($Tagihan as $data)
 
                     <div class="form-group row">
@@ -75,6 +76,7 @@
 
                             <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>No.</th>
                                     <th>Bulan</th>
                                     <th>Tagihan</th>
@@ -96,9 +98,13 @@
                                         @else
                                 <tr style="color:#f9b115">
                                     @endif
-
+                                    <td>
+                                        <div class="form-check">
+                                            <input wire:model="select" type="checkbox" class="form-check-input" value="{{$t->id}}">
+                                        </div>
+                                    </td>
                                     <td>{{$loop->index +1}}</td>
-                                    <td>asd</td>
+                                    <td>{{date('F', strtotime($t->updated_at))}}</td>
                                     <td>{{FormatRupiah($t->jumlah)}}</td>
                                     <td>
                                         @if ($t->status == 'lunas')
@@ -119,7 +125,7 @@
 
                                     </td>
                                     <td width="40" style="text-align:center">
-                                        <a href="{{route('transaksi.cetak', $t->id )}}" class="btn btn-sm btn-primary" type="button"> Cetak</a>
+                                        <a class="btn btn-sm btn-primary" type="button"> Cetak</a>
                                     </td>
                                 </tr>
                                 @endforeach

@@ -8,6 +8,7 @@ use App\Transaksi;
 use App\Bayar;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class Tahunan extends Component
 {
@@ -20,24 +21,26 @@ class Tahunan extends Component
     public $Tunggakan;
     public $Total;
     public $Dibayar;
+    public $Idsantri;
 
-    public function mount($id, $nama)
+    public function mount($id, $Idsantri)
     {
-        $this->nama = $nama;
         $this->IdTagihan = $id;
-        $this->nama = $nama;
+        $this->Idsantri = $Idsantri;
         $this->transaksi();
     }
 
     private function transaksi()
     {
-        $bayar = Bayar::where('id_tagihan', $this->IdTagihan)->get();
+        $bayar = Bayar::where('id_tagihan', $this->IdTagihan)
+            ->get();
 
 
         $data = [];
 
         foreach ($bayar as $b) {
-            $transaksi = Transaksi::where('id_transaksi', $b->id_transaksi)->first();
+            $transaksi = Transaksi::where('id_transaksi', $b->id_transaksi)
+                ->first();
 
             $data[] = array(
                 'id_transaksi' => $transaksi->id_transaksi,
@@ -56,6 +59,7 @@ class Tahunan extends Component
             ->withCount(['bayar' => function ($query) {
                 $query->select(DB::raw('sum(jumlah) as dibayar'));
             }])
+            ->Where('id_santri', $this->Idsantri)
             ->with('jenis')
             ->where('id', $this->IdTagihan)
             ->first();
@@ -68,8 +72,8 @@ class Tahunan extends Component
     public function bayar($id)
     {
 
-        $codeBayar = CodeBayar();
-        $codeTransaksi = CodeTransaksi();
+        $codeBayar = Str::Uuid();
+        $codeTransaksi = Str::Uuid();
 
         $messages = [
             'biaya.max' => 'Pembayaran melebihan tagihan',
@@ -87,27 +91,26 @@ class Tahunan extends Component
 
 
 
-        Bayar::create([
+        $bayar = Bayar::create([
             'id_tagihan' => $id,
             'id_bayar' =>  $codeBayar,
             'jumlah' => $this->biaya,
             'id_transaksi' => $codeTransaksi
-
         ]);
 
-        Transaksi::create([
-            'id_transaksi' => $codeTransaksi,
+
+
+        $codeTransaksi =   Transaksi::create([
+            'id_transaksi' => $bayar->id_transaksi,
             'tanggal' => date("Y-m-d"),
             'jumlah' => $this->biaya,
             'jenis' => 1
         ]);
 
 
-        $data = array(
-            'status' => 'lunas',
-        );
-        Tagihan::where('id', $id)->update($data);
+
         $this->transaksi();
+        $this->reset('biaya');
         session()->flash('message', '<div class="alert alert-success">
                     tagihan berhasil di bayar
                 </div>');

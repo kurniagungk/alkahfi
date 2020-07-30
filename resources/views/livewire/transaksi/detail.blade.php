@@ -4,10 +4,10 @@
 
     @if($jenis)
 
-    @livewire('transaksi.bulanan', ['id' => $t, 'nama' => $nama], key($t))
+    @livewire('transaksi.bulanan', ['id' => $t, 'Idsantri' => $Idsantri], key($t))
 
     @else
-    @livewire('transaksi.tahunan', ['id' => $t, 'nama' => $nama], key($t))
+    @livewire('transaksi.tahunan', ['id' => $t, 'Idsantri' => $Idsantri], key($t))
     @endif
 
     <div class="col-sm-12" style="visibility: hidden;">
@@ -98,10 +98,10 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <button wire:click="detail({{$data->id_tagihan}}, '{{$data->jenis->nama}}')" class="btn btn-success">Bayar</button>
+                                        <button wire:click="detail({{$data->id_tagihan}}, '{{$Idsantri}}')" class="btn btn-success">Bayar</button>
                                     </td>
 
-                                    <td>Cetak</td>
+                                    <td><a target="_blank" class="btn btn-primary" href="{{route('transaksi.cetak',[ 'Idsantri' => $Idsantri, 'Idtagihan' => $data->id_tagihan  ])}}" role="button">Cetak</a></td>
 
                                 </tr>
 
@@ -160,7 +160,7 @@
                                     <td>
                                         <button wire:click="periode('{{$data->id}}', '{{$data->jenis->nama}}')" class="btn btn-success">Bayar</button>
                                     </td>
-                                    <td>Cetak</td>
+                                    <td><a target="_blank" class="btn btn-primary" href="{{route('transaksi.cetakc',[ 'Idsantri' => $Idsantri, 'Idtagihan' => $data->id ])}}" role="button">Cetak</a></td>
 
                                 </tr>
 

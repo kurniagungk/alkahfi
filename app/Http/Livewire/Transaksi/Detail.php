@@ -21,10 +21,12 @@ class Detail extends Component
     public $nama;
     public $biaya;
     public $t;
+    public $Idsantri;
 
 
     public function mount($id)
     {
+        $this->Idsantri = $id;
         $this->TagihanBulanan = Tagihan::select(
             'id_tagihan',
             'id_santri',
@@ -63,20 +65,17 @@ class Detail extends Component
             ->get();
     }
 
-    public function detail($id, $nama)
+    public function detail($id)
     {
         $this->detail = true;
         $this->jenis = true;
 
         $this->t = $id;
-
-
-        $this->nama = $nama;
     }
 
-    public function periode($id, $nama)
+    public function periode($id)
     {
-        $this->nama = $nama;
+
         $this->t = $id;
         $this->detail = true;
         $this->jenis = false;

@@ -98,14 +98,14 @@
                                     </td>
                                 </tr>
                                 @endforeach
-                                @if($Tagihan->total - $Tagihan->bayar_count >= 0)
-                                <tr>
+
+                                @if(intval($Tunggakan) > 0) <tr>
                                     <td></td>
                                     <td><input class="form-control" readonly type="date" name="date-input" value="{{date('Y-m-d')}}"></td>
                                     <td>
                                         <div class="form-group row">
                                             <div class="col-md-12">
-                                                <input wire:model="biaya" class="form-control @error('biaya') is-invalid @enderror" id="text-input" type="number" name="nama_wali">
+                                                <input wire:model.lazy="biaya" autofocus class="form-control @error('biaya') is-invalid @enderror" id="text-input" type="number" name="nama_wali">
                                                 @error('biaya')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}

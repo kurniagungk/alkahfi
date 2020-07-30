@@ -7,6 +7,7 @@ use App\Tagihan;
 use App\Transaksi;
 use App\Bayar;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class Bulanan extends Component
 {
@@ -14,31 +15,42 @@ class Bulanan extends Component
     public $Tagihan;
     public $nama;
     public $IdTagihan;
+    public $Idsantri;
+    public $select = array();
 
-    public function mount($id, $nama)
+    public function mount($id, $Idsantri)
     {
-        $this->nama = $nama;
+
+        $this->Idsantri = $Idsantri;
         $this->IdTagihan = $id;
+        $this->dataTagihan();
+    }
+
+    public function updatingselect()
+    {
         $this->dataTagihan();
     }
 
     public function bayar($id)
     {
 
+
         $tagihan = Tagihan::where('id', $id)->first();
-        $codeBayar = CodeBayar();
-        $codeTransaksi = CodeTransaksi();
+        $codeBayar = Str::Uuid();
+        $codeTransaksi = Str::Uuid();
 
 
-        Bayar::create([
+        $bayar =   Bayar::create([
             'id_tagihan' => $id,
             'id_bayar' =>  $codeBayar,
             'id_transaksi' => $codeTransaksi,
             'status' => 1
         ]);
 
-        Transaksi::create([
-            'id_transaksi' => $codeTransaksi,
+
+
+        $codeTransaksi = Transaksi::create([
+            'id_transaksi' => $bayar->id_transaksi,
             'tanggal' => date("Y-m-d"),
             'jumlah' => $tagihan->jumlah,
             'jenis' => 1
@@ -61,9 +73,9 @@ class Bulanan extends Component
             'status' => 'belum',
         );
         Tagihan::where('id', $id)->update($data);
-        $tagihan = Tagihan::where('id', $id)->with('bayar')->first();
-        Transaksi::where('id_transaksi', $tagihan->bayar->id_transaksi)->delete();
-        Bayar::where('id_bayar', $tagihan->id_bayar)->delete();
+        $tagihan = Tagihan::where('id', $id)->with('bayarbulanan')->first();
+        Transaksi::where('id_transaksi', $tagihan->bayarbulanan->id_transaksi)->delete();
+        Bayar::where('id_bayar', $tagihan->bayarbulanan->id_bayar)->delete();
         $this->dataTagihan();
         session()->flash('message', '<div class="alert alert-danger">
                     tagihan berhasil di bayar
@@ -72,7 +84,11 @@ class Bulanan extends Component
 
     public function dataTagihan()
     {
-        $this->DetailTagihan = Tagihan::where('id_tagihan', $this->IdTagihan)->get();
+        $this->DetailTagihan = Tagihan::where('id_tagihan', $this->IdTagihan)
+            ->Where('id_santri', $this->Idsantri)
+            ->get();
+
+
         $this->Tagihan = Tagihan::select(
             'id',
             'id_tagihan',
@@ -83,6 +99,7 @@ class Bulanan extends Component
         )
             ->with('jenis')
             ->where('id_tagihan', $this->IdTagihan)
+            ->Where('id_santri', $this->Idsantri)
             ->get();
     }
 

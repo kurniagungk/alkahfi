@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\DaftarTagihan;
-use App\Tagihan;
+use App\Tagihan, App\Bayar;
 use App\santri;
 use App\asrama;
 use Illuminate\Support\Facades\DB;
 use PDF;
+use phpDocumentor\Reflection\DocBlock\Tag;
 
 class TransaksiController extends Controller
 {
@@ -125,10 +126,79 @@ class TransaksiController extends Controller
         //
     }
 
-    public function cetak($id)
+
+
+    public function printTagihanBulanan($Idsantri, $Idtagihan)
     {
-        $data = Tagihan::all();
-        $pdf = PDF::loadview('transaksi.pdf', $data);
-        return $pdf->download('invoice.pdf');
+
+        $santri = santri::find($Idsantri);
+
+        $tagihan =
+            Tagihan::where('id_tagihan', $Idtagihan)
+            ->Where('id_santri', $Idsantri)
+            ->with('bayarbulanan')
+            ->get();
+
+        $detail = Tagihan::select(
+            'id',
+            'id_tagihan',
+            DB::raw('sum(jumlah) as total'),
+            DB::raw('sum(if(jatuh_tempo < CURDATE() AND status = "belum" ,jumlah, 0 )) as tunggakan'),
+            DB::raw('sum(if(status = "lunas",jumlah, 0 )) as dibayar'),
+            DB::raw('sum(jumlah) - sum(if(status = "lunas", jumlah, 0)) as status'),
+        )
+            ->with('jenis')
+            ->where('id_tagihan', $Idtagihan)
+            ->Where('id_santri', $Idsantri)
+            ->first();
+
+
+        $data = [
+            'santri' => $santri,
+            'tagihan' => $tagihan,
+            'detail' => $detail
+
+        ];
+
+        $pdf = PDF::loadview('print.tagihanbulanan', compact('data'));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream();
+    }
+
+    public function printTagihanCicil($Idsantri, $IdTagihan)
+    {
+
+        $santri = santri::find($Idsantri);
+
+        $tagihan =
+            Bayar::where('id_tagihan', $IdTagihan)
+            ->get();
+
+        $detail =
+            Tagihan::select(
+                'id',
+                'id_tagihan',
+                'id_santri',
+                DB::raw('sum(jumlah) as total'),
+            )
+            ->withCount(['bayar' => function ($query) {
+                $query->select(DB::raw('sum(jumlah) as dibayar'));
+            }])
+            ->with('jenis')
+            ->where('id', $IdTagihan)
+            ->first();
+
+
+
+
+        $data = [
+            'santri' => $santri,
+            'tagihan' => $tagihan,
+            'detail' => $detail
+
+        ];
+
+        $pdf = PDF::loadview('print.tagihannyicil', compact('data'));
+        return $pdf->stream();
     }
 }
