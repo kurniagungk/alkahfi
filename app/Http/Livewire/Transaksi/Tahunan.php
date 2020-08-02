@@ -6,9 +6,12 @@ use Livewire\Component;
 use App\Tagihan;
 use App\Transaksi;
 use App\Bayar;
+use App\santri;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use PDF;
+use Illuminate\Support\Facades\Storage;
 
 class Tahunan extends Component
 {
@@ -22,6 +25,7 @@ class Tahunan extends Component
     public $Total;
     public $Dibayar;
     public $Idsantri;
+    public $select = array();
 
     public function mount($id, $Idsantri)
     {
@@ -32,23 +36,10 @@ class Tahunan extends Component
 
     private function transaksi()
     {
-        $bayar = Bayar::where('id_tagihan', $this->IdTagihan)
+        $this->DetailTagihan = Bayar::where('id_tagihan', $this->IdTagihan)
             ->get();
 
 
-        $data = [];
-
-        foreach ($bayar as $b) {
-            $transaksi = Transaksi::where('id_transaksi', $b->id_transaksi)
-                ->first();
-
-            $data[] = array(
-                'id_transaksi' => $transaksi->id_transaksi,
-                'tanggal' => $transaksi->tanggal,
-                'jumlah' => $transaksi->jumlah
-            );
-        }
-        $this->DetailTagihan = $data;
         $Tagihan =
             Tagihan::select(
                 'id',
@@ -63,6 +54,8 @@ class Tahunan extends Component
             ->with('jenis')
             ->where('id', $this->IdTagihan)
             ->first();
+
+
         $this->Tagihan = $Tagihan;
         $this->Total = $Tagihan->total;
         $this->Tunggakan = $Tagihan->total - $Tagihan->bayar_count;
@@ -74,6 +67,7 @@ class Tahunan extends Component
 
         $codeBayar = Str::Uuid();
         $codeTransaksi = Str::Uuid();
+
 
         $messages = [
             'biaya.max' => 'Pembayaran melebihan tagihan',
@@ -90,17 +84,15 @@ class Tahunan extends Component
         }
 
 
-
-        $bayar = Bayar::create([
+        $bayar =   Bayar::create([
             'id_tagihan' => $id,
-            'id_bayar' =>  $codeBayar,
+            'id' =>  $codeBayar,
+            'id_transaksi' => $codeTransaksi,
             'jumlah' => $this->biaya,
-            'id_transaksi' => $codeTransaksi
         ]);
 
 
-
-        $codeTransaksi =   Transaksi::create([
+        $Transaksi =   Transaksi::create([
             'id_transaksi' => $bayar->id_transaksi,
             'tanggal' => date("Y-m-d"),
             'jumlah' => $this->biaya,
@@ -118,7 +110,8 @@ class Tahunan extends Component
 
     public function hapus($id)
     {
-        Bayar::where('id_transaksi', $id)->delete();
+
+        Bayar::where('id', $id)->delete();
         Transaksi::where('id_transaksi', $id)->delete();
         $this->transaksi();
         session()->flash('message', '<div class="alert alert-danger">
@@ -127,6 +120,32 @@ class Tahunan extends Component
     }
 
 
+    public function cetak()
+    {
+        $santri = santri::find($this->Idsantri);
+
+        $tagihan =
+            Bayar::whereIn('id', $this->select)
+            ->get();
+
+        $detail =
+            Tagihan::where('id', $this->IdTagihan)
+            ->with('jenis')
+            ->first();
+
+
+        $data = [
+            'santri' => $santri,
+            'tagihan' => $tagihan,
+            'detail' => $detail
+
+        ];
+
+        $pdf = PDF::loadview('print.kwitansicicil', compact('data'));
+        $pdf->setPaper('A4', 'landscape');
+        Storage::disk('public')->put('pdf/invoice.pdf', $pdf->output());
+        $this->emit('download');
+    }
 
 
 

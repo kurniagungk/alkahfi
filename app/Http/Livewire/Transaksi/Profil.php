@@ -8,11 +8,27 @@ use App\santri;
 class Profil extends Component
 {
     public $profil;
+    public $IdSantri;
+
+    protected $listeners = ['reset' => 'DataProfil'];
 
     public function mount($id)
     {
-        $this->profil = santri::where('id_santri', $id)
+        $this->IdSantri = $id;
+        $this->DataProfil();
+    }
+
+    public function DataProfil()
+    {
+
+        $this->profil = santri::where('id_santri', $this->IdSantri)
             ->get();
+
+
+
+        if ($this->profil->isEmpty()) {
+            $this->emit('resetFind');
+        }
     }
 
 

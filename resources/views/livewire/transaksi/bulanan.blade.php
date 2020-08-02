@@ -58,7 +58,15 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h4>Detail</h4>
+                    <div class="row">
+                        <div class="col-10">
+                            <h4>Detail</h4>
+                        </div>
+                        <div class="col-2">
+                            <button wire:click="cetak" class="btn btn-sm btn-danger"> Cetak</button>
+                        </div>
+                    </div>
+
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -99,12 +107,14 @@
                                 <tr style="color:#f9b115">
                                     @endif
                                     <td>
+                                        @if ($t->status == 'lunas')
                                         <div class="form-check">
-                                            <input wire:model="select" type="checkbox" class="form-check-input" value="{{$t->id}}">
+                                            <input wire:model="select" type="checkbox" class="form-check-input {{$t->status == 'lunas' ? 'lunas' : ''}}" value="{{$t->id}}">
                                         </div>
+                                        @endif
                                     </td>
                                     <td>{{$loop->index +1}}</td>
-                                    <td>{{date('F', strtotime($t->updated_at))}}</td>
+                                    <td>{{date('F', strtotime($t->jatuh_tempo))}} </td>
                                     <td>{{FormatRupiah($t->jumlah)}}</td>
                                     <td>
                                         @if ($t->status == 'lunas')
@@ -114,7 +124,7 @@
                                             <span class="badge badge-warning">Belum Bayar</span>
                                             @endif
                                     </td>
-                                    <td>{{ $t->updated_at ? Date_format($t->updated_at, "d/m/Y"): null }}</td>
+                                    <td>{{$t->bayarbulanan ? $t->bayarbulanan->created_at : ''}}</td>
                                     <td>Tunai</td>
                                     <td width="40" style="text-align:center">
                                         @if ($t->status == 'belum')
@@ -125,10 +135,16 @@
 
                                     </td>
                                     <td width="40" style="text-align:center">
-                                        <a class="btn btn-sm btn-primary" type="button"> Cetak</a>
+                                        @if ($t->status == 'lunas')
+                                        <a class="btn btn-sm btn-primary" target="_blank" type="button" href="{{route('transaksi.kwitansi', ['id' => $t->id] )}}"> Cetak</a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach
+
+                                <tr>
+                                    <td colspan=""></td>
+                                </tr>
                             </tbody>
 
                         </table>
@@ -136,15 +152,13 @@
 
                         <br>
 
+
+
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
             </div>
 
         </div>
     </div>
-
-
-
-
 
 </div>

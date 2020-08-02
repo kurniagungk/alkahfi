@@ -9,12 +9,13 @@ class Index extends Component
 
     public $nis;
     public $find = false;
+    public $data = false;
 
 
     protected $updatesQueryString = [
         'nis',
     ];
-
+    protected $listeners = ['resetFind' => 'resetFind'];
 
     public function render()
     {
@@ -24,5 +25,12 @@ class Index extends Component
     public function find()
     {
         $this->find = true;
+        $this->emit('reset');
+    }
+
+    public function resetFind()
+    {
+        $this->find = false;
+        $this->data = true;
     }
 }

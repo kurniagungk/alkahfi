@@ -8,12 +8,14 @@ class Bayar extends Model
 {
     protected $table = 'bayar';
     protected $fillable = [
-        'id_bayar',
+        'id',
         'id_tagihan',
         'jumlah',
         'id_transaksi',
     ];
-    protected $primaryKey = 'id_bayar';
+
+    protected $keyType = 'string';
+
 
     function transaksi()
     {

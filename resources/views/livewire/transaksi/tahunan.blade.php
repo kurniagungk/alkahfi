@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-sm-4 col-md-4">
             <div class="card border-info">
-                <div class="card-header">detail</div>
+                <div class="card-header">Info</div>
                 <div class="card-body">
 
 
@@ -55,7 +55,14 @@
         <div class="col-sm-8">
             <div class="card">
                 <div class="card-header">
-                    <h4></h4>
+                    <div class="row">
+                        <div class="col-10">
+                            <h4>Detail</h4>
+                        </div>
+                        <div class="col-2">
+                            <button wire:click="cetak" class="btn btn-sm btn-danger"> Cetak</button>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -73,6 +80,7 @@
 
                             <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>No.</th>
                                     <th>Tanggal Bayar</th>
                                     <th>Jumlah</th>
@@ -83,18 +91,22 @@
                             <tbody>
 
 
-                                @foreach ($DetailTagihan as $d)
-
+                                @foreach ($DetailTagihan as $data)
 
                                 <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <input wire:key="{{ $loop->index }}" wire:model="select" type="checkbox" class="form-check-input" value="{{$data->id}}">
+                                        </div>
+                                    </td>
                                     <td>{{$loop->index +1}}</td>
-                                    <td>{{$d['tanggal']}}</td>
-                                    <td>{{$d['jumlah']}}</td>
+                                    <td>{{$data->created_at}}</td>
+                                    <td>{{$data->jumlah}}</td>
                                     <td width="40" style="text-align:center">
-                                        <button wire:click="hapus('{{$d["id_transaksi"]}}')" class=" btn btn-sm btn-danger"> hapus</button>
+                                        <button wire:click="hapus('{{$data->id}}')" class=" btn btn-sm btn-danger"> hapus</button>
                                     </td>
                                     <td width="40" style="text-align:center">
-                                        <button class="btn btn-sm btn-primary" type="submit"> Cetak</button>
+                                        <a class="btn btn-sm btn-primary" target="_blank" type="button" href="{{route('transaksi.kwitansicicilan', ['id' => $data->id] )}}"> Cetak</a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -105,7 +117,7 @@
                                     <td>
                                         <div class="form-group row">
                                             <div class="col-md-12">
-                                                <input wire:model.lazy="biaya" autofocus class="form-control @error('biaya') is-invalid @enderror" id="text-input" type="number" name="nama_wali">
+                                                <input wire:model="biaya" autofocus class="form-control @error('biaya') is-invalid @enderror" id="text-input" type="number" name="nama_wali">
                                                 @error('biaya')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}

@@ -1,13 +1,5 @@
 <div class="container-fluid">
     <div class="row">
-        @if($find)
-        <div class="col-sm-12">
-            @livewire('transaksi.profil', ['id' => $nis])
-        </div>
-
-        @livewire('transaksi.detail', ['id' => $nis])
-
-        @else
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
@@ -35,6 +27,49 @@
                 </div><!-- /.box -->
             </div>
         </div>
+
+
+
+        @if($find)
+        <div class="col-sm-12">
+            @livewire('transaksi.profil', ['id' => $nis], key(strtotime(now())))
+        </div>
+
+        @livewire('transaksi.detail', ['id' => $nis])
+
+        @else
+
+        @if($data)
+        <div class="col-sm-12">
+            <div class="card">
+
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <br>
+                    <div class="col-sm-12">
+
+                        <div class="col-sm-12">
+
+                            <div class="text-center">
+                                <h1>Data Not found</h1>
+                            </div>
+
+                        </div>
+                        <br>
+
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div>
+        </div>
+        @endif
         @endif
     </div>
 </div>
+
+@push('scripts')
+<script type="text/javascript">
+    window.livewire.on('download', () => {
+        window.open("{{asset('public/'.'pdf/invoice.pdf')   }}", '_blank');
+    })
+</script>
+@endpush

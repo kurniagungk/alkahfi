@@ -211,6 +211,8 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::get('tagihan/tambah', 'TagihanController@tambah')->name('tagihan.tambah');
         Route::get('/transaksi/cetakb/{Idsantri}/{Idtagihan}', 'TransaksiController@printTagihanBulanan')->name('transaksi.cetak');
         Route::get('/transaksi/cetakc/{Idsantri}/{Idtagihan}', 'TransaksiController@printTagihanCicil')->name('transaksi.cetakc');
+        Route::get('/transaksi/kwitansi/{id}', 'TransaksiController@kwitansiBulanan')->name('transaksi.kwitansi');
+        Route::get('/transaksi/kwitansicicilan/{id}', 'TransaksiController@kwitansicicilan')->name('transaksi.kwitansicicilan');
         Route::livewire('/santri/asd', 'santri.create');
 
         Route::resources([

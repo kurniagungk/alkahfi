@@ -6,17 +6,25 @@ use Livewire\Component;
 use App\Tagihan;
 use App\Transaksi;
 use App\Bayar;
+use App\santri;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use PDF;
+
+use Illuminate\Support\Facades\Storage;
 
 class Bulanan extends Component
 {
+
+
     public $DetailTagihan;
     public $Tagihan;
     public $nama;
     public $IdTagihan;
     public $Idsantri;
     public $select = array();
+    public $pdf;
 
     public function mount($id, $Idsantri)
     {
@@ -26,10 +34,11 @@ class Bulanan extends Component
         $this->dataTagihan();
     }
 
-    public function updatingselect()
+    public function updated($field)
     {
         $this->dataTagihan();
     }
+
 
     public function bayar($id)
     {
@@ -41,8 +50,8 @@ class Bulanan extends Component
 
 
         $bayar =   Bayar::create([
-            'id_tagihan' => $id,
-            'id_bayar' =>  $codeBayar,
+            'id' => $id,
+            'id_tagihan' =>  $codeBayar,
             'id_transaksi' => $codeTransaksi,
             'status' => 1
         ]);
@@ -75,7 +84,7 @@ class Bulanan extends Component
         Tagihan::where('id', $id)->update($data);
         $tagihan = Tagihan::where('id', $id)->with('bayarbulanan')->first();
         Transaksi::where('id_transaksi', $tagihan->bayarbulanan->id_transaksi)->delete();
-        Bayar::where('id_bayar', $tagihan->bayarbulanan->id_bayar)->delete();
+        Bayar::where('id', $tagihan->bayarbulanan->id)->delete();
         $this->dataTagihan();
         session()->flash('message', '<div class="alert alert-danger">
                     tagihan berhasil di bayar
@@ -86,6 +95,7 @@ class Bulanan extends Component
     {
         $this->DetailTagihan = Tagihan::where('id_tagihan', $this->IdTagihan)
             ->Where('id_santri', $this->Idsantri)
+            ->with('bayarbulanan')
             ->get();
 
 
@@ -101,6 +111,34 @@ class Bulanan extends Component
             ->where('id_tagihan', $this->IdTagihan)
             ->Where('id_santri', $this->Idsantri)
             ->get();
+    }
+
+    public function cetak()
+    {
+        $santri = santri::find($this->Idsantri);
+
+        $tagihan =
+            Tagihan::whereIn('id', $this->select)
+            ->with('bayarbulanan')
+            ->get();
+
+
+        $detail = Tagihan::Where('id_tagihan', $this->IdTagihan)
+            ->with('jenis')
+            ->first();
+
+
+        $data = [
+            'santri' => $santri,
+            'tagihan' => $tagihan,
+            'detail' => $detail
+
+        ];
+
+        $pdf = PDF::loadview('print.kwitansibulanan', compact('data'));
+        $pdf->setPaper('A4', 'landscape');
+        Storage::disk('public')->put('pdf/invoice.pdf', $pdf->output());
+        $this->emit('download');
     }
 
 

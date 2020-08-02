@@ -9,7 +9,6 @@ use App\santri;
 use App\asrama;
 use Illuminate\Support\Facades\DB;
 use PDF;
-use phpDocumentor\Reflection\DocBlock\Tag;
 
 class TransaksiController extends Controller
 {
@@ -147,7 +146,6 @@ class TransaksiController extends Controller
             DB::raw('sum(if(status = "lunas",jumlah, 0 )) as dibayar'),
             DB::raw('sum(jumlah) - sum(if(status = "lunas", jumlah, 0)) as status'),
         )
-            ->with('jenis')
             ->where('id_tagihan', $Idtagihan)
             ->Where('id_santri', $Idsantri)
             ->first();
@@ -199,6 +197,48 @@ class TransaksiController extends Controller
         ];
 
         $pdf = PDF::loadview('print.tagihannyicil', compact('data'));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream();
+    }
+
+    public function kwitansiBulanan($id)
+    {
+        $tagihan =
+            Tagihan::Where('id', $id)
+            ->with('jenis')
+            ->first();
+        $santri = santri::find($tagihan->id_santri);
+
+        $data = [
+            'santri' => $santri,
+            'tagihan' => $tagihan,
+        ];
+
+        $pdf = PDF::loadview('print.kwitansib', compact('data'));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream();
+    }
+
+    public function kwitansicicilan($id)
+    {
+        $tagihan =
+            Bayar::where('id', $id)
+            ->first();
+
+        $detail =
+            Tagihan::Where('id', $tagihan->id_tagihan)
+            ->with('jenis')
+            ->first();
+
+
+        $data = [
+
+            'tagihan' => $tagihan,
+            'detail' => $detail
+        ];
+
+        $pdf = PDF::loadview('print.kwitansicicilan', compact('data'));
+        $pdf->setPaper('A4', 'landscape');
         return $pdf->stream();
     }
 }

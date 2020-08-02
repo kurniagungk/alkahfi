@@ -16,11 +16,11 @@ class Tagihan extends Model
     }
     public function bayar()
     {
-        return $this->hasMany('App\Bayar', 'id_tagihan', 'id',);
+        return $this->hasMany('App\Bayar', 'id',);
     }
 
     public function bayarbulanan()
     {
-        return $this->hasOne('App\Bayar', 'id_tagihan', 'id',);
+        return $this->hasOne('App\Bayar', 'id');
     }
 }
