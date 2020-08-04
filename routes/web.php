@@ -22,7 +22,7 @@ Route::group(['middleware' => ['get.menu']], function () {
         return view('dashboard.homepage');
     });
 
-    Route::group(['middleware' => ['role:user']], function () {
+    Route::group(['middleware' => ['role:admin']], function () {
         Route::get('/colors', function () {
             return view('dashboard.colors');
         });
@@ -205,9 +205,7 @@ Route::group(['middleware' => ['get.menu']], function () {
         });
 
 
-        route::prefix('santri')->group(function () {
-            Route::POST('/GetData', 'SantriController@getBasicData')->name('santri.getData');
-        });
+
         Route::get('tagihan/tambah', 'TagihanController@tambah')->name('tagihan.tambah');
         Route::get('/transaksi/cetakb/{Idsantri}/{Idtagihan}', 'TransaksiController@printTagihanBulanan')->name('transaksi.cetak');
         Route::get('/transaksi/cetakc/{Idsantri}/{Idtagihan}', 'TransaksiController@printTagihanCicil')->name('transaksi.cetakc');
@@ -285,6 +283,41 @@ Route::group(['middleware' => ['get.menu']], function () {
             Route::get('/create', 'pengeluaran@create');
             Route::get('/{asrama}/edit', 'pengeluaran@edit');
         });
+    });
+
+    Route::group(['middleware' => ['role:bendahara']], function () {
+
+
+
+        route::prefix('santri')->group(function () {
+            Route::POST('/GetData', 'SantriController@getBasicData')->name('santri.getData');
+        });
+        Route::get('tagihan/tambah', 'TagihanController@tambah')->name('tagihan.tambah');
+        Route::get('/transaksi/cetakb/{Idsantri}/{Idtagihan}', 'TransaksiController@printTagihanBulanan')->name('transaksi.cetak');
+        Route::get('/transaksi/cetakc/{Idsantri}/{Idtagihan}', 'TransaksiController@printTagihanCicil')->name('transaksi.cetakc');
+        Route::get('/transaksi/kwitansi/{id}', 'TransaksiController@kwitansiBulanan')->name('transaksi.kwitansi');
+        Route::get('/transaksi/kwitansicicilan/{id}', 'TransaksiController@kwitansicicilan')->name('transaksi.kwitansicicilan');
+        Route::livewire('/santri/asd', 'santri.create');
+
+        Route::resources([
+            'santri' => 'SantriController',
+            'asrama' => 'asramaController',
+            'tagihan' => 'TagihanController',
+            'tahun' => 'tahunajaran',
+            'kelas' => 'KelasControler'
+        ]);
+
+
+        Route::resource('transaksi', 'TransaksiController', [
+            'only' => ['index', 'create', 'store']
+        ]);
+
+        route::prefix('asrama')->group(function () {
+            Route::POST('/getBasicData', 'asramaController@getBasicData')->name('asrama.GetData');
+        });
+
+        Route::get('/print', 'Laporan@printTagihanBulanan');
+        Route::get('/prints', 'Laporan@printTagihanCicil');
     });
 });
 

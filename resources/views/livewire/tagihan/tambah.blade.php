@@ -41,8 +41,7 @@
                  <select class="form-control @error('jenis') is-invalid @enderror" wire:model="jenis">
                      <option value=''>pilih salah satu</option>
                      @foreach ($dataJenis as $data)
-
-                     <option {{$data->id_tagihan == $jenis ? 'selected':''}} value="{{$data->id_tagihan}}">{{$data->nama}}</option>
+                     <option value="{{$data->id}}">{{$data->nama}}</option>
 
                      @endforeach
 

@@ -32,7 +32,7 @@
 
         @if($find)
         <div class="col-sm-12">
-            @livewire('transaksi.profil', ['id' => $nis], key(strtotime(now())))
+            @livewire('transaksi.profil', ['id' => $nis] )
         </div>
 
         @livewire('transaksi.detail', ['id' => $nis])
@@ -46,15 +46,15 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <br>
+
+
                     <div class="col-sm-12">
 
-                        <div class="col-sm-12">
-
-                            <div class="text-center">
-                                <h1>Data Not found</h1>
-                            </div>
-
+                        <div class="text-center">
+                            <h1>Data Not found</h1>
                         </div>
+
+
                         <br>
 
                     </div><!-- /.box-body -->

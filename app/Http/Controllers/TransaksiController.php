@@ -80,7 +80,7 @@ class TransaksiController extends Controller
     public function bayarspp($santri, $tagihan)
     {
         //
-        $tagihan = Tagihan::where('id_tagihan', $tagihan)
+        $tagihan = Tagihan::where('daftar_tgh_id', $tagihan)
             ->get();
 
         return view('transaksi.bayarspp', ['tagihan' => $tagihan]);
@@ -96,7 +96,7 @@ class TransaksiController extends Controller
     public function bayartagihan($santri, $tagihan)
     {
         //
-        $tagihan = Tagihan::where('id_tagihan', $tagihan)
+        $tagihan = Tagihan::where('daftar_tgh_id', $tagihan)
             ->get();
         return view('transaksi.bayartagihan', compact('tagihan'));
     }
@@ -133,21 +133,21 @@ class TransaksiController extends Controller
         $santri = santri::find($Idsantri);
 
         $tagihan =
-            Tagihan::where('id_tagihan', $Idtagihan)
-            ->Where('id_santri', $Idsantri)
+            Tagihan::where('daftar_tgh_id', $Idtagihan)
+            ->Where('santri_id', $Idsantri)
             ->with('bayarbulanan')
             ->get();
 
         $detail = Tagihan::select(
             'id',
-            'id_tagihan',
+            'daftar_tgh_id',
             DB::raw('sum(jumlah) as total'),
             DB::raw('sum(if(jatuh_tempo < CURDATE() AND status = "belum" ,jumlah, 0 )) as tunggakan'),
             DB::raw('sum(if(status = "lunas",jumlah, 0 )) as dibayar'),
             DB::raw('sum(jumlah) - sum(if(status = "lunas", jumlah, 0)) as status'),
         )
-            ->where('id_tagihan', $Idtagihan)
-            ->Where('id_santri', $Idsantri)
+            ->where('daftar_tgh_id', $Idtagihan)
+            ->Where('santri_id', $Idsantri)
             ->first();
 
 
@@ -169,14 +169,16 @@ class TransaksiController extends Controller
         $santri = santri::find($Idsantri);
 
         $tagihan =
-            Bayar::where('id_tagihan', $IdTagihan)
+            Bayar::where('tagihan_id', $IdTagihan)
             ->get();
+
+
 
         $detail =
             Tagihan::select(
                 'id',
-                'id_tagihan',
-                'id_santri',
+                'daftar_tgh_id',
+                'santri_id',
                 DB::raw('sum(jumlah) as total'),
             )
             ->withCount(['bayar' => function ($query) {
@@ -185,7 +187,6 @@ class TransaksiController extends Controller
             ->with('jenis')
             ->where('id', $IdTagihan)
             ->first();
-
 
 
 
@@ -207,7 +208,7 @@ class TransaksiController extends Controller
             Tagihan::Where('id', $id)
             ->with('jenis')
             ->first();
-        $santri = santri::find($tagihan->id_santri);
+        $santri = santri::find($tagihan->santri_id);
 
         $data = [
             'santri' => $santri,
@@ -226,7 +227,7 @@ class TransaksiController extends Controller
             ->first();
 
         $detail =
-            Tagihan::Where('id', $tagihan->id_tagihan)
+            Tagihan::Where('id', $tagihan->daftar_tgh_id)
             ->with('jenis')
             ->first();
 

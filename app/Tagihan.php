@@ -12,11 +12,11 @@ class Tagihan extends Model
 
     public function jenis()
     {
-        return $this->belongsTo('App\DaftarTagihan', 'id_tagihan');
+        return $this->belongsTo('App\DaftarTagihan', 'daftar_tgh_id');
     }
     public function bayar()
     {
-        return $this->hasMany('App\Bayar', 'id',);
+        return $this->hasMany('App\Bayar', 'tagihan_id',);
     }
 
     public function bayarbulanan()

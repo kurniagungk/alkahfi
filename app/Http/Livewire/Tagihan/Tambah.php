@@ -34,10 +34,12 @@ class Tambah extends Component
 
     public function updatedperiode($value)
     {
+        $this->reset('jenis');
         $this->dataJenis = DaftarTagihan::where('id_jenis', $value)->with('tahun')->get();
+
         if (is_null($this->dataJenis)) {
-            dd($this->dataJenis, true);
-            $this->jenis = $this->dataJenis['0']->id_tagihan;
+            dd($this->dataJenis);
+            $this->jenis = $this->dataJenis['0']->daftar_tgh_id;
 
             $awal = date_create_from_format('Y-m-d', substr($this->dataJenis['0']->tahun->awal, 0, 8) . '01');
             $akhir = date_create_from_format('Y-m-d', substr($this->dataJenis['0']->tahun->akhir, 0, 8) . '01');
@@ -100,7 +102,7 @@ class Tambah extends Component
                 $query->where('id', $this->kelas);
             })->get();
         } else {
-            $santri = santri::select('id_santri')->get();
+            $santri = santri::select('id')->get();
         }
 
 
@@ -110,12 +112,12 @@ class Tambah extends Component
                 'tempo' => 'numeric|min:1|max:29',
             ]);
             foreach ($santri as $data) {
-                $id_santri = $data->id_santri;
+                $santri_id = $data->id;
                 for ($i = 0; $i <= $this->tahun['selisih']; $i++) {
                     $tempo = date('Y-m-d', strtotime("+$i month", strtotime($this->tahun['awal']['date'])));
                     $data = array(
-                        'id_tagihan' => $this->jenis,
-                        'id_santri' => $id_santri,
+                        'daftar_tgh_id' => $this->jenis,
+                        'santri_id' => $santri_id,
                         'jatuh_tempo' => $tempo,
                         'jumlah' => $this->biaya,
                     );
@@ -126,11 +128,11 @@ class Tambah extends Component
         } else {
 
             foreach ($santri as $data) {
-                $id_santri = $data->id_santri;
+                $santri_id = $data->id;
 
                 $data = array(
-                    'id_tagihan' => $this->jenis,
-                    'id_santri' => $id_santri,
+                    'daftar_tgh_id' => $this->jenis,
+                    'santri_id' => $santri_id,
                     'jatuh_tempo' => $this->tempo,
                     'jumlah' => $this->biaya,
                 );

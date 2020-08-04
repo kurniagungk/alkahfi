@@ -8,7 +8,7 @@ class santri extends Model
 {
     //
     protected $table = 'santri';
-    protected $primaryKey = 'id_santri';
+
     protected $fillable = [
         'no_induk',
         'nama',

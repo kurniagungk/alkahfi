@@ -36,21 +36,21 @@ class Tahunan extends Component
 
     private function transaksi()
     {
-        $this->DetailTagihan = Bayar::where('id_tagihan', $this->IdTagihan)
+        $this->DetailTagihan = Bayar::where('tagihan_id', $this->IdTagihan)
             ->get();
 
 
         $Tagihan =
             Tagihan::select(
                 'id',
-                'id_tagihan',
-                'id_santri',
+                'daftar_tgh_id',
+                'santri_id',
                 DB::raw('sum(jumlah) as total'),
             )
             ->withCount(['bayar' => function ($query) {
                 $query->select(DB::raw('sum(jumlah) as dibayar'));
             }])
-            ->Where('id_santri', $this->Idsantri)
+            ->Where('santri_id', $this->Idsantri)
             ->with('jenis')
             ->where('id', $this->IdTagihan)
             ->first();
@@ -85,7 +85,7 @@ class Tahunan extends Component
 
 
         $bayar =   Bayar::create([
-            'id_tagihan' => $id,
+            'tagihan_id' => $id,
             'id' =>  $codeBayar,
             'id_transaksi' => $codeTransaksi,
             'jumlah' => $this->biaya,

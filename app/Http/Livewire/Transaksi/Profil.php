@@ -21,12 +21,11 @@ class Profil extends Component
     public function DataProfil()
     {
 
-        $this->profil = santri::where('id_santri', $this->IdSantri)
-            ->get();
+        $this->profil = santri::find($this->IdSantri);
 
 
 
-        if ($this->profil->isEmpty()) {
+        if (is_null($this->profil)) {
             $this->emit('resetFind');
         }
     }

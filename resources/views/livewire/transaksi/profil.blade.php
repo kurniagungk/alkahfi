@@ -11,7 +11,7 @@
 
                 <table class="table-responsive">
                     <tbody>
-                        @foreach ($profil as $s)
+
                         <tr>
                             <td width="200">Tahun Ajaran</td>
                             <td width="4">:</td>
@@ -20,24 +20,24 @@
                         <tr>
                             <td>NIS</td>
                             <td>:</td>
-                            <td>{{$s->no_induk}}</td>
+                            <td>{{$profil->no_induk}}</td>
                         </tr>
                         <tr>
                             <td>Nama Lengkap</td>
                             <td>:</td>
-                            <td>{{$s->nama}}</td>
+                            <td>{{$profil->nama}}</td>
                         </tr>
                         <tr>
                             <td>Sekolah - Kelas</td>
                             <td>:</td>
-                            <td>{{$s->sekolah}}</td>
+                            <td>{{$profil->sekolah}}</td>
                         </tr>
                         <tr>
                             <td>Asrama</td>
                             <td>:</td>
-                            <td>{{$s->asrama->nama}}</td>
+                            <td>{{$profil->asrama->nama}}</td>
                         </tr>
-                        @endforeach
+
                     </tbody>
                 </table>
 

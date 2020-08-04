@@ -98,10 +98,12 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <button wire:click="detail({{$data->id_tagihan}}, '{{$Idsantri}}')" class="btn btn-success">Bayar</button>
+                                        <button wire:click="detail({{$data->daftar_tgh_id}}, '{{$Idsantri}}')" class="btn btn-success">Bayar</button>
                                     </td>
 
-                                    <td><a target="_blank" class="btn btn-primary" href="{{route('transaksi.cetak',[ 'Idsantri' => $Idsantri, 'Idtagihan' => $data->id_tagihan  ])}}" role="button">Cetak</a></td>
+                                    <td>
+                                        <a target="_blank" class="btn btn-primary" href="{{route('transaksi.cetak',[ 'Idsantri' => $Idsantri, 'Idtagihan' => $data->daftar_tgh_id  ])}}" role="button">Cetak</a>
+                                    </td>
 
                                 </tr>
 
@@ -160,7 +162,9 @@
                                     <td>
                                         <button wire:click="periode('{{$data->id}}', '{{$data->jenis->nama}}')" class="btn btn-success">Bayar</button>
                                     </td>
-                                    <td><a target="_blank" class="btn btn-primary" href="{{route('transaksi.cetakc',[ 'Idsantri' => $Idsantri, 'Idtagihan' => $data->id ])}}" role="button">Cetak</a></td>
+                                    <td>
+                                        <a target="_blank" class="btn btn-primary" href="{{route('transaksi.cetakc',[ 'Idsantri' => $Idsantri, 'Idtagihan' => $data->id ])}}" role="button">Cetak</a>
+                                    </td>
 
                                 </tr>
 

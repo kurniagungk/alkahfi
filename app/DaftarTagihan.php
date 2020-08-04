@@ -8,9 +8,8 @@ class DaftarTagihan extends Model
 {
     //
     protected $table = 'daftar_tgh';
-    protected $primaryKey = 'id_tagihan';
     protected $fillable = [
-        'id_tagihan',
+        'id',
         'nama',
         'id_jenis',
         'id_tahun'

@@ -36,32 +36,34 @@ class Detail extends Component
     private function data()
     {
         $this->TagihanBulanan = Tagihan::select(
-            'id_tagihan',
-            'id_santri',
+            'daftar_tgh_id',
+            'santri_id',
             DB::raw('sum(jumlah) as total'),
             DB::raw('sum(if(jatuh_tempo < CURDATE() AND status = "belum" ,jumlah, 0 )) as tunggakan'),
             DB::raw('sum(if(status = "lunas",jumlah, 0 )) as dibayar'),
             DB::raw('sum(jumlah) - sum(if(status = "lunas", jumlah, 0)) as status'),
         )
-            ->where('id_santri', $this->Idsantri)
+            ->where('santri_id', $this->Idsantri)
             ->with('jenis')
             ->whereHas('jenis', function ($query) {
                 $query->where('id_jenis', 1);
             })
-            ->groupBy('id_tagihan')
+            ->groupBy('daftar_tgh_id')
             ->get();
+
+
 
 
 
         $this->tagihanPeriode = Tagihan::select(
             'id',
-            'id_tagihan',
-            'id_santri',
+            'daftar_tgh_id',
+            'santri_id',
             DB::raw('sum(jumlah) as total'),
             DB::raw('sum(jumlah) - sum(if(status = "lunas", jumlah, 0)) as status'),
         )
 
-            ->where('id_santri', $this->Idsantri)
+            ->where('santri_id', $this->Idsantri)
             ->with('jenis')
             ->with('bayar')
             ->whereHas('jenis', function ($query) {
@@ -71,7 +73,7 @@ class Detail extends Component
                 $query->select(DB::raw('sum(jumlah) as dibayar'));
             }])
 
-            ->groupBy('id_tagihan')
+            ->groupBy('daftar_tgh_id')
             ->get();
     }
 
