@@ -8,18 +8,12 @@
 
                         <form class="form-horizontal" wire:submit.prevent="store" enctype="multipart/form-data">
 
-                            <!-- <div class="form-group row">
-                                  <label class="col-md-3 col-form-label">Static</label>
-                                  <div class="col-md-9">
-                                      <p class="form-control-static">Username</p>
-                                  </div>
-                              </div> -->
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label" for="text-input">NIS</label>
                                 <div class="col-md-9">
-                                    <input wire:model="nis" class="form-control @error('no_induk') is-invalid @enderror" id="no_induk" type="text" name="no_induk" placeholder="Nomor Induk Pondok . . .">
+                                    <input wire:model="nis" class="form-control @error('nis') is-invalid @enderror" id="no_induk" type="text" placeholder="Nomor Induk Pondok . . .">
 
-                                    @error('no_induk')
+                                    @error('nis')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -52,8 +46,8 @@
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label" for="date-input">Tanggal Lahir</label>
                                 <div class="col-md-9">
-                                    <input wire:model="tgl_lahir" class="form-control @error('tgl_lahir') is-invalid @enderror" id="date-input" type="date" name="tgl_lahir" placeholder="date">
-                                    @error('tgl_lahir')
+                                    <input wire:model="tanggal_lahir" class="form-control @error('tanggal_lahir') is-invalid @enderror" id="date-input" type="date" name="tgl_lahir" placeholder="date">
+                                    @error('tanggal_lahir')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -133,14 +127,13 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 col-form-label" for="select1">Lembaga</label>
+                                <label class="col-md-3 col-form-label" for="select1">Sekolah</label>
                                 <div class="col-md-9">
                                     <select wire:model="sekolah" class="custom-select @error('sekolah') is-invalid @enderror" id="select1" name="sekolah">
                                         <option value="0">- Pilih Lembaga -</option>
-                                        <option value="1">Pondok</option>
-                                        <option value="2">SMK</option>
-                                        <option value="3">SMA</option>
-                                        <option value="3">SMP</option>
+                                        @foreach($DataSekolah as $data)
+                                        <option value="{{$data->id}}">{{$data->nama}}</option>
+                                        @endforeach
                                     </select>
                                     @error('sekolah')
                                     <div class="invalid-feedback">
@@ -150,7 +143,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 col-form-label" for="select1">Sub lembaga</label>
+                                <label class="col-md-3 col-form-label" for="select1">Asrama</label>
                                 <div class="col-md-9">
                                     <select wire:model="asrama" class="custom-select @error('asrama') is-invalid @enderror" id="select1" name="asrama">
                                         <option value="0" selected>- Pilih Sub Lembaga -</option>
@@ -242,7 +235,7 @@
                             </div>
 
 
-                        </form>
+
                     </div>
                     <div class="card-footer">
                         <button class="btn btn-sm btn-success" type="submit"> Simpan</button>

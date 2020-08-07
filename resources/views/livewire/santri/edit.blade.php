@@ -10,9 +10,9 @@
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label" for="text-input">NIS</label>
                                 <div class="col-md-9">
-                                    <input wire:model="nis" class="form-control @error('no_induk') is-invalid @enderror" id="no_induk" type="text" name="no_induk" placeholder="Nomor Induk Pondok . . .">
+                                    <input wire:model="nis" class="form-control @error('nis') is-invalid @enderror" id="no_induk" type="text" name="no_induk" placeholder="Nomor Induk Pondok . . .">
 
-                                    @error('no_induk')
+                                    @error('nis')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -45,8 +45,8 @@
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label" for="date-input">Tanggal Lahir</label>
                                 <div class="col-md-9">
-                                    <input wire:model="tgl_lahir" class="form-control @error('tgl_lahir') is-invalid @enderror" id="date-input" type="date" name="tgl_lahir" placeholder="date">
-                                    @error('tgl_lahir')
+                                    <input wire:model="tanggal_lahir" class="form-control @error('tanggal_lahir') is-invalid @enderror" id="date-input" type="date" name="tanggal_lahir" placeholder="date">
+                                    @error('tanggal_lahir')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -126,14 +126,13 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 col-form-label" for="select1">Lembaga</label>
+                                <label class="col-md-3 col-form-label" for="select1">Sekolah</label>
                                 <div class="col-md-9">
                                     <select wire:model="sekolah" class="custom-select @error('sekolah') is-invalid @enderror" id="select1" name="sekolah">
-                                        <option value="0">- Pilih Lembaga -</option>
-                                        <option value="1">Pondok</option>
-                                        <option value="2">SMK</option>
-                                        <option value="3">SMA</option>
-                                        <option value="3">SMP</option>
+                                        <option value="0">- Pilih Sekolah -</option>
+                                        @foreach($DataSekolah as $data)
+                                        <option value="{{$data->id}}">{{$data->nama}}</option>
+                                        @endforeach
                                     </select>
                                     @error('sekolah')
                                     <div class="invalid-feedback">
@@ -143,7 +142,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 col-form-label" for="select1">Sub lembaga</label>
+                                <label class="col-md-3 col-form-label" for="select1">asrama</label>
                                 <div class="col-md-9">
                                     <select wire:model="asrama" class="custom-select @error('asrama') is-invalid @enderror" id="select1" name="asrama">
                                         <option value="0" selected>- Pilih Sub Lembaga -</option>
@@ -162,11 +161,11 @@
                                 <label class="col-md-3 col-form-label">Jenis Kelamin</label>
                                 <div class="col-md-9 col-form-label">
                                     <div class="form-check form-check-inline mr-1">
-                                        <input wire:model="jenis_kelamin" class="form-check-input @error('jenis_kelamin') is-invalid @enderror" id="inline-radio1" type="radio" value="1" name="jenis_kelamin">
+                                        <input wire:model="jenis_kelamin" class="form-check-input @error('jenis_kelamin') is-invalid @enderror" id="inline-radio1" type="radio" value="Laki-Laki" name="jenis_kelamin">
                                         <label class="form-check-label" for="inline-radio1">Laki-laki</label>
                                     </div>
                                     <div class="form-check form-check-inline mr-1">
-                                        <input wire:model="jenis_kelamin" class="form-check-input @error('jenis_kelamin') is-invalid @enderror" id="inline-radio2" type="radio" value="2" name="jenis_kelamin">
+                                        <input wire:model="jenis_kelamin" class="form-check-input @error('jenis_kelamin') is-invalid @enderror" id="inline-radio2" type="radio" value="Perempuan" name="jenis_kelamin">
                                         <label class="form-check-label" for="inline-radio2">Perempuan</label>
                                     </div>
                                     @error('jenis_kelamin')
@@ -179,12 +178,12 @@
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label" for="text-input">Tahun Masuk</label>
                                 <div class="col-md-9">
-                                    <select wire:model="id_tahun" class="custom-select @error('id_tahun') is-invalid @enderror" id="ccyear" name="id_tahun" width="100">
+                                    <select wire:model="tahun" class="custom-select @error('tahun') is-invalid @enderror" id="ccyear" name="id_tahun" width="100">
                                         <option value="0">- Pilih Tahun Ajaran -</option>
                                         @for($i = date('yy')-7; $i <= date('yy'); $i++) <option value="{{$i}}">{{$i}}</option>
                                             @endfor
                                     </select>
-                                    @error('id_tahun')
+                                    @error('tahun')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -194,8 +193,8 @@
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label" for="text-input">Orang Tua / Wali</label>
                                 <div class="col-md-9">
-                                    <input wire:model="nama_wali" class="form-control @error('nama_wali') is-invalid @enderror" id="text-input" type="text" name="nama_wali" placeholder="Ex. Ahmad . . .">
-                                    @error('nama_wali')
+                                    <input wire:model="wali" class="form-control @error('wali') is-invalid @enderror" id="text-input" type="text" name="nama_wali" placeholder="Ex. Ahmad . . .">
+                                    @error('wali')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -217,11 +216,18 @@
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label" for="file-input">Pas Foto</label>
                                 <div class="col-md-9">
-                                    <input wire:model="photo" type="file" name="foto" class="form-control-file @error('photo') is-invalid @enderror"><span class="help-block">* Ukuran (3x4) Format .jpg</span>
+                                    <input wire:model="NewPhoto" type="file" name="foto" class="form-control-file @error('NewPhoto') is-invalid @enderror"><span class="help-block">* Ukuran (3x4) Format .jpg</span>
                                     <br>
-                                    @if ($photo)
+                                    @if ($NewPhoto)
+                                    @if(!$errors->has('NewPhoto'))
+                                    <img src="{{ $NewPhoto->temporaryUrl() }}" height="200px" width="200px" class="img-thumbnail" alt="...">
+                                    @endif
 
-                                    <img src="{{ $photo->temporaryUrl() }}" height="200px" width="200px" class="img-thumbnail" alt="...">
+
+                                    @else
+
+
+                                    <img src="{{asset('public/'.$photo)   }}" height="200px" width="200px" class="img-thumbnail" alt="...">
                                     @endif
 
                                     @error('photo')
@@ -235,7 +241,7 @@
                             </div>
 
 
-                        </form>
+
                     </div>
                     <div class="card-footer">
                         <button class="btn btn-sm btn-success" type="submit"> Simpan</button>

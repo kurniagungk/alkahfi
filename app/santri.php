@@ -10,20 +10,25 @@ class santri extends Model
     protected $table = 'santri';
 
     protected $fillable = [
-        'no_induk',
+        'id',
+        'nis',
         'nama',
-        'tgl_lahir',
+        'tanggal_lahir',
+        'tempat_lahir',
         'alamat',
-        'sekolah',
         'asrama',
         'jenis_kelamin',
-        'id_tahun',
-        'nama_wali',
-        'asrama_id',
+        'tahun',
+        'wali',
         'foto',
-        'tempat_lahir',
-        'telepon'
+        'telepon',
+        'status',
+        'wilayah_id',
+        'asrama_id',
+        'sekolah_id',
     ];
+
+    protected $keyType = 'string';
 
     public function asrama()
     {

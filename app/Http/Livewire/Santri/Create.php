@@ -6,7 +6,8 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-use App\asrama;
+use Illuminate\Support\Str;
+use App\asrama, App\Sekolah;
 use App\TahunAjaran;
 use App\santri;
 use App\Wilayah;
@@ -19,7 +20,7 @@ class Create extends Component
     public $nis;
     public $nama;
     public $tempat_lahir;
-    public $tgl_lahir;
+    public $tanggal_lahir;
     public $alamat;
     public $sekolah;
     public $asrama;
@@ -29,6 +30,7 @@ class Create extends Component
     public $nama_wali;
     public $photo;
     public $DataAsrama;
+    public $DataSekolah;
     public $dataProvinsi;
     public $dataKabupaten;
     public $dataKecamatan;
@@ -41,6 +43,7 @@ class Create extends Component
     public function mount()
     {
         $this->DataAsrama = asrama::get();
+        $this->DataSekolah = Sekolah::get();
         $this->dataProvinsi = Wilayah::whereRaw('CHAR_LENGTH(kode) = 2')
             ->get();
     }
@@ -74,9 +77,8 @@ class Create extends Component
     public function updated($field)
     {
         $this->validateOnly($field, [
-            'no_induk' => 'unique:santri|max:255',
-            'tgl_lahir' => 'date',
-
+            'nis' => 'unique:santri|max:255',
+            'tgl_lahir' => 'date'
         ]);
     }
 
@@ -86,10 +88,10 @@ class Create extends Component
     {
 
         $messages = [
-            'no_induk.required'    => 'NIS TIDAK BOLEH KOSONG',
-            'no_induk.unique'    => 'NIS TIDAK BOLEH SAMA',
+            'nis.required'    => 'NIS TIDAK BOLEH KOSONG',
+            'nis.unique'    => 'NIS TIDAK BOLEH SAMA',
             'nama.required'    => 'NAMA TIDAK BOLEH KOSONG',
-            'tgl_lahir.required'    => 'TANGGAL LAHIR TIDAK BOLEH KOSONG',
+            'tanggal_lahir.required'    => 'TANGGAL LAHIR TIDAK BOLEH KOSONG',
             'alamat.required'    => 'ALAMAT TIDAK BOLEH KOSONG',
             'sekolah.required'    => 'SEKOLAH TIDAK BOLEH KOSONG',
             'asrama.required'    => 'ASRAMA TIDAK BOLEH KOSONG',
@@ -106,10 +108,10 @@ class Create extends Component
         ];
 
         $validatedData = $this->validate([
-            'no_induk' => 'required|unique:santri|max:255',
+            'nis' => 'required|unique:santri|max:255',
             'nama' => 'required',
             'tempat_lahir' => 'required',
-            'tgl_lahir' => 'date',
+            'tanggal_lahir' => 'date',
             'alamat' => 'required',
             'sekolah' => 'required',
             'asrama' => 'required',
@@ -129,20 +131,21 @@ class Create extends Component
         $photo = $this->photo->store('photos', 'public');
 
         $data = array(
+            'id' => Str::uuid(),
             'nis' => $this->nis,
             'nama' => $this->nama,
             'tempat_lahir' => $this->tempat_lahir,
-            'tgl_lahir' => $this->tgl_lahir,
+            'tanggal_lahir' => $this->tanggal_lahir,
             'alamat' => $this->alamat,
-            'sekolah_id' => $this->sekolah,
-            'asrama_id' => $this->asrama,
             'telepon' => $this->telepon,
             'jenis_kelamin' => $this->jenis_kelamin,
             'tahun' => $this->id_tahun,
             'wali' => $this->nama_wali,
             'foto' => $photo,
+            'wilayah_id' => $this->desa,
+            'sekolah_id' => $this->sekolah,
+            'asrama_id' => $this->asrama,
         );
-
 
 
         santri::create($data);

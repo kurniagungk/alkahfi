@@ -7,29 +7,30 @@ use Livewire\WithFileUploads;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 use App\asrama, App\TahunAjaran;
-use App\santri;
+use App\santri, App\Wilayah;
+use App\Sekolah;
 
 class Edit extends Component
 {
 
     use WithFileUploads;
 
-    public $no_induk;
+    public $santri_id;
+    public $nis;
     public $nama;
     public $tempat_lahir;
-    public $tgl_lahir;
+    public $tanggal_lahir;
     public $alamat;
     public $sekolah;
     public $asrama;
     public $telepon;
     public $jenis_kelamin;
-    public $id_tahun;
-    public $nama_wali;
+    public $tahun;
+    public $wali;
     public $photo;
-    public $DataAsrama;
-    public $DataTahun;
-    public $IdSantri;
     public $NewPhoto;
+    public $DataAsrama;
+    public $DataSekolah;
     public $dataProvinsi;
     public $dataKabupaten;
     public $dataKecamatan;
@@ -39,23 +40,44 @@ class Edit extends Component
     public $kecamatan;
     public $desa;
 
-    public function mount($santri)
+    public function mount(santri $santri)
     {
         $this->nis = $santri->nis;
         $this->nama = $santri->nama;
         $this->tempat_lahir = $santri->tempat_lahir;
-        $this->tanggal_lahir = $santri->tgl_lahir;
+        $this->tanggal_lahir = $santri->tanggal_lahir;
         $this->alamat = $santri->alamat;
-        $this->sekolah_id = $santri->sekolah;
-        $this->asrama_id = $santri->asrama_id;
+        $this->sekolah = $santri->sekolah_id;
+        $this->asrama = $santri->asrama_id;
         $this->telepon = $santri->telepon;
         $this->jenis_kelamin = $santri->jenis_kelamin;
-        $this->tahun = $santri->id_tahun;
-        $this->wali = $santri->nama_wali;
+        $this->tahun = $santri->tahun;
+        $this->wali = $santri->wali;
         $this->photo = $santri->foto;
-        $this->IdSantri = $santri->id_santri;
+        $this->santri_id = $santri->id;
+        $this->provinsi = substr($santri->wilayah_id, 0, 2);
+        $this->kabupaten = substr($santri->wilayah_id, 0, 5);
+        $this->kecamatan = substr($santri->wilayah_id, 0, 8);
+        $this->desa = substr($santri->wilayah_id, 0, 13);
+        $this->data();
+    }
+
+    public function data()
+    {
         $this->DataAsrama = asrama::get();
         $this->DataTahun = TahunAjaran::get();
+        $this->DataSekolah = Sekolah::get();
+        $this->dataProvinsi = Wilayah::whereRaw('CHAR_LENGTH(kode) = 2')
+            ->get();
+        $this->dataKabupaten = Wilayah::whereRaw('LEFT(kode, 2) = "' . $this->provinsi . '"')
+            ->whereRaw('CHAR_LENGTH(kode) = 5')
+            ->get();
+        $this->dataKecamatan = Wilayah::whereRaw('LEFT(kode, 5) = "' . $this->kabupaten . '"')
+            ->whereRaw('CHAR_LENGTH(kode) = 8')
+            ->get();
+        $this->dataDesa = Wilayah::whereRaw('LEFT(kode, 8) = "' . $this->kecamatan . '"')
+            ->whereRaw('CHAR_LENGTH(kode) = 13')
+            ->get();
     }
 
     public function updatingprovinsi($value)
@@ -85,36 +107,10 @@ class Edit extends Component
 
     public function updated($field)
     {
-        $messages = [
-            'no_induk.required'    => 'NIS TIDAK BOLEH KOSONG',
-            'no_induk.unique'    => 'NIS TIDAK BOLEH SAMA',
-            'nama.required'    => 'NAMA TIDAK BOLEH KOSONG',
-            'tgl_lahir.required'    => 'TANGGAL LAHIR TIDAK BOLEH KOSONG',
-            'alamat.required'    => 'ALAMAT TIDAK BOLEH KOSONG',
-            'sekolah.required'    => 'SEKOLAH TIDAK BOLEH KOSONG',
-            'asrama.required'    => 'ASRAMA TIDAK BOLEH KOSONG',
-            'jenis_kelamin.required'    => 'JENIS KELAMIN TIDAK BOLEH KOSONG',
-            'id_tahun.required'    => 'TAHUN MASUK TIDAK BOLEH KOSONG',
-            'nama_wali.required'    => 'NAMA WALI TIDAK BOLEH KOSONG',
-            'tempat_lahir.required'    => 'TEMPAT LAHIR TIDAK BOLEH KOSONG',
-            'telepon.required'    => 'NO HP TIDAK BOLEH KOSONG',
-
-        ];
-
         $this->validateOnly($field, [
-            'no_induk' => ['required', Rule::unique('santri')->ignore($this->IdSantri, 'id_santri')],
-            'nama' => 'required',
-            'tempat_lahir' => 'required',
-            'tgl_lahir' => 'date',
-            'alamat' => 'required',
-            'sekolah' => 'required',
-            'asrama' => 'required',
-            'telepon' => 'required',
-            'jenis_kelamin' => 'required',
-            'id_tahun' => 'required',
-            'nama_wali' => 'required',
-            'NewPhoto' => 'image|max:2048',
-        ], $messages);
+            'nis' => 'unique:santri|max:255',
+            'tgl_lahir' => 'date'
+        ]);
     }
 
 
@@ -122,33 +118,41 @@ class Edit extends Component
     {
 
         $messages = [
-            'no_induk.required'    => 'NIS TIDAK BOLEH KOSONG',
-            'no_induk.unique'    => 'NIS TIDAK BOLEH SAMA',
+            'nis.required'    => 'NIS TIDAK BOLEH KOSONG',
+            'nis.unique'    => 'NIS TIDAK BOLEH SAMA',
             'nama.required'    => 'NAMA TIDAK BOLEH KOSONG',
-            'tgl_lahir.required'    => 'TANGGAL LAHIR TIDAK BOLEH KOSONG',
+            'tanggal_lahir.required'    => 'TANGGAL LAHIR TIDAK BOLEH KOSONG',
             'alamat.required'    => 'ALAMAT TIDAK BOLEH KOSONG',
             'sekolah.required'    => 'SEKOLAH TIDAK BOLEH KOSONG',
             'asrama.required'    => 'ASRAMA TIDAK BOLEH KOSONG',
             'jenis_kelamin.required'    => 'JENIS KELAMIN TIDAK BOLEH KOSONG',
-            'id_tahun.required'    => 'TAHUN MASUK TIDAK BOLEH KOSONG',
-            'nama_wali.required'    => 'NAMA WALI TIDAK BOLEH KOSONG',
+            'tahun.required'    => 'TAHUN MASUK TIDAK BOLEH KOSONG',
+            'wali.required'    => 'NAMA WALI TIDAK BOLEH KOSONG',
             'tempat_lahir.required'    => 'TEMPAT LAHIR TIDAK BOLEH KOSONG',
             'telepon.required'    => 'NO HP TIDAK BOLEH KOSONG',
+            'provinsi.required' => 'PROVINSI TIDAK BOLEH KOSONG',
+            'kabupaten.required' => 'KABUPATEN TIDAK BOLEH KOSONG',
+            'kecamatan.required' => 'KECAMATAN TIDAK BOLEH KOSONG',
+            'desa.required' => 'DESA TIDAK BOLEH KOSONG'
 
         ];
 
         $validatedData = $this->validate([
-            'no_induk' => ['required', Rule::unique('santri')->ignore($this->IdSantri, 'id_santri')],
+            'nis' => ['required', Rule::unique('santri')->ignore($this->nis, 'nis')],
             'nama' => 'required',
             'tempat_lahir' => 'required',
-            'tgl_lahir' => 'date',
+            'tanggal_lahir' => 'date',
             'alamat' => 'required',
-            'sekolah' => 'required',
-            'asrama' => 'required',
             'telepon' => 'required',
             'jenis_kelamin' => 'required',
-            'id_tahun' => 'required',
-            'nama_wali' => 'required',
+            'tahun' => 'required',
+            'wali' => 'required',
+            'provinsi' => 'required',
+            'kabupaten' => 'required',
+            'kecamatan' => 'required',
+            'desa' => 'required',
+            'sekolah' => 'required',
+            'asrama' => 'required',
 
         ], $messages);
 
@@ -157,8 +161,8 @@ class Edit extends Component
 
 
 
+        $santri = santri::find($this->santri_id);
 
-        $santri = santri::find($this->IdSantri);
 
         if ($this->NewPhoto) {
 
@@ -172,17 +176,18 @@ class Edit extends Component
 
             $santri->foto = $photo;
         }
-        $santri->no_induk = $this->no_induk;
+        $santri->nis = $this->nis;
         $santri->nama = $this->nama;
         $santri->tempat_lahir = $this->tempat_lahir;
-        $santri->tgl_lahir = $this->tgl_lahir;
+        $santri->tanggal_lahir = $this->tanggal_lahir;
         $santri->alamat = $this->alamat;
-        $santri->sekolah = $this->sekolah;
-        $santri->asrama_id = $this->asrama;
         $santri->telepon = $this->telepon;
         $santri->jenis_kelamin = $this->jenis_kelamin;
-        $santri->id_tahun = $this->id_tahun;
-        $santri->nama_wali = $this->nama_wali;
+        $santri->tahun = $this->tahun;
+        $santri->wali = $this->wali;
+        $santri->asrama_id = $this->asrama;
+        $santri->sekolah_id = $this->sekolah;
+
 
         $santri->save();
         session()->flash('success', 'Data Santri successfully edite.');

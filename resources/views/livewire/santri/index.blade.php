@@ -106,10 +106,8 @@
                                         <i class="cil-resize-height" @if($sortField=='nama' ) style="color:red" @endif></i>
                                     </a></th>
                                 <th>ASRAMA</th>
-                                <th>SEKOLAH</th>
-                                <th>KELAS</th>
                                 <th>JK</th>
-                                <th>ALAMAT (KOTA)</th>
+
                                 <th>MASUK </th>
                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Aksi: activate to sort column ascending">
                                     <center>Aksi</center>
@@ -121,21 +119,19 @@
                             @foreach($santri as $data)
                             <tr>
                                 <td>{{$loop->index +1}}</td>
-                                <td>{{$data->no_induk}}</td>
+                                <td>{{$data->nis}}</td>
                                 <td>{{$data->nama}}</td>
-                                <td>{{$data->asrama->nama}}</td>
-                                <td>{{$data->sekolah}}</td>
-                                <td>{{$data->id_kelas}}</td>
+                                <td>{{optional($data->asrama)->nama}}</td>
+
                                 <td>{{$data->jenis_kelamin}}</td>
-                                <td>{{$data->id_tahun}}</td>
-                                <td>{{$data->alamat}}</td>
+                                <td>{{$data->tahun}}</td>
                                 <td>
                                     <center>
                                         <a href="{{route('santri.edit', $data)}}" class="btn btn-primary" role="button" aria-pressed="true">EDIT</a>
-                                        @if($confirming===$data->id_santri)
-                                        <button wire:click="kill({{ $data->id_santri }})" type="button" class="btn btn-danger">Sure?</button>
+                                        @if($confirming == $data->id)
+                                        <button wire:click="kill('{{ $data->id }}')" type="button" class="btn btn-danger">Sure?</button>
                                         @else
-                                        <button wire:click="confirmDelete({{ $data->id_santri }})" type="button" class="btn btn-warning">Delete</button>
+                                        <button wire:click="confirmDelete( '{{ $data->id }}' )" type="button" class="btn btn-warning">Delete</button>
                                         @endif
                                     </center>
                                 </td>

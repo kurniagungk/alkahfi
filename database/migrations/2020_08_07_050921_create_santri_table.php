@@ -24,6 +24,7 @@ class CreateSantriTable extends Migration
             $table->string('wali');
             $table->string('telepon');
             $table->string('status');
+            $table->year('tahun');
             $table->string('foto');
             $table->bigInteger('sekolah_id');
             $table->bigInteger('kelas_id');
