@@ -14,12 +14,10 @@ class CreateBayarTable extends Migration
     public function up()
     {
         Schema::create('bayar', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->char('id_bayar', 100);
-            $table->char('id_tagihan', 100);
-            $table->char('id_transaksi', 100);
+            $table->uuid('id');
+            $table->uuid('tagihan_id');
+            $table->bigInteger('jumlah');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

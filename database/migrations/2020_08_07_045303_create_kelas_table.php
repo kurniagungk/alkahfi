@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAsramaTable extends Migration
+class CreateKelasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateAsramaTable extends Migration
      */
     public function up()
     {
-        Schema::create('asrama', function (Blueprint $table) {
+        Schema::create('kelas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->char('kode', 100);
-            $table->char('nama', 100);
-            $table->integer('jumlah');
-            $table->enum('kelamin', ['L', 'P']);
-            $table->char('Keterangan', 100);
+            $table->bigInteger('tingkat');
+            $table->string('kelas');
+            $table->string('keterangan');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateAsramaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('asrama');
+        Schema::dropIfExists('kelas');
     }
 }

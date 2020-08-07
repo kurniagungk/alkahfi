@@ -14,15 +14,14 @@ class CreateTagihanTable extends Migration
     public function up()
     {
         Schema::create('tagihan', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->char('id_tagihan', 12);
-            $table->char('id_santri', 12);
-            $table->dateTime('jatuh_tempo');
-            $table->double('jumlah', 8, 2);
-            $table->char('id_bayar', 12);
-            $table->enum('status', ['lunas', 'belum']);
+            $table->uuid('id');
+            $table->bigInteger('jenis_tagihan_id');
+            $table->uuid('santri_id');
+            $table->date('tempo');
+            $table->bigInteger('jumlah');
+            $table->enum('status', ['belum', 'lunas']);
+            $table->bigInteger('teler');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

@@ -28,6 +28,10 @@
 
 <body>
 
+
+
+    @include('print.header')
+
     <table width="100%">
         <tr>
             <td valign="top"><img alt="" width="150" /></td>

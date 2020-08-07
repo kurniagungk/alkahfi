@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDaftarJenisTagihanTable extends Migration
+class CreateTahunAjaranTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateDaftarJenisTagihanTable extends Migration
      */
     public function up()
     {
-        Schema::create('jenis_tagihan', function (Blueprint $table) {
-            $table->bigIncrements('id_jens tagihan');
-            $table->char('name', 100);
+        Schema::create('tahun_ajaran', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('nama');
+            $table->string('semester');
+            $table->date('awal');
+            $table->string('akhir');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -28,6 +30,6 @@ class CreateDaftarJenisTagihanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jenis_tagihan');
+        Schema::dropIfExists('tahun_ajaran');
     }
 }
