@@ -40,7 +40,7 @@ class Edit extends Component
         );
 
         Kelas::where('id', $this->idt)->update($data);
-        session()->flash('message', 'taguhan ' . $this->kelas . ' berhasil di edit');
+        session()->flash('message',  'Data berhasil di edit');
     }
 
     public function render()

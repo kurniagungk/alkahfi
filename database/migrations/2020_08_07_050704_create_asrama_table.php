@@ -17,7 +17,7 @@ class CreateAsramaTable extends Migration
             $table->bigIncrements('id');
             $table->string('kode');
             $table->string('nama');
-            $table->enum('type', ['l', 'p']);
+            $table->enum('tipe', ['l', 'p']);
             $table->bigInteger('kapasitas');
             $table->string('keterangan');
             $table->timestamps();
