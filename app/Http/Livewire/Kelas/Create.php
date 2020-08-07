@@ -10,7 +10,7 @@ class Create extends Component
 
     public $tingkat;
     public $kelas;
-    public $ket;
+    public $keterangan;
 
     public function render()
     {
@@ -22,14 +22,14 @@ class Create extends Component
         $this->validate([
             'tingkat' => 'required|',
             'kelas' => 'required|',
-            'ket' => 'required|',
+            'keterangan' => 'required|',
 
         ]);
 
         $data = array(
             'tingkat' => $this->tingkat,
             'kelas' => $this->kelas,
-            'ket' => $this->ket,
+            'keterangan' => $this->keterangan,
 
         );
         Kelas::create($data);

@@ -10,7 +10,7 @@
          <div class="form-group row">
              <label class="col-md-3 col-form-label" for="text-input">Tingkat</label>
              <div class="col-md-9">
-                 <input wire:model="tingkat" class="form-control" id="text-number" type="number" name="text-input" placeholder="Text">
+                 <input wire:model="tingkat" class="form-control" id="text-number" type="number" name="text-input">
                  @error('tingkat') <span class="error">{{ $message }}</span> @enderror
              </div>
          </div>
@@ -18,7 +18,7 @@
          <div class="form-group row">
              <label class="col-md-3 col-form-label" for="text-input">Kelas</label>
              <div class="col-md-9">
-                 <input wire:model="kelas" class="form-control" id="text-number" type="text" name="text-input" placeholder="Text">
+                 <input wire:model="kelas" class="form-control" id="text-number" type="text" name="text-input">
                  @error('kelas') <span class="error">{{ $message }}</span> @enderror
              </div>
          </div>
@@ -27,7 +27,7 @@
          <div class="form-group row">
              <label class="col-md-3 col-form-label" for="text-input">Keterangan</label>
              <div class="col-md-9">
-                 <input wire:model="ket" class="form-control" id="text-number" type="text" name="text-input" placeholder="Text">
+                 <input wire:model="keterangan" class="form-control" id="text-number" type="text" name="text-input">
                  @error('ket') <span class="error">{{ $message }}</span> @enderror
              </div>
          </div>

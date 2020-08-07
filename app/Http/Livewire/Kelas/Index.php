@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 class Index extends Component
 {
     use WithPagination;
+    public $confirming;
 
     public function render()
     {
@@ -20,14 +21,22 @@ class Index extends Component
             ]
         );
     }
-    public function destroy($id)
-    {
 
+
+    public function confirmDelete($id)
+    {
+        $this->confirming = $id;
+    }
+
+    public function kill($id)
+    {
         if ($id) {
             $data =  Kelas::Where('id', $id)->delete();
             session()->flash('message', 'berhasil di hapus');
         }
     }
+
+
     public function edit($id)
     {
         return redirect()->to(route('kelas.edit', $id));

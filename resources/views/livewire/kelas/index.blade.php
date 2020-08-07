@@ -26,10 +26,16 @@
                     <td>{{$loop->index+1}}</td>
                     <td>{{$data->tingkat}}</td>
                     <td>{{$data->kelas}}</td>
-                    <td>{{$data->ket}}</td>
+                    <td>{{$data->keterangan}}</td>
                     <td>
-                        <button wire:click="edit({{$data->id}})" class="btn btn-outline-warning">edit</button>
-                        <button wire:click="destroy({{$data->id}})" class="btn btn-outline-danger" type="button">Hapus</button>
+                        <center>
+                            <button wire:click="edit({{$data->id}})" class="btn btn-outline-warning">edit</button>
+                            @if($confirming===$data->id)
+                            <button wire:click="kill({{ $data->id }})" type="button" class="btn btn-danger">Sure?</button>
+                            @else
+                            <button wire:click="confirmDelete({{ $data->id }})" type="button" class="btn btn-warning">Delete</button>
+                            @endif
+                        </center>
                     </td>
                 </tr>
 

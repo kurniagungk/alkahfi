@@ -10,7 +10,7 @@ class Edit extends Component
 
     public $tingkat;
     public $kelas;
-    public $ket;
+    public $keterangan;
     public $idt;
 
     public function mount($id)
@@ -18,7 +18,7 @@ class Edit extends Component
         $data = Kelas::find($id);
         $this->tingkat = $data->tingkat;
         $this->kelas = $data->kelas;
-        $this->ket = $data->ket;
+        $this->keterangan = $data->keterangan;
         $this->idt = $id;
     }
 
@@ -28,14 +28,14 @@ class Edit extends Component
         $this->validate([
             'tingkat' => 'required|',
             'kelas' => 'required|',
-            'ket' => 'required|',
+            'keterangan' => 'required|',
 
         ]);
 
         $data = array(
             'tingkat' => $this->tingkat,
             'kelas' => $this->kelas,
-            'ket' => $this->ket,
+            'keterangan' => $this->keterangan,
 
         );
 
