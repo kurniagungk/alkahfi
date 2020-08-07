@@ -15,8 +15,9 @@ class CreateAsramaTable extends Migration
     {
         Schema::create('asrama', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('kode');
             $table->string('nama');
-            $table->bigInteger('type');
+            $table->enum('type', ['l', 'p']);
             $table->bigInteger('kapasitas');
             $table->string('keterangan');
             $table->timestamps();

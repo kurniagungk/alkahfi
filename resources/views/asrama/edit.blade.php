@@ -35,28 +35,28 @@
                               <div class="form-group row">
                                   <label class="col-md-3 col-form-label" for="password-input">JUMLAH KAMAR</label>
                                   <div class="col-md-9">
-                                      <input class="form-control" id="password-input" value="{{$asrama->jumlah}}" type="number" name="jumlah" placeholder="Password" autocomplete="new-password"><span class="help-block"></span>
+                                      <input class="form-control" id="password-input" value="{{$asrama->kapasitas}}" type="number" name="kapasitas" placeholder="Password" autocomplete="new-password"><span class="help-block"></span>
                                   </div>
                               </div>
                               <div class="form-group row">
                                   <label class="col-md-3 col-form-label">TIPE ASRAMA</label>
                                   <div class="col-md-9 col-form-label">
-                                      @if ($asrama->kelamin == '1')
+                                      @if ($asrama->tipe == '1')
                                       <div class="form-check">
-                                          <input checked class="form-check-input" id="radio1" type="radio" value="1" name="kelamin">
+                                          <input checked class="form-check-input" id="radio1" type="radio" value="1" name="tipe">
                                           <label class="form-check-label" for="radio1">LAKI - LAKI</label>
                                       </div>
                                       <div class="form-check">
-                                          <input class="form-check-input" id="radio2" type="radio" value="2" name="kelamin">
+                                          <input class="form-check-input" id="radio2" type="radio" value="2" name="tipe">
                                           <label class="form-check-label" for="radio2">PEREMPUAN</label>
                                       </div>
                                       @else
                                       <div class="form-check">
-                                          <input class="form-check-input" id="radio1" type="radio" value="1" name="kelamin">
+                                          <input class="form-check-input" id="radio1" type="radio" value="1" name="tipe">
                                           <label class="form-check-label" for="radio1">LAKI - LAKI</label>
                                       </div>
                                       <div class="form-check">
-                                          <input checked class="form-check-input" id="radio2" type="radio" value="2" name="kelamin">
+                                          <input checked class="form-check-input" id="radio2" type="radio" value="2" name="tipe">
                                           <label class="form-check-label" for="radio2">PEREMPUAN</label>
                                       </div>
 
@@ -69,7 +69,7 @@
                               <div class="form-group row">
                                   <label class="col-md-3 col-form-label" for="textarea-input">KETERANGAN</label>
                                   <div class="col-md-9">
-                                      <textarea class="form-control" id="textarea-input" name="Keterangan" rows="9" placeholder="Content..">{{$asrama->Keterangan}}</textarea>
+                                      <textarea class="form-control" id="textarea-input" name="keterangan" rows="9" placeholder="Content..">{{$asrama->keterangan}}</textarea>
                                   </div>
                               </div>
 

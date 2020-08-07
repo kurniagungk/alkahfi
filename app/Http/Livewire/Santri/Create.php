@@ -5,16 +5,18 @@ namespace App\Http\Livewire\Santri;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use App\asrama;
 use App\TahunAjaran;
 use App\santri;
+use App\Wilayah;
 
 
 class Create extends Component
 {
     use WithFileUploads;
 
-    public $no_induk;
+    public $nis;
     public $nama;
     public $tempat_lahir;
     public $tgl_lahir;
@@ -27,48 +29,55 @@ class Create extends Component
     public $nama_wali;
     public $photo;
     public $DataAsrama;
-    public $DataTahun;
+    public $dataProvinsi;
+    public $dataKabupaten;
+    public $dataKecamatan;
+    public $dataDesa;
+    public $provinsi;
+    public $kabupaten;
+    public $kecamatan;
+    public $desa;
 
     public function mount()
     {
         $this->DataAsrama = asrama::get();
-        $this->DataTahun = TahunAjaran::get();
+        $this->dataProvinsi = Wilayah::whereRaw('CHAR_LENGTH(kode) = 2')
+            ->get();
+    }
+
+    public function updatingprovinsi($value)
+    {
+        $this->reset('kabupaten', 'kecamatan', 'desa');
+        $this->dataKabupaten = Wilayah::whereRaw('LEFT(kode, 2) = "' . $value . '"')
+            ->whereRaw('CHAR_LENGTH(kode) = 5')
+            ->get();
+    }
+
+    public function updatingkabupaten($value)
+    {
+        $this->reset('kecamatan', 'desa');
+        $this->dataKecamatan = Wilayah::whereRaw('LEFT(kode, 5) = "' . $value . '"')
+            ->whereRaw('CHAR_LENGTH(kode) = 8')
+            ->get();
+    }
+
+    public function updatingkecamatan($value)
+    {
+        $this->reset('desa');
+        $this->dataDesa = Wilayah::whereRaw('LEFT(kode, 8) = "' . $value . '"')
+            ->whereRaw('CHAR_LENGTH(kode) = 13')
+            ->get();
     }
 
 
 
     public function updated($field)
     {
-        $messages = [
-            'no_induk.required'    => 'NIS TIDAK BOLEH KOSONG',
-            'no_induk.unique'    => 'NIS TIDAK BOLEH SAMA',
-            'nama.required'    => 'NAMA TIDAK BOLEH KOSONG',
-            'tgl_lahir.required'    => 'TANGGAL LAHIR TIDAK BOLEH KOSONG',
-            'alamat.required'    => 'ALAMAT TIDAK BOLEH KOSONG',
-            'sekolah.required'    => 'SEKOLAH TIDAK BOLEH KOSONG',
-            'asrama.required'    => 'ASRAMA TIDAK BOLEH KOSONG',
-            'jenis_kelamin.required'    => 'JENIS KELAMIN TIDAK BOLEH KOSONG',
-            'id_tahun.required'    => 'TAHUN MASUK TIDAK BOLEH KOSONG',
-            'nama_wali.required'    => 'NAMA WALI TIDAK BOLEH KOSONG',
-            'tempat_lahir.required'    => 'TEMPAT LAHIR TIDAK BOLEH KOSONG',
-            'telepon.required'    => 'NO HP TIDAK BOLEH KOSONG',
-
-        ];
-
         $this->validateOnly($field, [
-            'no_induk' => 'required|unique:santri|max:255',
-            'nama' => 'required',
-            'tempat_lahir' => 'required',
+            'no_induk' => 'unique:santri|max:255',
             'tgl_lahir' => 'date',
-            'alamat' => 'required',
-            'sekolah' => 'required',
-            'asrama' => 'required',
-            'telepon' => 'required',
-            'jenis_kelamin' => 'required',
-            'id_tahun' => 'required',
-            'nama_wali' => 'required',
-            'photo' => 'image|max:2048',
-        ], $messages);
+
+        ]);
     }
 
 
@@ -89,6 +98,10 @@ class Create extends Component
             'nama_wali.required'    => 'NAMA WALI TIDAK BOLEH KOSONG',
             'tempat_lahir.required'    => 'TEMPAT LAHIR TIDAK BOLEH KOSONG',
             'telepon.required'    => 'NO HP TIDAK BOLEH KOSONG',
+            'provinsi.required' => 'PROVINSI TIDAK BOLEH KOSONG',
+            'kabupaten.required' => 'KABUPATEN TIDAK BOLEH KOSONG',
+            'kecamatan.required' => 'KECAMATAN TIDAK BOLEH KOSONG',
+            'desa.required' => 'DESA TIDAK BOLEH KOSONG'
 
         ];
 
@@ -105,22 +118,28 @@ class Create extends Component
             'id_tahun' => 'required',
             'nama_wali' => 'required',
             'photo' => 'image|max:2048',
+            'photo' => 'image|max:2048',
+            'provinsi' => 'required',
+            'kabupaten' => 'required',
+            'kecamatan' => 'required',
+            'desa' => 'required'
+
         ], $messages);
 
         $photo = $this->photo->store('photos', 'public');
 
         $data = array(
-            'no_induk' => $this->no_induk,
+            'nis' => $this->nis,
             'nama' => $this->nama,
             'tempat_lahir' => $this->tempat_lahir,
             'tgl_lahir' => $this->tgl_lahir,
             'alamat' => $this->alamat,
-            'sekolah' => $this->sekolah,
+            'sekolah_id' => $this->sekolah,
             'asrama_id' => $this->asrama,
             'telepon' => $this->telepon,
             'jenis_kelamin' => $this->jenis_kelamin,
-            'id_tahun' => $this->id_tahun,
-            'nama_wali' => $this->nama_wali,
+            'tahun' => $this->id_tahun,
+            'wali' => $this->nama_wali,
             'foto' => $photo,
         );
 

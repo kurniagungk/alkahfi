@@ -30,24 +30,56 @@ class Edit extends Component
     public $DataTahun;
     public $IdSantri;
     public $NewPhoto;
+    public $dataProvinsi;
+    public $dataKabupaten;
+    public $dataKecamatan;
+    public $dataDesa;
+    public $provinsi;
+    public $kabupaten;
+    public $kecamatan;
+    public $desa;
 
     public function mount($santri)
     {
-        $this->no_induk = $santri->no_induk;
+        $this->nis = $santri->nis;
         $this->nama = $santri->nama;
         $this->tempat_lahir = $santri->tempat_lahir;
-        $this->tgl_lahir = $santri->tgl_lahir;
+        $this->tanggal_lahir = $santri->tgl_lahir;
         $this->alamat = $santri->alamat;
-        $this->sekolah = $santri->sekolah;
-        $this->asrama = $santri->asrama_id;
+        $this->sekolah_id = $santri->sekolah;
+        $this->asrama_id = $santri->asrama_id;
         $this->telepon = $santri->telepon;
         $this->jenis_kelamin = $santri->jenis_kelamin;
-        $this->id_tahun = $santri->id_tahun;
-        $this->nama_wali = $santri->nama_wali;
+        $this->tahun = $santri->id_tahun;
+        $this->wali = $santri->nama_wali;
         $this->photo = $santri->foto;
         $this->IdSantri = $santri->id_santri;
         $this->DataAsrama = asrama::get();
         $this->DataTahun = TahunAjaran::get();
+    }
+
+    public function updatingprovinsi($value)
+    {
+        $this->reset('kabupaten', 'kecamatan', 'desa');
+        $this->dataKabupaten = Wilayah::whereRaw('LEFT(kode, 2) = "' . $value . '"')
+            ->whereRaw('CHAR_LENGTH(kode) = 5')
+            ->get();
+    }
+
+    public function updatingkabupaten($value)
+    {
+        $this->reset('kecamatan', 'desa');
+        $this->dataKecamatan = Wilayah::whereRaw('LEFT(kode, 5) = "' . $value . '"')
+            ->whereRaw('CHAR_LENGTH(kode) = 8')
+            ->get();
+    }
+
+    public function updatingkecamatan($value)
+    {
+        $this->reset('desa');
+        $this->dataDesa = Wilayah::whereRaw('LEFT(kode, 8) = "' . $value . '"')
+            ->whereRaw('CHAR_LENGTH(kode) = 13')
+            ->get();
     }
 
 

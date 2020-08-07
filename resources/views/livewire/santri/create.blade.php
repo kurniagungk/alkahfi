@@ -17,7 +17,7 @@
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label" for="text-input">NIS</label>
                                 <div class="col-md-9">
-                                    <input wire:model="no_induk" class="form-control @error('no_induk') is-invalid @enderror" id="no_induk" type="text" name="no_induk" placeholder="Nomor Induk Pondok . . .">
+                                    <input wire:model="nis" class="form-control @error('no_induk') is-invalid @enderror" id="no_induk" type="text" name="no_induk" placeholder="Nomor Induk Pondok . . .">
 
                                     @error('no_induk')
                                     <div class="invalid-feedback">
@@ -61,14 +61,75 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 col-form-label" for="textarea-input">Alamat</label>
+                                <label class="col-md-3 col-form-label">Alamat</label>
                                 <div class="col-md-9">
-                                    <textarea wire:model="alamat" class="form-control @error('alamat') is-invalid @enderror" id="textarea-input" name="alamat" rows="5" placeholder="Isi Sesuai KK . . ."></textarea>
+                                    <select wire:model="provinsi" class="custom-select @error('provinsi') is-invalid @enderror" id="provinsi">
+                                        <option value="">- Provinsi -</option>
+                                        @foreach($dataProvinsi as $prov)
+                                        <option value="{{$prov->kode}}">{{$prov->nama}}</option>
+                                        @endforeach
+
+                                    </select>
+                                    @error('provinsi')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                    @if($provinsi)
+                                    <br>
+                                    <br>
+                                    <select wire:model="kabupaten" class="custom-select @error('kabupaten') is-invalid @enderror" id="kabupaten">
+                                        <option value="">- Kota / Kabupaten -</option>
+                                        @foreach ($dataKabupaten as $kab)
+                                        <option value="{{$kab->kode}}">{{$kab->nama}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('kabupaten')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                    @endif
+                                    @if($kabupaten)
+                                    <br>
+                                    <br>
+                                    <select wire:model="kecamatan" class="custom-select @error('kecamatan') is-invalid @enderror">
+                                        <option value="">- Kecamatan -</option>
+                                        @foreach ($dataKecamatan as $kec)
+                                        <option value="{{$kec->kode}}">{{$kec->nama}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('kecamatan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                    @endif
+                                    @if($kecamatan)
+                                    <br>
+                                    <br>
+                                    <select wire:model="desa" class="custom-select @error('desa') is-invalid @enderror">
+                                        <option value="">- Desa / Kelurahan -</option>
+                                        @foreach ($dataDesa as $des)
+                                        <option value="{{$des->kode}}">{{$des->nama}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('desa')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                    @endif
+                                    @if($desa)
+                                    <br>
+                                    <br>
+                                    <textarea wire:model="alamat" class="form-control @error('alamat') is-invalid @enderror" id="textarea-input" name="alamat" rows="3" placeholder=""></textarea>
                                     @error('alamat')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                     @enderror
+                                    @endif
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -181,6 +242,7 @@
                             </div>
 
 
+                        </form>
                     </div>
                     <div class="card-footer">
                         <button class="btn btn-sm btn-success" type="submit"> Simpan</button>
@@ -196,4 +258,3 @@
     </div>
 
 </div>
-

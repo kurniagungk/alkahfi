@@ -7,17 +7,10 @@
                     <div class="card-body">
 
                         <form class="form-horizontal" wire:submit.prevent="update" enctype="multipart/form-data">
-
-                            <!-- <div class="form-group row">
-                                  <label class="col-md-3 col-form-label">Static</label>
-                                  <div class="col-md-9">
-                                      <p class="form-control-static">Username</p>
-                                  </div>
-                              </div> -->
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label" for="text-input">NIS</label>
                                 <div class="col-md-9">
-                                    <input wire:model="no_induk" class="form-control @error('no_induk') is-invalid @enderror" id="no_induk" type="text" name="no_induk" placeholder="Nomor Induk Pondok . . .">
+                                    <input wire:model="nis" class="form-control @error('no_induk') is-invalid @enderror" id="no_induk" type="text" name="no_induk" placeholder="Nomor Induk Pondok . . .">
 
                                     @error('no_induk')
                                     <div class="invalid-feedback">
@@ -61,14 +54,75 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 col-form-label" for="textarea-input">Alamat</label>
+                                <label class="col-md-3 col-form-label">Alamat</label>
                                 <div class="col-md-9">
-                                    <textarea wire:model="alamat" class="form-control @error('alamat') is-invalid @enderror" id="textarea-input" name="alamat" rows="5" placeholder="Isi Sesuai KK . . ."></textarea>
+                                    <select wire:model="provinsi" class="custom-select @error('provinsi') is-invalid @enderror" id="provinsi">
+                                        <option value="">- Provinsi -</option>
+                                        @foreach($dataProvinsi as $prov)
+                                        <option value="{{$prov->kode}}">{{$prov->nama}}</option>
+                                        @endforeach
+
+                                    </select>
+                                    @error('provinsi')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                    @if($provinsi)
+                                    <br>
+                                    <br>
+                                    <select wire:model="kabupaten" class="custom-select @error('kabupaten') is-invalid @enderror" id="kabupaten">
+                                        <option value="">- Kota / Kabupaten -</option>
+                                        @foreach ($dataKabupaten as $kab)
+                                        <option value="{{$kab->kode}}">{{$kab->nama}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('kabupaten')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                    @endif
+                                    @if($kabupaten)
+                                    <br>
+                                    <br>
+                                    <select wire:model="kecamatan" class="custom-select @error('kecamatan') is-invalid @enderror">
+                                        <option value="">- Kecamatan -</option>
+                                        @foreach ($dataKecamatan as $kec)
+                                        <option value="{{$kec->kode}}">{{$kec->nama}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('kecamatan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                    @endif
+                                    @if($kecamatan)
+                                    <br>
+                                    <br>
+                                    <select wire:model="desa" class="custom-select @error('desa') is-invalid @enderror">
+                                        <option value="">- Desa / Kelurahan -</option>
+                                        @foreach ($dataDesa as $des)
+                                        <option value="{{$des->kode}}">{{$des->nama}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('desa')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                    @endif
+                                    @if($desa)
+                                    <br>
+                                    <br>
+                                    <textarea wire:model="alamat" class="form-control @error('alamat') is-invalid @enderror" id="textarea-input" name="alamat" rows="3" placeholder=""></textarea>
                                     @error('alamat')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                     @enderror
+                                    @endif
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -127,9 +181,8 @@
                                 <div class="col-md-9">
                                     <select wire:model="id_tahun" class="custom-select @error('id_tahun') is-invalid @enderror" id="ccyear" name="id_tahun" width="100">
                                         <option value="0">- Pilih Tahun Ajaran -</option>
-                                        @foreach($DataTahun as $data)
-                                        <option value="{{$data->id_tahun}}">{{$data->nama}}</option>
-                                        @endforeach
+                                        @for($i = date('yy')-7; $i <= date('yy'); $i++) <option value="{{$i}}">{{$i}}</option>
+                                            @endfor
                                     </select>
                                     @error('id_tahun')
                                     <div class="invalid-feedback">
@@ -164,24 +217,14 @@
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label" for="file-input">Pas Foto</label>
                                 <div class="col-md-9">
-                                    <input wire:model="NewPhoto" type="file" name="foto" class="form-control-file @error('NewPhoto') is-invalid @enderror"><span class="help-block">* Ukuran (3x4) Format .jpg</span>
+                                    <input wire:model="photo" type="file" name="foto" class="form-control-file @error('photo') is-invalid @enderror"><span class="help-block">* Ukuran (3x4) Format .jpg</span>
                                     <br>
-                                    @if ($NewPhoto)
-                                    @if(!$errors->has('NewPhoto'))
-                                    <img src="{{ $NewPhoto->temporaryUrl() }}" height="200px" width="200px" class="img-thumbnail" alt="...">
+                                    @if ($photo)
+
+                                    <img src="{{ $photo->temporaryUrl() }}" height="200px" width="200px" class="img-thumbnail" alt="...">
                                     @endif
 
-
-                                    @else
-
-
-                                    <img src="{{asset('public/'.$photo)   }}" height="200px" width="200px" class="img-thumbnail" alt="...">
-
-                                    @endif
-
-
-
-                                    @error('NewPhoto')
+                                    @error('photo')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -192,6 +235,7 @@
                             </div>
 
 
+                        </form>
                     </div>
                     <div class="card-footer">
                         <button class="btn btn-sm btn-success" type="submit"> Simpan</button>

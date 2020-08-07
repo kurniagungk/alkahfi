@@ -55,7 +55,7 @@ class Index extends Component
         $santri =
             santri::with('asrama')
             ->where('nama', 'like', '%' . $this->search . '%')
-            ->orWhere('no_induk', 'like', '%' . $this->search . '%')
+            ->orWhere('nis', 'like', '%' . $this->search . '%')
             ->orWhere('alamat', 'like', '%' . $this->search . '%')
             ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
             ->paginate($this->perpage);

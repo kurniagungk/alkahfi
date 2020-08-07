@@ -22,30 +22,30 @@
                               <div class="form-group row">
                                   <label class="col-md-3 col-form-label" for="text-input">KODE ASRAMA</label>
                                   <div class="col-md-9">
-                                      <input class="form-control" id="text-input" type="text" name="kode" placeholder="Text">
+                                      <input class="form-control" id="text-input" type="text" name="kode">
                                   </div>
                               </div>
                               <div class="form-group row">
                                   <label class="col-md-3 col-form-label" for="email-input">NAMA</label>
                                   <div class="col-md-9">
-                                      <input class="form-control" id="email-input" type="text-input" name="nama" placeholder="Enter Email" autocomplete="email"><span class="help-block"></span>
+                                      <input class="form-control" type="text-input" name="nama">
                                   </div>
                               </div>
                               <div class="form-group row">
                                   <label class="col-md-3 col-form-label" for="password-input">JUMLAH KAMAR</label>
                                   <div class="col-md-9">
-                                      <input class="form-control" type="number" name="jumlah" placeholder="Password"><span class="help-block"></span>
+                                      <input class="form-control" type="number" name="kapasitas">
                                   </div>
                               </div>
                               <div class="form-group row">
                                   <label class="col-md-3 col-form-label">TIPE ASRAMA</label>
                                   <div class="col-md-9 col-form-label">
                                       <div class="form-check">
-                                          <input class="form-check-input" id="radio1" type="radio" value="1" name="kelamin">
+                                          <input class="form-check-input" id="radio1" type="radio" value="1" name="tipe">
                                           <label class="form-check-label" for="radio1">LAKI - LAKI</label>
                                       </div>
                                       <div class="form-check">
-                                          <input class="form-check-input" id="radio2" type="radio" value="2" name="kelamin">
+                                          <input class="form-check-input" id="radio2" type="radio" value="2" name="tipe">
                                           <label class="form-check-label" for="radio2">PEREMPUAN</label>
                                       </div>
                                   </div>

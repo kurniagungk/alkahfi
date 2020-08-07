@@ -44,16 +44,16 @@ class asramaController extends Controller
         $messages = [
             'kode.unique'    => 'KODE ASRAMA TIDAK BOLEH SAMA',
             'nama.required'    => 'NAMA TIDAK BOLEH KOSONG',
-            'jumlah.required'    => 'JUMLAH TIDAK BOLEH KOSONG',
-            'kelamin.required'    => 'TIPE TIDAK BOLEH KOSONG',
+            'kapasitas.required'    => 'JUMLAH TIDAK BOLEH KOSONG',
+            'tipe.required'    => 'TIPE TIDAK BOLEH KOSONG',
             'keterangan.required'    => 'KETERANGAN TIDAK BOLEH KOSONG',
         ];
 
         $validator = Validator::make($request->all(), [
             'kode' => 'required|unique:asrama|max:255',
             'nama' => 'required',
-            'jumlah' => 'required',
-            'kelamin' => 'required',
+            'kapasitas' => 'required',
+            'tipe' => 'required|integer',
             'keterangan' => 'required',
         ], $messages);
         if ($validator->fails()) {
@@ -101,9 +101,9 @@ class asramaController extends Controller
         $messages = [
             'kode.unique'    => 'KODE ASRAMA TIDAK BOLEH SAMA',
             'nama.required'    => 'NAMA TIDAK BOLEH KOSONG',
-            'jumlah.required'    => 'JUMLAH TIDAK BOLEH KOSONG',
-            'kelamin.required'    => 'TIPE TIDAK BOLEH KOSONG',
-            'Keterangan.required'    => 'KETERANGAN TIDAK BOLEH KOSONG',
+            'kapasitas.required'    => 'JUMLAH TIDAK BOLEH KOSONG',
+            'tipe.required'    => 'TIPE TIDAK BOLEH KOSONG',
+            'keterangan.required'    => 'KETERANGAN TIDAK BOLEH KOSONG',
         ];
 
         $validator = Validator::make($request->all(), [
@@ -113,9 +113,9 @@ class asramaController extends Controller
                 Rule::unique('asrama')->ignore($asrama->kode, 'kode'),
             ],
             'nama' => 'required',
-            'jumlah' => 'required',
-            'kelamin' => 'required',
-            'Keterangan' => 'required',
+            'kapasitas' => 'required',
+            'tipe' => 'required|integer',
+            'keterangan' => 'required',
         ], $messages);
         if ($validator->fails()) {
             return redirect()->route('asrama.edit', $asrama)
@@ -125,9 +125,9 @@ class asramaController extends Controller
         $data = array(
             'kode' => $request->kode,
             'nama' => $request->nama,
-            'jumlah' => $request->jumlah,
-            'kelamin' => $request->kelamin,
-            'Keterangan' => $request->Keterangan,
+            'kapasitas' => $request->jumlah,
+            'tipe' => $request->kelamin,
+            'keterangan' => $request->keterangan,
 
         );
 

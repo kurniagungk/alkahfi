@@ -18,8 +18,9 @@ class CreateSantriTable extends Migration
             $table->string('nis');
             $table->string('nama');
             $table->string('tempat_lahir');
-            $table->date('tgl_lahir');
+            $table->date('tanggal_lahir');
             $table->string('alamat');
+            $table->bigInteger('pos');
             $table->string('wali');
             $table->string('telepon');
             $table->string('status');
