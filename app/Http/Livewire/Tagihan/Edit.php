@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Tagihan;
 
 use Livewire\Component;
-use App\DaftarTagihan;
+use App\Jenis_tagihan;
 use App\TahunAjaran;
 
 class Edit extends Component
@@ -17,16 +17,17 @@ class Edit extends Component
 
     public function mount($id)
     {
-        $data = DaftarTagihan::find($id);
+        $data = Jenis_tagihan::find($id);
         $this->nama = $data->nama;
-        $this->periode = $data->id_jenis;
-        $this->tahun = $data->id_tahun;
+        $this->periode = $data->tipe;
+        $this->tahun = $data->tahun_id;
         $this->idt = $id;
         $this->TahunAjaran = TahunAjaran::latest()->get();
     }
 
     public function update()
     {
+
         $this->validate([
             'nama' => 'required|min:6',
             'periode' => 'required|',
@@ -35,11 +36,12 @@ class Edit extends Component
 
         $data = array(
             'nama' => $this->nama,
-            'id_jenis' => $this->periode,
-            'id_tahun' => $this->tahun,
+            'tipe' => $this->periode,
+            'tahun_id' => $this->tahun,
         );
 
-        DaftarTagihan::where('id_tagihan', $this->idt)->update($data);
+
+        Jenis_tagihan::where('id', $this->idt)->update($data);
         session()->flash('message', 'taguhan ' . $this->nama . ' berhasil di edit');
     }
 

@@ -35,7 +35,7 @@
                     @endif
                     <td>{{$data->tahun->nama}}</td>
                     <td>
-                        <button wire:click="edit({{$data->id}})" class="btn btn-outline-warning">edit</button>
+                        <a href="{{route('tagihan.edit', $data->id)}}" class="btn btn-outline-warning">edit</a>
                         <button wire:click="destroy({{$data->id}})" class="btn btn-outline-danger" type="button">
                             Hapus
                         </button>

@@ -29,7 +29,9 @@ class Create extends Component
             'akhir' => $this->akhir
 
         );
+
         TahunAjaran::create($data);
+
         session()->flash('message',   $this->nama . ' berhasil di tambahkan');
         $this->reset();
     }

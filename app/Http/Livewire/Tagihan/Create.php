@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Tagihan;
 
 use Livewire\Component;
-use App\DaftarTagihan;
+use App\Jenis_tagihan;
 use App\TahunAjaran;
 
 class Create extends Component
@@ -16,7 +16,6 @@ class Create extends Component
     public function mount()
     {
         $this->TahunAjaran = TahunAjaran::latest()->get();
-        $this->tahun = $this->TahunAjaran['0']->id_tahun;
     }
 
 
@@ -33,13 +32,10 @@ class Create extends Component
             'tahun' => 'required|',
         ]);
 
-        // Execution doesn't reach here if validation fails.
-
-        DaftarTagihan::create([
+        Jenis_tagihan::create([
             'nama' => $this->nama,
-            'id_jenis' => $this->periode,
-            'id_tahun' => $this->tahun,
-
+            'tipe' => $this->periode,
+            'tahun_id' => $this->tahun,
         ]);
 
         session()->flash('message', 'taguhan ' . $this->nama . ' berhasil di tambahkan');

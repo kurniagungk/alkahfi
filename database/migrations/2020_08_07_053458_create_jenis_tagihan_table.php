@@ -15,7 +15,7 @@ class CreateJenisTagihanTable extends Migration
     {
         Schema::create('jenis_tagihan', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('nama');
             $table->enum('tipe', ['spp', 'cicilan']);
             $table->bigInteger('tahun_id');
             $table->timestamps();
