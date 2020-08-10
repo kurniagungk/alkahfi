@@ -319,6 +319,13 @@ Route::group(['middleware' => ['get.menu']], function () {
             Route::POST('/getBasicData', 'asramaController@getBasicData')->name('asrama.GetData');
         });
 
+        route::prefix('laporan')->group(function () {
+            Route::livewire('/harian', 'laporan.harian')
+                ->layout('dashboard.base');
+        });
+
+
+
         Route::get('/print', 'Laporan@printTagihanBulanan');
         Route::get('/prints', 'Laporan@printTagihanCicil');
     });

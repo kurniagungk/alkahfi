@@ -11,7 +11,7 @@ class Bayar extends Model
         'id',
         'tagihan_id',
         'jumlah',
-        'id_transaksi',
+        'transaksi_id',
     ];
 
     protected $keyType = 'string';
@@ -27,13 +27,13 @@ class Bayar extends Model
         return $this->hasOne(Tagihan::class, 'id',);
     }
 
-    function daftarTagihan()
+    function jenis_tagihan()
     {
-        return $this->hasOneThrough(DaftarTagihan::class, Tagihan::class,   'id',   'id', 'tagihan_id', 'daftar_tgh_id',);
+        return $this->hasOneThrough(Jenis_tagihan::class, Tagihan::class,   'id',   'id', 'tagihan_id', 'jenis_tagihan_id');
     }
 
     function santri()
     {
-        return $this->hasOneThrough(santri::class, Tagihan::class,   'id',   'id', 'tagihan_id', 'santri_id',);
+        return $this->hasOneThrough(santri::class, Tagihan::class, 'id', 'id', 'tagihan_id', 'santri_id',);
     }
 }

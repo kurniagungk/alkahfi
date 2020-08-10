@@ -29,9 +29,10 @@ class Harian extends Component
 
 
 
+
             $bayar = Bayar::whereRaw('Date(created_at) = "' . date($date) . '"')
+                ->with('jenis_tagihan')
                 ->with('santri')
-                ->with('daftartagihan')
                 ->get();
 
 

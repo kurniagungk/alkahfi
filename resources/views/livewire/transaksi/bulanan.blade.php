@@ -89,7 +89,7 @@
                                     <th>Bulan</th>
                                     <th>Tagihan</th>
                                     <th>Status</th>
-                                    <th>Tgl Bayar</th>
+                                    <th>Tanggal Bayar</th>
                                     <th>Opsi</th>
                                     <th>Bayar</th>
                                     <th>Cetak</th>

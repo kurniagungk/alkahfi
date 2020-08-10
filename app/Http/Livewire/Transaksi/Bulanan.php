@@ -45,14 +45,13 @@ class Bulanan extends Component
 
 
         $tagihan = Tagihan::where('id', $id)->first();
-        $codeBayar = Str::Uuid();
         $codeTransaksi = Str::Uuid();
 
 
         $bayar =   Bayar::create([
-            'id' => $id,
-            'tagihan_id' =>  $codeBayar,
-            'tra' => $codeTransaksi,
+            'id' => $codeTransaksi,
+            'tagihan_id' =>  $tagihan->id,
+            'transaksi_id' => $codeTransaksi,
             'jumlah' => $tagihan->jumlah,
             'status' => 1
         ]);
@@ -82,6 +81,8 @@ class Bulanan extends Component
             'status' => 'belum',
         );
         Tagihan::where('id', $id)->update($data);
+
+
         $tagihan = Tagihan::where('id', $id)->with('bayarbulanan')->first();
         Transaksi::where('id', $tagihan->bayarbulanan->transaksi_id)->delete();
         Bayar::where('id', $tagihan->bayarbulanan->id)->delete();

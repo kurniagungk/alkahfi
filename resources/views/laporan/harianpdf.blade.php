@@ -46,7 +46,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <hr color="black" size="2%">
+
                 </td>
             </tr>
 
@@ -77,9 +77,9 @@
             @foreach($tagihan as $t)
             <tr>
                 <td>{{$loop->index +1}}</td>
-                <td>{{$t->santri->no_induk}}</td>
+                <td>{{$t->santri->nis}}</td>
                 <td>{{$t->santri->nama}}</td>
-                <td>{{$t->daftartagihan->nama}}</td>
+                <td>{{$t->jenis_tagihan->nama}}</td>
                 <td>{{$t->jumlah}}</td>
             </tr>
             @endforeach
