@@ -293,8 +293,8 @@ Route::group(['middleware' => ['get.menu']], function () {
             Route::POST('/GetData', 'SantriController@getBasicData')->name('santri.getData');
         });
         Route::get('tagihan/tambah', 'TagihanController@tambah')->name('tagihan.tambah');
-        Route::get('/transaksi/cetakb/{Idsantri}/{Idtagihan}', 'TransaksiController@printTagihanBulanan')->name('transaksi.cetak');
-        Route::get('/transaksi/cetakc/{Idsantri}/{Idtagihan}', 'TransaksiController@printTagihanCicil')->name('transaksi.cetakc');
+        Route::get('/transaksi/cetakb/{santri_id}/{tagihan_id}', 'TransaksiController@printTagihanBulanan')->name('transaksi.cetak');
+        Route::get('/transaksi/cetakc/{tagihan_id}', 'TransaksiController@printTagihanCicil')->name('transaksi.cetakc');
         Route::get('/transaksi/kwitansi/{id}', 'TransaksiController@kwitansiBulanan')->name('transaksi.kwitansi');
         Route::get('/transaksi/kwitansicicilan/{id}', 'TransaksiController@kwitansicicilan')->name('transaksi.kwitansicicilan');
         Route::livewire('/santri/asd', 'santri.create');

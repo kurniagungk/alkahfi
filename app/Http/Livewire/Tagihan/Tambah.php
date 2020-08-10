@@ -3,12 +3,13 @@
 namespace App\Http\Livewire\Tagihan;
 
 use Livewire\Component;
-use App\DaftarTagihan;
+use App\Jenis_tagihan;
 use App\santri;
 use App\Tagihan;
 use App\Kelas;
 use App\asrama;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 
 class Tambah extends Component
@@ -35,7 +36,7 @@ class Tambah extends Component
     public function updatedperiode($value)
     {
         $this->reset('jenis');
-        $this->dataJenis = DaftarTagihan::where('id_jenis', $value)->with('tahun')->get();
+        $this->dataJenis = Jenis_tagihan::where('tipe', $value)->with('tahun')->get();
 
         if (is_null($this->dataJenis)) {
             dd($this->dataJenis);
@@ -96,7 +97,7 @@ class Tambah extends Component
 
 
         if ($this->select == 2) {
-            $santri = santri::where('id_kelas', $this->kelas)->get();
+            $santri = santri::where('kelas_id', $this->kelas)->get();
         } elseif ($this->select == 3) {
             $santri = santri::whereHas('asrama', function (Builder $query) {
                 $query->where('id', $this->kelas);
@@ -116,9 +117,10 @@ class Tambah extends Component
                 for ($i = 0; $i <= $this->tahun['selisih']; $i++) {
                     $tempo = date('Y-m-d', strtotime("+$i month", strtotime($this->tahun['awal']['date'])));
                     $data = array(
-                        'daftar_tgh_id' => $this->jenis,
+                        'id' => Str::uuid(),
+                        'jenis_tagihan_id' => $this->jenis,
                         'santri_id' => $santri_id,
-                        'jatuh_tempo' => $tempo,
+                        'tempo' => $tempo,
                         'jumlah' => $this->biaya,
                     );
 
@@ -131,9 +133,10 @@ class Tambah extends Component
                 $santri_id = $data->id;
 
                 $data = array(
-                    'daftar_tgh_id' => $this->jenis,
+                    'id' => Str::uuid(),
+                    'jenis_tagihan_id' => $this->jenis,
                     'santri_id' => $santri_id,
-                    'jatuh_tempo' => $this->tempo,
+                    'tempo' => $this->tempo,
                     'jumlah' => $this->biaya,
                 );
                 Tagihan::insert($data);

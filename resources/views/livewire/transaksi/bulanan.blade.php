@@ -101,7 +101,7 @@
 
                                 @if ($t->status == 'lunas')
                                 <tr style="color:green">
-                                    @elseif ($t->jatuh_tempo < date("Y-m-d") ) <tr style="color:red">
+                                    @elseif ($t->tempo < date("Y-m-d") ) <tr style="color:red">
 
                                         @else
                                 <tr style="color:#f9b115">
@@ -114,7 +114,7 @@
                                         @endif
                                     </td>
                                     <td>{{$loop->index +1}}</td>
-                                    <td>{{date('F', strtotime($t->jatuh_tempo))}} </td>
+                                    <td>{{date('F', strtotime($t->tempo))}} </td>
                                     <td>{{FormatRupiah($t->jumlah)}}</td>
                                     <td>
                                         @if ($t->status == 'lunas')
@@ -128,9 +128,9 @@
                                     <td>Tunai</td>
                                     <td width="40" style="text-align:center">
                                         @if ($t->status == 'belum')
-                                        <button wire:click="bayar({{$t->id}})" class=" btn btn-sm btn-success"> Bayar</button>
+                                        <button wire:click="bayar('{{$t->id}}')" class=" btn btn-sm btn-success"> Bayar</button>
                                         @else
-                                        <button wire:click="hapus({{$t->id}})" class="btn btn-sm btn-danger"> Hapus</button>
+                                        <button wire:click="hapus('{{$t->id}}')" class="btn btn-sm btn-danger"> Hapus</button>
                                         @endif
 
                                     </td>

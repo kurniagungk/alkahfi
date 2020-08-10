@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Tagihan;
 use App\Transaksi;
 use App\Bayar;
+use App\santri;
 use Illuminate\Support\Facades\DB;
 
 
@@ -21,7 +22,7 @@ class Detail extends Component
     public $nama;
     public $biaya;
     public $t;
-    public $Idsantri;
+    public $santri_id;
 
 
     protected $listeners = ['reset' => 'resetdata'];
@@ -29,51 +30,55 @@ class Detail extends Component
 
     public function mount($id)
     {
-        $this->Idsantri = $id;
+        $santri = santri::firstWhere('nis', $id);
+
+        if (!is_null($santri)) {
+            $this->santri_id = $santri->id;
+        }
+
         $this->data();
     }
 
     private function data()
     {
+
+
         $this->TagihanBulanan = Tagihan::select(
-            'daftar_tgh_id',
+            'jenis_tagihan_id',
             'santri_id',
             DB::raw('sum(jumlah) as total'),
-            DB::raw('sum(if(jatuh_tempo < CURDATE() AND status = "belum" ,jumlah, 0 )) as tunggakan'),
+            DB::raw('sum(if(tempo < CURDATE() AND status = "belum" ,jumlah, 0 )) as tunggakan'),
             DB::raw('sum(if(status = "lunas",jumlah, 0 )) as dibayar'),
             DB::raw('sum(jumlah) - sum(if(status = "lunas", jumlah, 0)) as status'),
         )
-            ->where('santri_id', $this->Idsantri)
+            ->where('santri_id', $this->santri_id)
             ->with('jenis')
             ->whereHas('jenis', function ($query) {
-                $query->where('id_jenis', 1);
+                $query->where('tipe', 1);
             })
-            ->groupBy('daftar_tgh_id')
+            ->groupBy('jenis_tagihan_id')
             ->get();
-
-
-
 
 
         $this->tagihanPeriode = Tagihan::select(
             'id',
-            'daftar_tgh_id',
+            'jenis_tagihan_id',
             'santri_id',
             DB::raw('sum(jumlah) as total'),
             DB::raw('sum(jumlah) - sum(if(status = "lunas", jumlah, 0)) as status'),
         )
 
-            ->where('santri_id', $this->Idsantri)
+            ->where('santri_id', $this->santri_id)
             ->with('jenis')
             ->with('bayar')
             ->whereHas('jenis', function ($query) {
-                $query->where('id_jenis', 2);
+                $query->where('tipe', 2);
             })
             ->withCount(['bayar' => function ($query) {
                 $query->select(DB::raw('sum(jumlah) as dibayar'));
             }])
 
-            ->groupBy('daftar_tgh_id')
+            ->groupBy('jenis_tagihan_id')
             ->get();
     }
 

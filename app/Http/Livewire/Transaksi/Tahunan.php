@@ -19,40 +19,41 @@ class Tahunan extends Component
     public $DetailTagihan;
     public $Tagihan;
     public $nama;
-    public $IdTagihan;
+    public $tagihan_id;
     public $biaya;
     public $Tunggakan;
     public $Total;
     public $Dibayar;
-    public $Idsantri;
+    public $santri_id;
     public $select = array();
 
-    public function mount($id, $Idsantri)
+    public function mount($id, $santri_id)
     {
-        $this->IdTagihan = $id;
-        $this->Idsantri = $Idsantri;
+        $this->tagihan_id = $id;
+        $this->santri_id = $santri_id;
         $this->transaksi();
     }
 
     private function transaksi()
     {
-        $this->DetailTagihan = Bayar::where('tagihan_id', $this->IdTagihan)
+        $this->DetailTagihan = Bayar::where('tagihan_id', $this->tagihan_id)
             ->get();
+
 
 
         $Tagihan =
             Tagihan::select(
                 'id',
-                'daftar_tgh_id',
+                'jenis_tagihan_id',
                 'santri_id',
                 DB::raw('sum(jumlah) as total'),
             )
             ->withCount(['bayar' => function ($query) {
                 $query->select(DB::raw('sum(jumlah) as dibayar'));
             }])
-            ->Where('santri_id', $this->Idsantri)
+            ->Where('santri_id', $this->santri_id)
             ->with('jenis')
-            ->where('id', $this->IdTagihan)
+            ->where('id', $this->tagihan_id)
             ->first();
 
 
@@ -87,14 +88,13 @@ class Tahunan extends Component
         $bayar =   Bayar::create([
             'tagihan_id' => $id,
             'id' =>  $codeBayar,
-            'id_transaksi' => $codeTransaksi,
+            'transaksi_id' => $codeTransaksi,
             'jumlah' => $this->biaya,
         ]);
 
 
         $Transaksi =   Transaksi::create([
-            'id_transaksi' => $bayar->id_transaksi,
-            'tanggal' => date("Y-m-d"),
+            'id' => $bayar->id_transaksi,
             'jumlah' => $this->biaya,
             'jenis' => 1
         ]);
@@ -112,7 +112,7 @@ class Tahunan extends Component
     {
 
         Bayar::where('id', $id)->delete();
-        Transaksi::where('id_transaksi', $id)->delete();
+        Transaksi::where('id', $id)->delete();
         $this->transaksi();
         session()->flash('message', '<div class="alert alert-danger">
                     tagihan berhasil di hapus
@@ -122,14 +122,14 @@ class Tahunan extends Component
 
     public function cetak()
     {
-        $santri = santri::find($this->Idsantri);
+        $santri = santri::find($this->santri_id);
 
         $tagihan =
             Bayar::whereIn('id', $this->select)
             ->get();
 
         $detail =
-            Tagihan::where('id', $this->IdTagihan)
+            Tagihan::where('id', $this->tagihan_id)
             ->with('jenis')
             ->first();
 

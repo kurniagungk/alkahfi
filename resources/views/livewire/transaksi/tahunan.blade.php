@@ -117,7 +117,7 @@
                                     <td>
                                         <div class="form-group row">
                                             <div class="col-md-12">
-                                                <input wire:model="biaya" autofocus class="form-control @error('biaya') is-invalid @enderror" id="text-input" type="number" name="nama_wali">
+                                                <input wire:model.lazy="biaya" autofocus class="form-control @error('biaya') is-invalid @enderror" id="text-input" type="number" name="nama_wali">
                                                 @error('biaya')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -128,7 +128,7 @@
                                     </td>
                                     <td width="40" style="text-align:center">
 
-                                        <button wire:click="bayar({{$IdTagihan}})" class=" btn btn-sm btn-success"> Bayar</button>
+                                        <button wire:click="bayar('{{$tagihan_id}}')" class=" btn btn-sm btn-success"> Bayar</button>
 
                                     </td>
                                     <td width="40" style="text-align:center">

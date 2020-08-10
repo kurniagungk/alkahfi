@@ -4,10 +4,10 @@
 
     @if($jenis)
 
-    @livewire('transaksi.bulanan', ['id' => $t, 'Idsantri' => $Idsantri], key($t))
+    @livewire('transaksi.bulanan', ['id' => $t, 'santri_id' => $santri_id], key($t))
 
     @else
-    @livewire('transaksi.tahunan', ['id' => $t, 'Idsantri' => $Idsantri], key($t))
+    @livewire('transaksi.tahunan', ['id' => $t, 'santri_id' => $santri_id], key($t))
     @endif
 
     <div class="col-sm-12" style="visibility: hidden;">
@@ -98,11 +98,11 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <button wire:click="detail({{$data->daftar_tgh_id}}, '{{$Idsantri}}')" class="btn btn-success">Bayar</button>
+                                        <button wire:click="detail({{$data->jenis_tagihan_id}}, '{{$santri_id}}')" class="btn btn-success">Bayar</button>
                                     </td>
 
                                     <td>
-                                        <a target="_blank" class="btn btn-primary" href="{{route('transaksi.cetak',[ 'Idsantri' => $Idsantri, 'Idtagihan' => $data->daftar_tgh_id  ])}}" role="button">Cetak</a>
+                                        <a target="_blank" class="btn btn-primary" href="{{route('transaksi.cetak',[ 'santri_id' => $santri_id, 'tagihan_id' => $data->jenis_tagihan_id  ])}}" role="button">Cetak</a>
                                     </td>
 
                                 </tr>
@@ -163,7 +163,7 @@
                                         <button wire:click="periode('{{$data->id}}', '{{$data->jenis->nama}}')" class="btn btn-success">Bayar</button>
                                     </td>
                                     <td>
-                                        <a target="_blank" class="btn btn-primary" href="{{route('transaksi.cetakc',[ 'Idsantri' => $Idsantri, 'Idtagihan' => $data->id ])}}" role="button">Cetak</a>
+                                        <a target="_blank" class="btn btn-primary" href="{{route('transaksi.cetakc',['tagihan_id' => $data->id ])}}" role="button">Cetak</a>
                                     </td>
 
                                 </tr>

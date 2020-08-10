@@ -9,10 +9,11 @@ class Tagihan extends Model
     //
     protected $table = 'tagihan';
     protected $primaryKey = 'id';
+    protected $keyType = 'string';
 
     public function jenis()
     {
-        return $this->belongsTo('App\DaftarTagihan', 'daftar_tgh_id');
+        return $this->belongsTo(Jenis_tagihan::class, 'jenis_tagihan_id');
     }
     public function bayar()
     {

@@ -8,25 +8,26 @@ use App\santri;
 class Profil extends Component
 {
     public $profil;
-    public $IdSantri;
+    public $santri_id;
 
     protected $listeners = ['reset' => 'DataProfil'];
 
     public function mount($id)
     {
-        $this->IdSantri = $id;
+        $this->santri_id = $id;
         $this->DataProfil();
     }
 
     public function DataProfil()
     {
 
-        $this->profil = santri::find($this->IdSantri);
+        $profil = santri::firstWhere('nis', $this->santri_id);
 
-
-
-        if (is_null($this->profil)) {
+        if (is_null($profil)) {
             $this->emit('resetFind');
+        } else {
+            $this->emit('profil');
+            $this->profil = $profil;
         }
     }
 

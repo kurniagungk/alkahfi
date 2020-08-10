@@ -21,16 +21,16 @@ class Bulanan extends Component
     public $DetailTagihan;
     public $Tagihan;
     public $nama;
-    public $IdTagihan;
-    public $Idsantri;
+    public $tagihan_id;
+    public $santri_id;
     public $select = array();
     public $pdf;
 
-    public function mount($id, $Idsantri)
+    public function mount($id, $santri_id)
     {
 
-        $this->Idsantri = $Idsantri;
-        $this->IdTagihan = $id;
+        $this->santri_id = $santri_id;
+        $this->tagihan_id = $id;
         $this->dataTagihan();
     }
 
@@ -52,7 +52,7 @@ class Bulanan extends Component
         $bayar =   Bayar::create([
             'id' => $id,
             'tagihan_id' =>  $codeBayar,
-            'id_transaksi' => $codeTransaksi,
+            'tra' => $codeTransaksi,
             'jumlah' => $tagihan->jumlah,
             'status' => 1
         ]);
@@ -60,8 +60,7 @@ class Bulanan extends Component
 
 
         $codeTransaksi = Transaksi::create([
-            'id_transaksi' => $bayar->id_transaksi,
-            'tanggal' => date("Y-m-d"),
+            'id' => $bayar->transaksi_id,
             'jumlah' => $tagihan->jumlah,
             'jenis' => 1
         ]);
@@ -84,7 +83,7 @@ class Bulanan extends Component
         );
         Tagihan::where('id', $id)->update($data);
         $tagihan = Tagihan::where('id', $id)->with('bayarbulanan')->first();
-        Transaksi::where('id_transaksi', $tagihan->bayarbulanan->id_transaksi)->delete();
+        Transaksi::where('id', $tagihan->bayarbulanan->transaksi_id)->delete();
         Bayar::where('id', $tagihan->bayarbulanan->id)->delete();
         $this->dataTagihan();
         session()->flash('message', '<div class="alert alert-danger">
@@ -94,29 +93,29 @@ class Bulanan extends Component
 
     public function dataTagihan()
     {
-        $this->DetailTagihan = Tagihan::where('daftar_tgh_id', $this->IdTagihan)
-            ->Where('santri_id', $this->Idsantri)
+        $this->DetailTagihan = Tagihan::where('jenis_tagihan_id', $this->tagihan_id)
+            ->Where('santri_id', $this->santri_id)
             ->with('bayarbulanan')
             ->get();
 
 
         $this->Tagihan = Tagihan::select(
             'id',
-            'daftar_tgh_id',
+            'jenis_tagihan_id',
             DB::raw('sum(jumlah) as total'),
-            DB::raw('sum(if(jatuh_tempo < CURDATE() AND status = "belum" ,jumlah, 0 )) as tunggakan'),
+            DB::raw('sum(if(tempo < CURDATE() AND status = "belum" ,jumlah, 0 )) as tunggakan'),
             DB::raw('sum(if(status = "lunas",jumlah, 0 )) as dibayar'),
             DB::raw('sum(jumlah) - sum(if(status = "lunas", jumlah, 0)) as status'),
         )
             ->with('jenis')
-            ->where('daftar_tgh_id', $this->IdTagihan)
-            ->Where('santri_id', $this->Idsantri)
+            ->where('jenis_tagihan_id', $this->tagihan_id)
+            ->Where('santri_id', $this->santri_id)
             ->get();
     }
 
     public function cetak()
     {
-        $santri = santri::find($this->Idsantri);
+        $santri = santri::find($this->santri_id);
 
         $tagihan =
             Tagihan::whereIn('id', $this->select)
@@ -124,7 +123,7 @@ class Bulanan extends Component
             ->get();
 
 
-        $detail = Tagihan::Where('daftar_tgh_id', $this->IdTagihan)
+        $detail = Tagihan::Where('jenis_tagihan_id', $this->tagihan_id)
             ->with('jenis')
             ->first();
 

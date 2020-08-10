@@ -21,7 +21,7 @@
 
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="select1">tahun ajaran</label>
-            <div class="col-md-9">
+    <div class="col-md-9">
                 <select class="form-control" id="select1" wire:model="tahun">
                     <option value="">- Tahun Ajaran -</option>
                     @foreach ($TahunAjaran as $data)

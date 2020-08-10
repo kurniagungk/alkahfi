@@ -15,7 +15,10 @@ class Index extends Component
     protected $updatesQueryString = [
         'nis',
     ];
-    protected $listeners = ['resetFind' => 'resetFind'];
+    protected $listeners = [
+        'resetFind' => 'resetFind',
+        'profil' => 'profil'
+    ];
 
     public function render()
     {
@@ -26,6 +29,10 @@ class Index extends Component
     {
         $this->find = true;
         $this->emit('reset');
+    }
+
+    public function profil()
+    {
     }
 
     public function resetFind()
