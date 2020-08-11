@@ -195,38 +195,29 @@ class MenusTableSeeder extends Seeder
         $this->endDropdown();
         $this->insertLink('guest,user,admin', 'Download CoreUI', 'https://coreui.io', 'cil-cloud-download');
         $this->insertLink('guest,user,admin', 'Try CoreUI PRO', 'https://coreui.io/pro/', 'cil-layers');
-        $this->insertTitle('user,admin', 'MASTER');
-        $this->beginDropdown('user,admin', 'DATA PONDOK', 'cil-library');
-        $id = $this->insertLink('user,admin', 'Santri',                   '/santri');
-        $id = $this->insertLink('user,admin', 'Pengurus',                   '/pondok/pengurus');
-        $id = $this->insertLink('user,admin', 'Asrama',                   '/asrama');
+        $this->insertTitle('admin,bendahara', 'MASTER');
+        $this->beginDropdown('admin,bendahara', 'DATA PONDOK', 'cil-library');
+        $id = $this->insertLink('admin,bendahara', 'Santri',                   '/santri');
+        $id = $this->insertLink('admin,bendahara', 'Asrama',                   '/asrama');
+        $id = $this->insertLink('admin,bendahara', 'Sekolah',                   '/sekolah');
+        $id = $this->insertLink('admin,bendahara', 'Kelas',                   '/kelas');
         $this->endDropdown();
-        $this->beginDropdown('user,admin', 'TAGIHAN', 'cil-library');
-        $id = $this->insertLink('user,admin', 'DAFTAR TAGIHAN',                   '/tagihan');
-        $id = $this->insertLink('user,admin', 'TAMBAH TAGIHAN',                   '/tagihan/create');
-        $id = $this->insertLink('user,admin', 'JENIS TAGIHAN',                   '');
 
+        $this->beginDropdown('admin,bendahara', 'TAGIHAN', 'cil-library');
+        $id = $this->insertLink('admin,bendahara', 'DAFTAR TAGIHAN',                   '/tagihan');
+        $id = $this->insertLink('admin,bendahara', 'JENIS TAGIHAN',                   '');
+        $id = $this->insertLink('admin,bendahara', 'TAMBAH TAGIHAN',                   '/tagihan/create');
         $this->endDropdown();
-        $this->beginDropdown('user,admin', 'PENGATURAN', 'cil-settings');
-        $id = $this->insertLink('user,admin', 'DASHBOARD', '/pondok');
-        $id = $this->insertLink('user,admin', 'Pos Keuangan', '/pondok/pos_uang');
-        $id = $this->insertLink('user,admin', 'Jenis Pembayaran', '/pondok/jns_bayar');
-        $id = $this->insertLink('user,admin', 'Akun Pengguna', '/pondok/akun');
-        $id = $this->insertLink('user,admin', 'Mutasi Santri', '/pondok/mutasi');
+
+        $this->beginDropdown('admin,bendahara', 'TRANSAKSI', 'cil-money');
+        $id = $this->insertLink('admin,bendahara', 'Pembayaran', '/transaksi');
         $this->endDropdown();
-        $this->beginDropdown('user,admin', 'TRANSAKSI', 'cil-money');
-        $id = $this->insertLink('user,admin', 'Input Santri', '#');
-        $id = $this->insertLink('user,admin', 'Lain-lain', '/ASD');
+
+
+        $this->insertTitle('admin,bendahara', 'LAPORAN');
+        $this->beginDropdown('admin,bendahara', 'LAPORAN PEMBAYARAN', 'cil-money');
+        $id = $this->insertLink('admin,bendahara', 'Laporan Harian', 'laporan/harian');
         $this->endDropdown();
-        $this->insertLink('user,admin', 'Cek Tunggakan', '#', 'cil-account-logout');
-        $this->insertLink('user,admin', 'JURNAL UMUM', '#', 'cil-account-logout');
-        $this->insertTitle('user,admin', 'LAPORAN');
-        $this->beginDropdown('user,admin', 'LAPORAN KEUANGAN', 'cil-money');
-        $id = $this->insertLink('user,admin', 'Syahriah', '/pondok/lap_syahriah');
-        $id = $this->insertLink('user,admin', 'Tahun Ajaran', '/pondok/thn_ajaran');
-        $id = $this->insertLink('user,admin', 'Pendaftaran Santri', '/pondok/lap_daftarbaru');
-        $this->endDropdown();
-        $this->insertTitle('user,admin', 'PAYMENT');
 
 
 
