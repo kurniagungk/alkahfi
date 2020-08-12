@@ -19,6 +19,7 @@ class CreateSantriTable extends Migration
             $table->string('nama');
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
+            $table->enum('jenis_kelamin', ['Laki-Laki', 'Perempuan']);
             $table->string('alamat');
             $table->bigInteger('pos');
             $table->string('wali');

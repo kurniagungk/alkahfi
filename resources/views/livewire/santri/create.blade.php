@@ -162,11 +162,11 @@
                                 <label class="col-md-3 col-form-label">Jenis Kelamin</label>
                                 <div class="col-md-9 col-form-label">
                                     <div class="form-check form-check-inline mr-1">
-                                        <input wire:model="jenis_kelamin" class="form-check-input @error('jenis_kelamin') is-invalid @enderror" id="inline-radio1" type="radio" value="1" name="jenis_kelamin">
+                                        <input wire:model="jenis_kelamin" class="form-check-input @error('jenis_kelamin') is-invalid @enderror" id="inline-radio1" type="radio" value="Laki-Laki" name="jenis_kelamin">
                                         <label class="form-check-label" for="inline-radio1">Laki-laki</label>
                                     </div>
                                     <div class="form-check form-check-inline mr-1">
-                                        <input wire:model="jenis_kelamin" class="form-check-input @error('jenis_kelamin') is-invalid @enderror" id="inline-radio2" type="radio" value="2" name="jenis_kelamin">
+                                        <input wire:model="jenis_kelamin" class="form-check-input @error('jenis_kelamin') is-invalid @enderror" id="inline-radio2" type="radio" value="Perempuan" name="jenis_kelamin">
                                         <label class="form-check-label" for="inline-radio2">Perempuan</label>
                                     </div>
                                     @error('jenis_kelamin')
