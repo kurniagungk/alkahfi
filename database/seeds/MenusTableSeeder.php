@@ -201,6 +201,7 @@ class MenusTableSeeder extends Seeder
         $id = $this->insertLink('admin,bendahara', 'Asrama',                   '/asrama');
         $id = $this->insertLink('admin,bendahara', 'Sekolah',                   '/sekolah');
         $id = $this->insertLink('admin,bendahara', 'Kelas',                   '/kelas');
+        $id = $this->insertLink('admin,bendahara', 'Tahun Ajaran',                   '/tahun');
         $this->endDropdown();
 
         $this->beginDropdown('admin,bendahara', 'TAGIHAN', 'cil-library');
