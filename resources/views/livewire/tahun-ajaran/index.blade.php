@@ -30,7 +30,7 @@
                     <td>{{$data->awal}}</td>
                     <td>{{$data->akhir}}</td>
                     <td>
-                        <button wire:click="edit({{$data->id_tahun}})" class="btn btn-outline-warning">edit</button>
+                        <a href="{{route('tahun.edit', $data->id)}}" class="btn btn-outline-warning">edit</a>
                         <button wire:click="destroy({{$data->id_tahun}})" class="btn btn-outline-danger" type="button">
                             Hapus
                         </button>

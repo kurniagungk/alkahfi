@@ -38,7 +38,7 @@
                                   </div>
                               </div>
                               <div class="form-group row">
-                                  <label class="col-md-3 col-form-label">asd ASRAMA</label>
+                                  <label class="col-md-3 col-form-label"> ASRAMA</label>
                                   <div class="col-md-9 col-form-label">
                                       <div class="form-check form-check-inline">
                                           <input class="form-check-input" id="radio1" type="radio" value="1" name="tipe">

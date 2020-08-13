@@ -21,7 +21,7 @@
 
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="select1">tahun ajaran</label>
-    <div class="col-md-9">
+            <div class="col-md-9">
                 <select class="form-control" id="select1" wire:model="tahun">
                     <option value="">- Tahun Ajaran -</option>
                     @foreach ($TahunAjaran as $data)
@@ -41,7 +41,7 @@
                 </div>
                 <div class="form-check form-check-inline mr-1">
                     <input wire:model="periode" class="form-check-input" id="inline-radio2" type="radio" value="2" name="inline-radios">
-                    <label class="form-check-label" for="inline-radio2">Tahunan</label>
+                    <label class="form-check-label" for="inline-radio2">Cicilan</label>
                 </div>
 
             </div>

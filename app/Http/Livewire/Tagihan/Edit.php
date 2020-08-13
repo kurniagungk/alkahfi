@@ -29,7 +29,7 @@ class Edit extends Component
     {
 
         $this->validate([
-            'nama' => 'required|min:6',
+            'nama' => 'required|',
             'periode' => 'required|',
             'tahun' => 'required|',
         ]);

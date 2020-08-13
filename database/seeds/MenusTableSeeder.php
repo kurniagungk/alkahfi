@@ -207,7 +207,7 @@ class MenusTableSeeder extends Seeder
         $this->beginDropdown('admin,bendahara', 'TAGIHAN', 'cil-library');
         $id = $this->insertLink('admin,bendahara', 'DAFTAR TAGIHAN',                   '/tagihan');
         $id = $this->insertLink('admin,bendahara', 'JENIS TAGIHAN',                   '');
-        $id = $this->insertLink('admin,bendahara', 'TAMBAH TAGIHAN',                   '/tagihan/create');
+        $id = $this->insertLink('admin,bendahara', 'TAMBAH TAGIHAN',                   '/tagihan/tambah');
         $this->endDropdown();
 
         $this->beginDropdown('admin,bendahara', 'TRANSAKSI', 'cil-money');

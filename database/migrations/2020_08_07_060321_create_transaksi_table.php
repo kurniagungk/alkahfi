@@ -14,7 +14,7 @@ class CreateTransaksiTable extends Migration
     public function up()
     {
         Schema::create('transaksi', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
             $table->bigInteger('jumlah');
             $table->enum('tipe', ['debit', 'credit']);
             $table->timestamps();

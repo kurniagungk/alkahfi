@@ -32,7 +32,7 @@
                                     <td>{{$data->keterangan}}</td>
                                     <td>
                                         <center>
-                                            <a href="{{route('kelas.edit', $data->id)}}" class="btn btn-outline-warning">edit</a>
+                                            <a href="{{route('sekolah.edit', $data->id)}}" class="btn btn-outline-warning">edit</a>
                                             @if($confirming===$data->id)
                                             <button wire:click="kill({{ $data->id }})" type="button" class="btn btn-danger">Sure?</button>
                                             @else

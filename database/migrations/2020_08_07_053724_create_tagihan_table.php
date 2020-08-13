@@ -14,7 +14,7 @@ class CreateTagihanTable extends Migration
     public function up()
     {
         Schema::create('tagihan', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
             $table->bigInteger('jenis_tagihan_id');
             $table->uuid('santri_id');
             $table->date('tempo');

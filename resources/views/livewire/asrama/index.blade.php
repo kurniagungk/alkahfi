@@ -104,7 +104,7 @@
                                     Nama
                                     <i class="cil-resize-height" @if($sortField=='nama' ) style="color:red" @endif></i>
                                 </a></th>
-                            <th>Kapasitas</th>
+                            <th>Jumlah Kamar</th>
                             <th>Type</th>
                             <th>KETERANGAN</th>
                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Aksi: activate to sort column ascending">

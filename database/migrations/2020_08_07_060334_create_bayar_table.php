@@ -14,7 +14,7 @@ class CreateBayarTable extends Migration
     public function up()
     {
         Schema::create('bayar', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
             $table->uuid('tagihan_id');
             $table->uuid('transaksi_id');
             $table->bigInteger('jumlah');

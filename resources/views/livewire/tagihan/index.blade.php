@@ -28,11 +28,7 @@
                 <tr>
                     <td>{{$loop->index+1}}</td>
                     <td>{{$data->nama}}</td>
-                    @if($data->id_jenis == 1)
-                    <td>Bulanan</td>
-                    @else
-                    <td>tahunan</td>
-                    @endif
+                    <td>{{$data->tipe}}</td>
                     <td>{{$data->tahun->nama}}</td>
                     <td>
                         <a href="{{route('tagihan.edit', $data->id)}}" class="btn btn-outline-warning">edit</a>
