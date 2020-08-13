@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `wilayah`;
 CREATE TABLE `wilayah` (
-  `kode` varchar(13) NOT NULL,
+  `kode` varchar(13) NOT NULL PRIMARY KEY,
   `nama` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

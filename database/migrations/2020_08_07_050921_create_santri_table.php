@@ -30,7 +30,10 @@ class CreateSantriTable extends Migration
             $table->bigInteger('sekolah_id');
             $table->bigInteger('kelas_id');
             $table->bigInteger('asrama_id');
-            $table->string('wilayah_id');
+            $table->string('provinsi_id', 2);
+            $table->string('kabupaten_id', 5);
+            $table->string('kecamatan_id', 8);
+            $table->string('desa_id', 13);
             $table->timestamps();
         });
     }

@@ -55,10 +55,10 @@ class Edit extends Component
         $this->wali = $santri->wali;
         $this->photo = $santri->foto;
         $this->santri_id = $santri->id;
-        $this->provinsi = substr($santri->wilayah_id, 0, 2);
-        $this->kabupaten = substr($santri->wilayah_id, 0, 5);
-        $this->kecamatan = substr($santri->wilayah_id, 0, 8);
-        $this->desa = substr($santri->wilayah_id, 0, 13);
+        $this->provinsi = $santri->provinsi_id;
+        $this->kabupaten = $santri->kabupaten_id;
+        $this->kecamatan =  $santri->kecamatan_id;
+        $this->desa =  $santri->desa_id;
         $this->data();
     }
 
@@ -187,6 +187,10 @@ class Edit extends Component
         $santri->wali = $this->wali;
         $santri->asrama_id = $this->asrama;
         $santri->sekolah_id = $this->sekolah;
+        $santri->provinsi_id = $this->provinsi;
+        $santri->kabupaten_id = $this->kabupaten;
+        $santri->kecamatan_id = $this->kecamatan;
+        $santri->desa_id = $this->desa;
 
 
         $santri->save();

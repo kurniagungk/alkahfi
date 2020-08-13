@@ -130,6 +130,7 @@ class Create extends Component
 
         $photo = $this->photo->store('photos', 'public');
 
+
         $data = array(
             'id' => Str::uuid(),
             'nis' => $this->nis,
@@ -142,9 +143,12 @@ class Create extends Component
             'tahun' => $this->id_tahun,
             'wali' => $this->nama_wali,
             'foto' => $photo,
-            'wilayah_id' => $this->desa,
             'sekolah_id' => $this->sekolah,
             'asrama_id' => $this->asrama,
+            'provinsi_id' => $this->provinsi,
+            'kabupaten_id' => $this->kabupaten,
+            'kecamatan_id' => $this->kecamatan,
+            'desa_id' => $this->desa,
         );
 
 

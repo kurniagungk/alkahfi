@@ -54,6 +54,10 @@ class Index extends Component
     {
         $santri =
             santri::with('asrama')
+            ->with('provinsi')
+            ->with('kabupaten')
+            ->with('kecamatan')
+            ->with('desa')
             ->where('nama', 'like', '%' . $this->search . '%')
             ->orWhere('nis', 'like', '%' . $this->search . '%')
             ->orWhere('alamat', 'like', '%' . $this->search . '%')

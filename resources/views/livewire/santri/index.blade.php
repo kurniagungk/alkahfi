@@ -107,7 +107,7 @@
                                     </a></th>
                                 <th>ASRAMA</th>
                                 <th>JK</th>
-
+                                <th>Alamat</th>
                                 <th>MASUK </th>
                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Aksi: activate to sort column ascending">
                                     <center>Aksi</center>
@@ -115,15 +115,19 @@
                             </tr>
                         </thead>
                         <tbody>
-
                             @foreach($santri as $data)
                             <tr>
                                 <td>{{$loop->index +1}}</td>
                                 <td>{{$data->nis}}</td>
                                 <td>{{$data->nama}}</td>
                                 <td>{{optional($data->asrama)->nama}}</td>
-
                                 <td>{{$data->jenis_kelamin}}</td>
+                                <td>
+                                    {{$data->desa->nama}},
+                                    {{$data->kecamatan->nama}},
+                                    {{$data->kabupaten->nama}},
+                                    {{$data->provinsi->nama}}
+                                </td>
                                 <td>{{$data->tahun}}</td>
                                 <td>
                                     <center>
