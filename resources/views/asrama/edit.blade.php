@@ -41,25 +41,24 @@
                               <div class="form-group row">
                                   <label class="col-md-3 col-form-label">TIPE ASRAMA</label>
                                   <div class="col-md-9 col-form-label">
-                                      @if ($asrama->tipe == '1')
-                                      <div class="form-check">
-                                          <input checked class="form-check-input" id="radio1" type="radio" value="1" name="tipe">
+                                      @if ($asrama->tipe == 'l')
+                                      <div class="form-check form-check-inline">
+                                          <input class="form-check-input" checked id="radio1" type="radio" value="1" name="tipe">
                                           <label class="form-check-label" for="radio1">LAKI - LAKI</label>
                                       </div>
-                                      <div class="form-check">
+                                      <div class="form-check form-check-inline">
                                           <input class="form-check-input" id="radio2" type="radio" value="2" name="tipe">
                                           <label class="form-check-label" for="radio2">PEREMPUAN</label>
                                       </div>
                                       @else
-                                      <div class="form-check">
+                                      <div class="form-check form-check-inline">
                                           <input class="form-check-input" id="radio1" type="radio" value="1" name="tipe">
                                           <label class="form-check-label" for="radio1">LAKI - LAKI</label>
                                       </div>
-                                      <div class="form-check">
-                                          <input checked class="form-check-input" id="radio2" type="radio" value="2" name="tipe">
+                                      <div class="form-check form-check-inline">
+                                          <input class="form-check-input" checked id="radio2" type="radio" value="2" name="tipe">
                                           <label class="form-check-label" for="radio2">PEREMPUAN</label>
                                       </div>
-
                                       @endif
 
 
