@@ -104,10 +104,10 @@
                                     Nama
                                     <i class="cil-resize-height" @if($sortField=='nama' ) style="color:red" @endif></i>
                                 </a></th>
-                            <th>JUMLAH KAMAR</th>
+                            <th>Kapasitas</th>
                             <th>Type</th>
                             <th>KETERANGAN</th>
-                            <th width="40" class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Aksi: activate to sort column ascending" style="width: 120px;">
+                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Aksi: activate to sort column ascending">
                                 <center>Aksi</center>
                             </th>
                             </tr>
@@ -118,17 +118,18 @@
                                 <td>{{$loop->index +1}}</td>
                                 <td>{{$data->kode}}</td>
                                 <td>{{$data->nama}}</td>
-                                <td>{{$data->jumlah}}</td>
-                                <td>{{$data->kelamin}}</td>
+                                <td>{{$data->kapasitas}}</td>
+                                <td>{{$data->tipe}}</td>
+                                <td>{{$data->keterangan}}</td>
                                 <td>
-                                    <center>
-                                        <a href=" {{route('asrama.edit', $data->id)}} " class="btn btn-primary " role="button" aria-pressed="true">EDIT</a>
-                                        @if($confirming===$data->id)
-                                        <button wire:click="kill({{ $data->id }})" type="button" class="btn btn-danger">Sure?</button>
-                                        @else
-                                        <button wire:click="confirmDelete({{ $data->id }})" type="button" class="btn btn-warning">Delete</button>
-                                        @endif
-                                    </center>
+
+                                    <a href=" {{route('asrama.edit', $data->id)}} " class="btn btn-primary " role="button" aria-pressed="true">EDIT</a>
+                                    @if($confirming===$data->id)
+                                    <button wire:click="kill({{ $data->id }})" type="button" class="btn btn-danger">Sure?</button>
+                                    @else
+                                    <button wire:click="confirmDelete({{ $data->id }})" type="button" class="btn btn-warning">Delete</button>
+                                    @endif
+
                                 </td>
 
                             </tr>
