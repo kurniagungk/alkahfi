@@ -108,7 +108,7 @@ class Tambah extends Component
 
 
 
-        if ($this->periode == 1) {
+        if ($this->periode == "spp") {
             $this->validate([
                 'tempo' => 'numeric|min:1|max:29',
             ]);

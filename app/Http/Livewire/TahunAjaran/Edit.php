@@ -46,10 +46,9 @@ class Edit extends Component
             'semester' => $this->semester,
             'awal' => $this->awal,
             'akhir' => $this->akhir
-
         );
 
-        TahunAjaran::where('id_tahun', $this->idt)->update($data);
+        TahunAjaran::where('id', $this->idt)->update($data);
         session()->flash('message', 'taguhan ' . $this->nama . ' berhasil di edit');
     }
 }
