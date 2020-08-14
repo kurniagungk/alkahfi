@@ -12,8 +12,8 @@
              <div class="col-md-9">
                  <select class="form-control  @error('periode') is-invalid @enderror" wire:model="periode">
                      <option value=''>pilih salah satu</option>
-                     <option {{$periode == '1' ? 'selected':''}} value="1">bulanan</option>
-                     <option {{$periode == '2' ? 'selected':''}} value="2">tahun</option>
+                     <option value="spp">bulanan</option>
+                     <option value="cicilan">Cicilan</option>
                  </select>
                  @error('periode')
                  <div class="invalid-feedback">{{ $message }}</div>
@@ -24,9 +24,9 @@
          <div class="form-group row">
              <label class="col-md-3 col-form-label">Tanggal Jatuh Tempo</label>
              <div class="col-md-9">
-                 @if($periode == 1 )
+                 @if($periode == "spp" )
                  <input wire:model="tempo" class="form-control @error('tempo') is-invalid @enderror" min="1" max="29" id="number-input" type="number" name="text-input">
-                 @elseif ($periode == 2 )
+                 @elseif ($periode == "cicilan" )
                  <input wire:model="tempo" class="form-control @error('tempo') is-invalid @enderror" id="date-input" type="date" name="date-input" placeholder="date">
                  @endif
                  @error('tempo') <div class="invalid-feedback">{{ $message }}</div> @enderror

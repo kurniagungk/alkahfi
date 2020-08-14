@@ -38,77 +38,104 @@
                                 </div> -->
 
 
-                                        <form class="form-inline">
-                                            <div class="form-group mb-2">
-                                                <label class="sr-only">Email</label>
-                                                <input type="text" class="form-control-plaintext" value="Periode">
-                                            </div>
-                                            <div class="form-group mx-sm-3 mb-2">
-                                                <label class="sr-only">Password</label>
-                                                <input type="date" class="form-control" id="inputPassword2" placeholder="Awal">
-                                            </div>
-                                            <div class="form-group mx-sm-3 mb-2">
-
-                                                <label class="sr-only">Password</label>
-                                                <input type="date" class="form-control" id="inputPassword2" placeholder="Ahir">
-                                            </div>
-                                        </form>
-
-                                        <form class="form-inline">
-                                            <div class="form-group mb-2">
-                                                <label for="staticEmail2" class="sr-only">Jenis Bayar</label>
-                                                <input type="text" readonly class="form-control-plaintext" value="Jenis Bayar">
-                                            </div>
-                                            <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
-                                                <label class="custom-control-label" for="customRadioInline1">Semua</label>
-                                            </div>
-                                            <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
-                                                <label class="custom-control-label" for="customRadioInline2">Bulanan</label>
-                                            </div>
-                                            <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="customRadioInline3" name="customRadioInline1" class="custom-control-input">
-                                                <label class="custom-control-label" for="customRadioInline3">Tahunan</label>
-                                            </div>
-                                        </form>
-                                        <form class="form-inline">
-                                            <div class="form-group mb-2">
-                                                <label for="staticEmail2" class="sr-only">Nama Tagihan</label>
-                                                <input type="text" readonly class="form-control-plaintext" value="Nama Tagihan">
-                                            </div>
-                                            <div class="form-group col-md-8">
-                                                <select id="inputState" class="form-control">
-                                                    <option selected>Semua </option>
-                                                    <option>Koperasi</option>
-                                                    <option>Warnet</option>
-                                                </select>
-                                            </div>
-                                        </form>
-                                        <form class="form-inline">
-                                            <div class="form-group mb-2">
-                                                <label for="staticEmail2" class="sr-only">Sekolah</label>
-                                                <input type="text" readonly class="form-control-plaintext" value="Sekolah">
-                                            </div>
-                                            <div class="form-group col-md-4">
-                                                <select id="inputState" class="form-control">
-                                                    <option selected>Semua </option>
-                                                    <option>SMK</option>
-                                                    <option>SMA</option>
-                                                    <option>SMP</option>
-
-                                                </select>
-                                            </div>
-                                        </form>
-                                        <br>
                                         <form>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Tanggal</label>
+                                                <div class="col-sm-4">
+                                                    <input wire:model="awal" type="date" class="form-control @error('awal') is-invalid @enderror" id="inputPassword2">
+                                                    @error('awal')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-sm-1"></div>
+                                                <div class="col-sm-4">
+                                                    <input wire:model="akhir" type="date" class="form-control @error('akhir') is-invalid @enderror" id="inputPassword2">
+                                                    @error('akhir')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Jenis Bayar</label>
+                                                <div class="col-sm-9">
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input wire:model="periode" type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input @error('periode') is-invalid @enderror" value="0">
+                                                        <label class="custom-control-label" for="customRadioInline1">Semua</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input wire:model="periode" type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input @error('periode') is-invalid @enderror" value="1">
+                                                        <label class="custom-control-label" for="customRadioInline2">Bulanan</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input wire:model="periode" type="radio" id="customRadioInline3" name="customRadioInline1" class="custom-control-input @error('periode') is-invalid @enderror" value="2">
+                                                        <label class="custom-control-label" for="customRadioInline3">Cicilan</label>
+                                                    </div>
+                                                    @error('periode')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+
+                                                </div>
+
+                                            </div>
+
+                                            @if($periode)
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Nama Tagihan</label>
+                                                <div class="col-sm-9">
+                                                    <select wire:model="jenis" class="form-control @error('jenis') is-invalid @enderror">
+                                                        <option value=""> pilih salah satu </option>
+                                                        @foreach($dataJenis as $j)
+                                                        <option value="{{$j->id}}"> {{$j->nama}} </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('jenis')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Sekolah</label>
+                                                <div class="col-sm-9">
+                                                    <select wire:model="sekolah" class="form-control @error('sekolah') is-invalid @enderror">
+                                                        <option value=""> pilih salah satu </option>
+                                                        @foreach($dataSekolah as $s)
+                                                        <option value="{{$s->id}}"> {{$s->nama}} </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('sekolah')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+                                            </div>
+
+                                            @endif
+
                                             <center>
-                                                <a class="btn btn-info btn-icon-split" href="#">
+                                                <button wire:click="data" class="btn btn-info btn-icon-split" type="button">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-filter"></i>
                                                     </span>
                                                     <span class="text">Filter</span>
-                                                </a>
+                                                </button>
                                             </center>
                                         </form>
 
@@ -133,12 +160,12 @@
                                         </div>
                                         <form>
                                             <center>
-                                                <a class="btn btn-warning btn-icon-split" href="#">
+                                                <button class="btn btn-warning btn-icon-split">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-download"></i>
                                                     </span>
                                                     <span class="text">Export</span>
-                                                </a>
+                                                </button>
                                             </center>
                                         </form>
                                     </div>
@@ -162,24 +189,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if($dataTransaksi)
+                                    @forelse ($dataTransaksi as $dt)
                                     <tr>
-                                        <td>TR-0001</td>
-                                        <td>12-11-2020 15.20</td>
-                                        <td>NB-001</td>
-                                        <td>Abdul</td>
-                                        <td>SMK</td>
-                                        <td>Syahriah</td>
-                                        <td>50.000</td>
+                                        <td>{{substr($dt->id, 0, 8)}}</td>
+                                        <td>{{$dt->created_at}}</td>
+                                        <td>{{$dt->santri->nis}}</td>
+                                        <td>{{$dt->santri->nama}}</td>
+                                        <td>{{$dt->santri->nama_sekolah}}</td>
+                                        <td>{{$dt->jenis_tagihan->nama}}</td>
+                                        <td>{{$dt->jumlah}}</td>
                                     </tr>
+                                    @empty
                                     <tr>
-                                        <td>TR-0002</td>
-                                        <td>12-11-2020 10:15</td>
-                                        <td>NB-001</td>
-                                        <td>Abdul</td>
-                                        <td>SMK</td>
-                                        <td>Khaul</td>
-                                        <td>100.000</td>
+                                        <td colspan="7" class="text-center">No Data</td>
                                     </tr>
+                                    @endforelse
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
