@@ -79,8 +79,10 @@
 
 @push('scripts')
 <script type="text/javascript">
-    window.livewire.on('download', () => {
-        window.open("{{asset('public/'.'pdf/laporan-harian.pdf')   }}", '_blank');
+    document.addEventListener('DOMContentLoaded', function() {
+        window.livewire.on('download', () => {
+            window.open("{{asset('public/'.'pdf/laporan-harian.pdf') }}", '_blank');
+        })
     })
 </script>
 @endpush

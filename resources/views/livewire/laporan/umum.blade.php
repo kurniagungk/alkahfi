@@ -160,7 +160,7 @@
                                         </div>
                                         <form>
                                             <center>
-                                                <button class="btn btn-warning btn-icon-split">
+                                                <button wire:click="export" class="btn btn-warning btn-icon-split" type="button">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-download"></i>
                                                     </span>
@@ -215,3 +215,13 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        window.livewire.on('download', () => {
+            window.open("{{asset('public/'.'pdf/laporan-umum.pdf') }}", '_blank');
+        })
+    })
+</script>
+@endpush
