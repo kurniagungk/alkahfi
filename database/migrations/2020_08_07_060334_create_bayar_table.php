@@ -18,6 +18,7 @@ class CreateBayarTable extends Migration
             $table->uuid('tagihan_id');
             $table->uuid('transaksi_id');
             $table->bigInteger('jumlah');
+            $table->bigInteger('user_id');
             $table->timestamps();
         });
     }

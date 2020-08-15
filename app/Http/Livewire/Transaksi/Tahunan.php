@@ -3,15 +3,20 @@
 namespace App\Http\Livewire\Transaksi;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use PDF;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+
+
 use App\Tagihan;
 use App\Transaksi;
 use App\Bayar;
 use App\santri;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use PDF;
-use Illuminate\Support\Facades\Storage;
+
+
+
 
 class Tahunan extends Component
 {
@@ -65,6 +70,7 @@ class Tahunan extends Component
 
     public function bayar($id)
     {
+        $userId = Auth::id();
 
         $codeBayar = Str::Uuid();
         $codeTransaksi = Str::Uuid();
@@ -90,13 +96,15 @@ class Tahunan extends Component
             'id' =>  $codeBayar,
             'transaksi_id' => $codeTransaksi,
             'jumlah' => $this->biaya,
+            'user_id' => $userId
         ]);
 
 
         $Transaksi =   Transaksi::create([
             'id' => $bayar->id_transaksi,
             'jumlah' => $this->biaya,
-            'jenis' => 1
+            'jenis' => 1,
+            'user_id' => $userId
         ]);
 
 

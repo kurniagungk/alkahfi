@@ -17,6 +17,7 @@ class CreateTransaksiTable extends Migration
             $table->uuid('id')->primary();
             $table->bigInteger('jumlah');
             $table->enum('tipe', ['debit', 'credit']);
+            $table->bigInteger('user_id');
             $table->timestamps();
         });
     }

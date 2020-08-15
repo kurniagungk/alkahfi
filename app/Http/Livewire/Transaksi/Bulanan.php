@@ -3,14 +3,17 @@
 namespace App\Http\Livewire\Transaksi;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use PDF;
+use Illuminate\Support\Facades\Auth;
+
 use App\Tagihan;
 use App\Transaksi;
 use App\Bayar;
 use App\santri;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use PDF;
+
 
 use Illuminate\Support\Facades\Storage;
 
@@ -42,7 +45,7 @@ class Bulanan extends Component
 
     public function bayar($id)
     {
-
+        $userId = Auth::id();
 
         $tagihan = Tagihan::where('id', $id)->first();
         $codeTransaksi = Str::Uuid();
@@ -53,7 +56,8 @@ class Bulanan extends Component
             'tagihan_id' =>  $tagihan->id,
             'transaksi_id' => $codeTransaksi,
             'jumlah' => $tagihan->jumlah,
-            'status' => 1
+            'status' => 1,
+            'user_id' => $userId
         ]);
 
 
@@ -61,7 +65,8 @@ class Bulanan extends Component
         $codeTransaksi = Transaksi::create([
             'id' => $bayar->transaksi_id,
             'jumlah' => $tagihan->jumlah,
-            'jenis' => 1
+            'jenis' => 1,
+            'user_id' => $userId
         ]);
 
 
@@ -133,7 +138,6 @@ class Bulanan extends Component
             'santri' => $santri,
             'tagihan' => $tagihan,
             'detail' => $detail
-
         ];
 
         $pdf = PDF::loadview('print.kwitansibulanan', compact('data'));
