@@ -44,8 +44,9 @@ class Harian extends Component
 
 
         $pdf = PDF::loadview('laporan.harianpdf', compact('data'));
+
         $pdf->setPaper('A4', 'landscape');
-        $pdf->setOptions(['isHtml5ParserEnabled' => true, 'enable_remote' => false]);
+        //  $pdf->setOptions(['isHtml5ParserEnabled' => true, 'enable_remote' => true]);
         Storage::disk('public')->put('pdf/laporan-harian.pdf', $pdf->output());
         $this->emit('download');
     }

@@ -2,7 +2,8 @@
 
     <table align="center">
         <tr>
-            <td><img src="" width="70" height="70"></td>
+
+            <td><img src="{{public_path('/public/logo/logo.jpeg')}}" width="70" height="70" alt="img"></td>
             <td>
                 <center>
                     <font size="5">YAYASAN RUBATH AL-KAHFI</font><BR>
