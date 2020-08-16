@@ -108,7 +108,7 @@
 
                                     </td>
                                     <td width="125" style="text-align:center">
-                                        <a class="btn btn-ghost-warning btn-sm" role="button" aria-pressed="true">EDIT</a>
+                                        <a class="btn btn-ghost-warning btn-sm" role="button" aria-pressed="true">DETAIL</a>
                                     </td>
                                 </tr>
 

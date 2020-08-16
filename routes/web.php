@@ -22,6 +22,10 @@ Route::group(['middleware' => ['get.menu']], function () {
         return view('dashboard.homepage');
     });
 
+    Route::get('/dashboard', function () {
+        return view('livewire.dashboard.index');
+    });
+
     Route::group(['middleware' => ['role:admin']], function () {
         Route::get('/colors', function () {
             return view('dashboard.colors');
