@@ -12,7 +12,8 @@
 */
 
 
-
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -22,9 +23,7 @@ Route::group(['middleware' => ['get.menu']], function () {
         return view('dashboard.homepage');
     });
 
-    Route::get('/dashboard', function () {
-        return view('livewire.dashboard.index');
-    });
+
 
     Route::group(['middleware' => ['role:admin']], function () {
         Route::get('/colors', function () {
@@ -291,6 +290,10 @@ Route::group(['middleware' => ['get.menu']], function () {
 
     Route::group(['middleware' => ['role:bendahara']], function () {
 
+
+
+        Route::livewire('/dashboard', 'dashboard.index')
+            ->layout('dashboard.base');
 
 
         route::prefix('santri')->group(function () {

@@ -64,56 +64,8 @@
 
 
 
-<div class="box box-warning box-solid">
-
-    <div class="box-body" style="display: block;">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Tahun Ajaran</th>
-
-                    <th>Jenis Pembayaran</th>
-                    <th>Total Tagihan</th>
-                    <th>Tunggakan Perbulan ini</th>
-                    <th>DiBayar</th>
-                    <th>Status Bayar</th>
-                    <th>
-                        <center>Bayar</center>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-
-                <tr style="color:green">
-                    <td>1</td>
-                    <td>2020 / 2021</td>
-
-                    <td>Syahriyah</td>
-                    <td>500.000</td>
-                    <td>300.000</td>
-                    <td>200.000</td>
-                    <td>
-
-                        <span class="badge badge-warning">Kurang</span>
 
 
-                    </td>
-                    <td width="125" style="text-align:center">
-                        <a class="btn btn-ghost-warning btn-sm" role="button" aria-pressed="true">DETAIL</a>
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-    </div>
-</div>
-
-</div><!-- /.box-body -->
-</div><!-- /.box -->
-</div>
-<!-- </div> -->
-</div>
 
 
 
