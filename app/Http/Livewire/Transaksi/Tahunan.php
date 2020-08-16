@@ -61,11 +61,19 @@ class Tahunan extends Component
             ->where('id', $this->tagihan_id)
             ->first();
 
-
+        $Tunggakan = $Tagihan->total - $Tagihan->bayar_count;
         $this->Tagihan = $Tagihan;
         $this->Total = $Tagihan->total;
         $this->Tunggakan = $Tagihan->total - $Tagihan->bayar_count;
         $this->Dibayar = $Tagihan->bayar_count;
+
+        $tagihan = Tagihan::find($this->tagihan_id);
+        if ($Tunggakan > 0)
+            $tagihan->status = 'belum';
+        else
+            $tagihan->status = 'lunas';
+
+        $tagihan->save();
     }
 
     public function bayar($id)
@@ -99,9 +107,8 @@ class Tahunan extends Component
             'user_id' => $userId
         ]);
 
-
         $Transaksi =   Transaksi::create([
-            'id' => $bayar->id_transaksi,
+            'id' => $bayar->transaksi_id,
             'jumlah' => $this->biaya,
             'jenis' => 1,
             'user_id' => $userId
