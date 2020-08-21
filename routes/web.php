@@ -306,6 +306,7 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::get('/transaksi/kwitansicicilan/{id}', 'TransaksiController@kwitansicicilan')->name('transaksi.kwitansicicilan');
         Route::livewire('/santri/asd', 'santri.create');
 
+
         Route::resources([
             'santri' => 'SantriController',
             'asrama' => 'asramaController',
@@ -317,6 +318,8 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::livewire('/sekolah', 'sekolah.index')->layout('dashboard.base')->name('sekolah');
         Route::livewire('/sekolah/create', 'sekolah.create')->layout('dashboard.base')->name('sekolah.create');
         Route::livewire('/sekolah/{sekolah}/edit', 'sekolah.edit')->layout('dashboard.base')->name('sekolah.edit');
+
+        Route::livewire('/tagihantampil', 'tagihan.tampil')->layout('dashboard.base')->name('tagihan.tampil');
 
         Route::resource('transaksi', 'TransaksiController', [
             'only' => ['index', 'create', 'store']
@@ -333,13 +336,16 @@ Route::group(['middleware' => ['get.menu']], function () {
                 ->layout('dashboard.base');
         });
 
+        // Route::get('/tagihan/tampil', function () {
+        //     return view('livewire.tagihan.tampil');
+        // });
+
 
 
         Route::get('/print', 'Laporan@printTagihanBulanan');
         Route::get('/prints', 'Laporan@printTagihanCicil');
     });
 });
-
 
 
 
