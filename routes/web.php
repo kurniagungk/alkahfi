@@ -19,10 +19,8 @@ use Illuminate\Support\Facades\Auth;
 
 
 Route::group(['middleware' => ['get.menu']], function () {
-    Route::get('/', function () {
-        return view('dashboard.homepage');
-    });
 
+    Route::get('/', 'Auth\LoginController@showLoginForm')->name('login');
 
     /*
     Route::group(['middleware' => ['role:admin']], function () {
@@ -301,8 +299,7 @@ Route::group(['middleware' => ['get.menu']], function () {
 
     Route::group(['middleware' => ['role:bendahara']], function () {
 
-        Route::livewire('/', 'dashboard.index')
-            ->layout('dashboard.base');
+
 
         Route::livewire('/dashboard', 'dashboard.index')
             ->layout('dashboard.base');
