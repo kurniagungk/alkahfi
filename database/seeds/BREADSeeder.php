@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\DB;
 
 class BREADSeeder extends Seeder
 {
@@ -56,11 +57,11 @@ class BREADSeeder extends Seeder
             'relation_column' => 'name'
         ]);
         $role = Role::where('name', '=', 'guest')->first();
-        Permission::create(['name' => 'browse bread '   . $formId]); 
-        Permission::create(['name' => 'read bread '     . $formId]); 
-        Permission::create(['name' => 'edit bread '     . $formId]); 
-        Permission::create(['name' => 'add bread '      . $formId]); 
-        Permission::create(['name' => 'delete bread '   . $formId]); 
+        Permission::create(['name' => 'browse bread '   . $formId]);
+        Permission::create(['name' => 'read bread '     . $formId]);
+        Permission::create(['name' => 'edit bread '     . $formId]);
+        Permission::create(['name' => 'add bread '      . $formId]);
+        Permission::create(['name' => 'delete bread '   . $formId]);
         $role->givePermissionTo('browse bread '     . $formId);
         $role->givePermissionTo('read bread '       . $formId);
         $role->givePermissionTo('edit bread '       . $formId);

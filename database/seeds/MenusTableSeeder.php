@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\DB;
 
 class MenusTableSeeder extends Seeder
 {
@@ -200,9 +201,9 @@ class MenusTableSeeder extends Seeder
         $this->endDropdown();
 
         $this->beginDropdown('admin,bendahara', 'TAGIHAN', 'cil-library');
-        $id = $this->insertLink('admin,bendahara', 'PERIODE TAGIHAN',                   '/tagihan');
-        $id = $this->insertLink('admin,bendahara', 'JENIS TAGIHAN',                   '/tagihantampil');
-        // $id = $this->insertLink('admin,bendahara', 'TAMBAH TAGIHAN',                   '/tagihan/tambah');
+        $id = $this->insertLink('admin,bendahara', 'JENIS TAGIHAN',                   '/tagihan');
+        //   $id = $this->insertLink('admin,bendahara', 'JENIS TAGIHAN',                   '/tagihantampil');
+        $id = $this->insertLink('admin,bendahara', 'TAMBAH TAGIHAN',                   '/tagihan/tambah');
         $this->endDropdown();
 
         $this->beginDropdown('admin,bendahara', 'TRANSAKSI', 'cil-money');
@@ -216,9 +217,8 @@ class MenusTableSeeder extends Seeder
         $id = $this->insertLink('admin,bendahara', 'Laporan Umum', '/laporan/umum');
         $this->endDropdown();
 
-        $this->beginDropdown('user,admin', 'Setting', 'cil-calculator');
-        $this->insertLink('user,admin', 'Login',         '/login');
-        $this->insertLink('user,admin', 'Register',      '/register');
+        $this->beginDropdown('admin', 'Setting', 'cil-calculator');
+        $this->insertLink('admin', 'user',         '/user');
         // $this->insertLink('user,admin', 'Error 404',     '/404');
         // $this->insertLink('user,admin', 'Error 500',     '/500');
         $this->endDropdown();

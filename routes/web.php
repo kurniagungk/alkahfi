@@ -24,8 +24,9 @@ Route::group(['middleware' => ['get.menu']], function () {
     });
 
 
-
+    /*
     Route::group(['middleware' => ['role:admin']], function () {
+
         Route::get('/colors', function () {
             return view('dashboard.colors');
         });
@@ -135,18 +136,6 @@ Route::group(['middleware' => ['get.menu']], function () {
         });
         Route::resource('notes', 'NotesController');
     });
-    Auth::routes();
-
-    Route::resource('resource/{table}/resource', 'ResourceController')->names([
-        'index'     => 'resource.index',
-        'create'    => 'resource.create',
-        'store'     => 'resource.store',
-        'show'      => 'resource.show',
-        'edit'      => 'resource.edit',
-        'update'    => 'resource.update',
-        'destroy'   => 'resource.destroy'
-    ]);
-
     Route::group(['middleware' => ['role:admin']], function () {
         Route::resource('bread',  'BreadController');   //create BREAD (resource)
         Route::resource('users',        'UsersController')->except(['create', 'store']);
@@ -214,7 +203,7 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::get('/transaksi/cetakc/{Idsantri}/{Idtagihan}', 'TransaksiController@printTagihanCicil')->name('transaksi.cetakc');
         Route::get('/transaksi/kwitansi/{id}', 'TransaksiController@kwitansiBulanan')->name('transaksi.kwitansi');
         Route::get('/transaksi/kwitansicicilan/{id}', 'TransaksiController@kwitansicicilan')->name('transaksi.kwitansicicilan');
-        Route::livewire('/santri/asd', 'santri.create');
+
 
         Route::resources([
             'santri' => 'SantriController',
@@ -287,10 +276,33 @@ Route::group(['middleware' => ['get.menu']], function () {
             Route::get('/{asrama}/edit', 'pengeluaran@edit');
         });
     });
+    Route::resource('resource/{table}/resource', 'ResourceController')->names([
+        'index'     => 'resource.index',
+        'create'    => 'resource.create',
+        'store'     => 'resource.store',
+        'show'      => 'resource.show',
+        'edit'      => 'resource.edit',
+        'update'    => 'resource.update',
+        'destroy'   => 'resource.destroy'
+    ]);
+*/
+
+
+    Auth::routes([
+        'register' => false, // Registration Routes...
+        'reset' => false, // Password Reset Routes...
+        'verify' => false, // Email Verification Routes...
+    ]);
+
+    Route::group(['middleware' => ['role:admin']], function () {
+        Route::livewire('/user/create', 'santri.create');
+    });
+
 
     Route::group(['middleware' => ['role:bendahara']], function () {
 
-
+        Route::livewire('/', 'dashboard.index')
+            ->layout('dashboard.base');
 
         Route::livewire('/dashboard', 'dashboard.index')
             ->layout('dashboard.base');
@@ -304,7 +316,7 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::get('/transaksi/cetakc/{tagihan_id}', 'TransaksiController@printTagihanCicil')->name('transaksi.cetakc');
         Route::get('/transaksi/kwitansi/{id}', 'TransaksiController@kwitansiBulanan')->name('transaksi.kwitansi');
         Route::get('/transaksi/kwitansicicilan/{id}', 'TransaksiController@kwitansicicilan')->name('transaksi.kwitansicicilan');
-        Route::livewire('/santri/asd', 'santri.create');
+
 
 
         Route::resources([

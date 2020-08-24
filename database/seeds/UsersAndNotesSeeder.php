@@ -100,7 +100,7 @@ class UsersAndNotesSeeder extends Seeder
             $user->assignRole('user');
             array_push($usersIds, $user->id);
         }
-        /*  insert notes  */
+        /*  insert notes
         for ($i = 0; $i < $numberOfNotes; $i++) {
             $noteType = $faker->word();
             if (random_int(0, 1)) {
@@ -114,6 +114,6 @@ class UsersAndNotesSeeder extends Seeder
                 'applies_to_date' => $faker->date(),
                 'users_id'      => $usersIds[random_int(0, $numberOfUsers - 1)]
             ]);
-        }
+        }*/
     }
 }
