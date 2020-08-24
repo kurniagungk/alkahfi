@@ -226,7 +226,7 @@ class MenusTableSeeder extends Seeder
 
 
 
-        /* Create top menu */
+        /* Create top menu
         DB::table('menulist')->insert([
             'name' => 'top menu'
         ]);
@@ -244,7 +244,7 @@ class MenusTableSeeder extends Seeder
         $id = $this->insertLink('admin', 'Media',                   '/media');
         $id = $this->insertLink('admin', 'BREAD',                   '/bread');
         $this->endDropdown();
-
+*/
         $this->joinAllByTransaction(); ///   <===== Must by use on end of this seeder
     }
 }
