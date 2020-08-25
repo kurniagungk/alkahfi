@@ -293,7 +293,7 @@ Route::group(['middleware' => ['get.menu']], function () {
     ]);
 
     Route::group(['middleware' => ['role:admin']], function () {
-        Route::livewire('/user/create', 'santri.create');
+        Route::livewire('setting/user/create', 'setting.create-user')->layout('dashboard.base');
     });
 
 

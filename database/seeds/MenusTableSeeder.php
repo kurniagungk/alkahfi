@@ -218,7 +218,8 @@ class MenusTableSeeder extends Seeder
         $this->endDropdown();
 
         $this->beginDropdown('admin', 'Setting', 'cil-calculator');
-        $this->insertLink('admin', 'user',         '/user');
+        $this->insertLink('admin', 'user',         '/setting/user');
+        $this->insertLink('admin', 'akun',         'setting/akun');
         // $this->insertLink('user,admin', 'Error 404',     '/404');
         // $this->insertLink('user,admin', 'Error 500',     '/500');
         $this->endDropdown();
