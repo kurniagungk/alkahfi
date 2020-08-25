@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header"><i class="fa fa-align-justify"></i> Simple Table</div>
+    <div class="card-header"><i class="fa fa-align-justify"></i> Data Kelas</div>
     <div class="card-body">
         <div class="mb-3">
             <a class="btn btn-primary" href="{{route('kelas.create')}}" role="button">Tambah</a>
@@ -17,7 +17,9 @@
                     <th>Tingkat</th>
                     <th>Kelas</th>
                     <th>Keterangan</th>
-                    <th>Action</th>
+                    <th>
+                        <center>Action</center>
+                    </th>
                 </tr>
             </thead>
             <tbody>

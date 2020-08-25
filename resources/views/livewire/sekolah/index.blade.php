@@ -4,7 +4,7 @@
             <div class="col-sm-12">
 
                 <div class="card">
-                    <div class="card-header"><i class="fa fa-align-justify"></i> Simple Table</div>
+                    <div class="card-header"><i class="fa fa-align-justify"></i>Data Sekolah</div>
                     <div class="card-body">
                         <div class="mb-3">
                             <a class="btn btn-primary" href="{{route('sekolah.create')}}" role="button">Tambah</a>
@@ -21,7 +21,9 @@
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>Keterangan</th>
-                                    <th>Action</th>
+                                    <th>
+                                        <center>Action</center>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
