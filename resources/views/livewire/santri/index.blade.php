@@ -12,6 +12,7 @@
                         <table class="table table-striped">
                             <tbody>
                                 <tr>
+                                    <!--
                                     <td>
                                         <select id="kelas" name="kelas" class="form-control">
                                             <option value="" selected=""> - Pilih Filter - </option>
@@ -32,17 +33,24 @@
                                             <option value="Lulus">Lulus</option>
                                         </select>
                                     </td>
+
                                     <td width="100">
                                         <input type="submit" name="tampil" value="Tampilkan" class="btn btn-primary pull-right">
                                     </td>
-                                    <td>
 
+                                    <td>
                                         <span class="pull-right">
                                             <a class="btn btn-warning" href="index.php?view=siswa&amp;act=import">
                                                 <i class="fa fa-file-excel-o"></i> Import Data Santri
                                             </a>
                                             <a class="btn btn-success" href="{{route('santri.create')}}">Tambahkan Data</a>
                                         </span>
+                                    </td>
+                                    -->
+                                    <td>
+
+                                        <a class="btn btn-success" href="{{route('santri.create')}}">Tambahkan Data</a>
+
                                     </td>
                                 </tr>
                             </tbody>
