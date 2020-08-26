@@ -24,4 +24,9 @@ class Tagihan extends Model
     {
         return $this->hasOne('App\Bayar', 'tagihan_id');
     }
+
+    public function santri()
+    {
+        return $this->hasOne(santri::class, 'id', 'santri_id');
+    }
 }

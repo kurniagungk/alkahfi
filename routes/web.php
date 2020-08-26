@@ -328,7 +328,7 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::livewire('/sekolah/create', 'sekolah.create')->layout('dashboard.base')->name('sekolah.create');
         Route::livewire('/sekolah/{sekolah}/edit', 'sekolah.edit')->layout('dashboard.base')->name('sekolah.edit');
 
-        Route::livewire('/tagihantampil', 'tagihan.tampil')->layout('dashboard.base')->name('tagihan.tampil');
+        Route::livewire('/tagihan/{id}/show', 'tagihan.tampil')->layout('dashboard.base')->name('tagihan.tampil');
 
         Route::resource('transaksi', 'TransaksiController', [
             'only' => ['index', 'create', 'store']

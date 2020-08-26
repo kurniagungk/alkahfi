@@ -1,41 +1,134 @@
-<div class="card">
-    <div class="card-header"><i class="fa fa-align-justify"></i>Rincian Jenis Tagihan</div>
-    <div class="card-body">
-        <div class="mb-3">
-            <a class="btn btn-primary" href="/tagihan/tambah" role="button">Tambah</a>
+<div class="container-fluid">
+    <div class="fade-in">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header"><i class="fa fa-align-justify"></i>Rincian Jenis Tagihan</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <p>Nama</p>
+                            </div>
+                            <div class="col-md-1">:</div>
+                            <div class="col-md-6">
+                                <p>{{$jenisTagihan->nama}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <p>Jenis</p>
+                            </div>
+                            <div class="col-md-1">:</div>
+                            <div class="col-md-6">
+                                <p>{{$jenisTagihan->tipe}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <p>Tahun Ajaran</p>
+                            </div>
+                            <div class="col-md-1">:</div>
+                            <div class="col-md-6">
+                                <p>{{$jenisTagihan->Tahun->nama}}</p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header"><i class="fa fa-align-justify"></i>Rincian Jenis Tagihan</div>
+                    <div class="card-body">
+
+                        @if ($message = Session::get('success'))
+                        <div class="alert alert-success alert-block">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>{{ $message }}</strong>
+                        </div>
+                        @endif
+
+                        <div class="form-row align-items-center">
+                            <div class="col-sm-3 my-2 ">
+                                <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="c-icon cil-search"></i>
+                                        </div>
+                                    </div>
+                                    <input wire:model="search" type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Username">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3 my-1 mx-3">
+                                <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            Show
+                                        </div>
+                                    </div>
+                                    <select wire:model="perpage" class="form-control" name="status">
+                                        <option value="10">10</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                        <option value="">Semua</option>
+                                    </select>
+
+
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+                        <table class="table table-responsive-sm">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nis</th>
+                                    <th>Nama</th>
+                                    <th>Jatuh Tempo</th>
+                                    <th>biaya</th>
+                                    <th>#</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach($santri as $s)
+                                <tr>
+                                    <td>{{$loop->index +1}}</td>
+                                    <td>{{$s->santri->nis}}</td>
+                                    <td>{{$s->santri->nama}}</td>
+                                    <td>{{$s->tempo}}</td>
+                                    <td>{{$s->jumlah}}</td>
+                                    <td>
+                                        <center>
+                                            @if($confirming == $s->id)
+                                            <button wire:click="kill('{{ $s->id }}')" type="button" class="btn btn-danger">Sure?</button>
+                                            @else
+                                            <button wire:click="confirmDelete( '{{ $s->id }}' )" type="button" class="btn btn-warning">Delete</button>
+                                            @endif
+                                        </center>
+                                    </td>
+                                </tr>
+                                @endforeach
+
+
+                            </tbody>
+                        </table>
+                        {{ $santri->onEachSide(1)->links() }}
+                    </div>
+
+                </div>
+            </div>
         </div>
-
-
-        <div class="alert alert-success">
-
-        </div>
-        <table class="table table-responsive-sm">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Periode</th>
-                    <th>Jatuh Tempo</th>
-                    <th>Jenis</th>
-                    <th>biaya</th>
-                    <th>Tertagih</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>bulanan</td>
-                    <td>21/10/2020</td>
-                    <td>Khaul 2020</td>
-                    <td>125.000</td>
-                    <td>
-                        <a href="3" class="btn btn-outline-warning">edit</a>
-                        <button class="btn btn-outline-danger" type="button">
-                            Hapus
-                        </button>
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
     </div>
 </div>

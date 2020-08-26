@@ -32,6 +32,7 @@
                     <td>{{$data->tahun->nama}}</td>
                     <td>
                         <a href="{{route('tagihan.edit', $data->id)}}" class="btn btn-outline-warning">edit</a>
+                        <a href="{{route('tagihan.tampil', $data->id)}}" class="btn btn-outline-warning">setting</a>
                         <button wire:click="destroy({{$data->id}})" class="btn btn-outline-danger" type="button">
                             Hapus
                         </button>
