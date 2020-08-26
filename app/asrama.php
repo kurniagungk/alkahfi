@@ -10,8 +10,8 @@ class asrama extends Model
     protected $fillable = [
         'kode',
         'nama',
-        'jumlah',
-        'kelamin',
+        'kapasitas',
+        'tipe',
         'keterangan',
     ];
 
