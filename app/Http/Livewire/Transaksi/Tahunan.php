@@ -42,6 +42,7 @@ class Tahunan extends Component
     private function transaksi()
     {
         $this->DetailTagihan = Bayar::where('tagihan_id', $this->tagihan_id)
+            ->orderBy('created_at', 'asc')
             ->get();
 
 

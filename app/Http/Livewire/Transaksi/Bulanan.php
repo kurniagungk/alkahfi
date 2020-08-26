@@ -102,6 +102,7 @@ class Bulanan extends Component
         $this->DetailTagihan = Tagihan::where('jenis_tagihan_id', $this->tagihan_id)
             ->Where('santri_id', $this->santri_id)
             ->with('bayarbulanan')
+            ->orderBy('tempo', 'asc')
             ->get();
 
 
