@@ -3,7 +3,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Data Santri</h4>
+                    <h4>Data Asrama</h4>
                 </div>
                 <!-- /.box-header -->
                 <div class="card-body">

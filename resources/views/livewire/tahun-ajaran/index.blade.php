@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header"><i class="fa fa-align-justify"></i> Simple Table</div>
+    <div class="card-header"><i class="fa fa-align-justify"></i> Data Tahun Ajaran</div>
     <div class="card-body">
         <div class="mb-3">
             <a class="btn btn-primary" href="{{route('tahun.create')}}" role="button">Tambah</a>

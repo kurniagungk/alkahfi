@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header"><strong>Basic Form</strong> Elements</div>
+    <div class="card-header"><strong>Tambah</strong> Nama Tagihan</div>
     <div class="card-body">
         @if (session()->has('message'))
         <div class="alert alert-success">
@@ -8,9 +8,9 @@
         @endif
 
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Text Input</label>
+            <label class="col-md-3 col-form-label" for="text-input">Nama Tagihan</label>
             <div class="col-md-9">
-                <input wire:model="nama" class="form-control" id="text-input" type="text" name="text-input" placeholder="Text">
+                <input wire:model="nama" class="form-control" id="text-input" type="text" name="text-input" placeholder=". . . ">
                 @error('nama') <span class="error">{{ $message }}</span> @enderror
             </div>
         </div>

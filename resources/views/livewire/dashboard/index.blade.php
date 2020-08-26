@@ -67,7 +67,7 @@
                             </button>
                         </div>
                         <div class="text-value-lg">Rp. {{$data['totalTunggakan']}}</div>
-                        <div>Total Tunggakan Shariah</div>
+                        <div>Total Tunggakan Syahriah</div>
                     </div>
                     <div class="c-chart-wrapper mt-3" style="height:70px;">
                         <canvas class="chart" id="card-chart3" height="70"></canvas>

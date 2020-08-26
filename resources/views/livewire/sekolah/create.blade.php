@@ -5,7 +5,7 @@
 
 
                  <div class="card">
-                     <div class="card-header"><strong>Basic Form</strong> Elements</div>
+                     <div class="card-header"><strong>Tambah</strong> Data Sekolah</div>
                      <div class="card-body">
                          @if (session()->has('message'))
                          <div class="alert alert-success">
