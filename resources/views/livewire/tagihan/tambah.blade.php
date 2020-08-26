@@ -74,6 +74,10 @@
                      <input wire:model="select" class="form-check-input" id="inline-radio3" type="radio" value="3" name="inline-radios">
                      <label class="form-check-label" for="inline-radio3">Asrama</label>
                  </div>
+                 <div class="form-check form-check-inline mr-1">
+                     <input wire:model="select" class="form-check-input" id="inline-radio4" type="radio" value="4" name="inline-radios">
+                     <label class="form-check-label" for="inline-radio4">Custom</label>
+                 </div>
              </div>
          </div>
 
@@ -115,8 +119,19 @@
              </div>
          </div>
 
-         @else
+         @elseif($select == 4)
 
+         <div class="form-group row">
+             <label class="col-md-3 col-form-label">Custom</label>
+             <div class="col-md-9">
+
+                 <input type="file" wire:model="kelas">
+                 @error('kelas') <span class="error">{{ $message }}</span> @enderror
+             </div>
+         </div>
+
+
+         @else
          @endif
 
 

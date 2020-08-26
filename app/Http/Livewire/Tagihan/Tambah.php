@@ -3,17 +3,25 @@
 namespace App\Http\Livewire\Tagihan;
 
 use Livewire\Component;
-use App\Jenis_tagihan;
+use Livewire\WithFileUploads;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\TagihanImport;
+
+
 use App\santri;
 use App\Tagihan;
 use App\Kelas;
 use App\asrama;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Str;
+use App\Jenis_tagihan;
+
 
 
 class Tambah extends Component
 {
+
+    use WithFileUploads;
 
     public $periode;
     public $dataJenis = [];
@@ -24,6 +32,7 @@ class Tambah extends Component
     public $select = 1;
     public $tahun = [];
     public $tempo;
+    public $custom;
 
 
 
@@ -102,6 +111,18 @@ class Tambah extends Component
             $santri = santri::whereHas('asrama', function (Builder $query) {
                 $query->where('id', $this->kelas);
             })->get();
+        } elseif ($this->select == 4) {
+            $this->validate([
+                'kelas' => 'required|mimes:xls,xlsx'
+            ]);
+            $fileExcel = $this->kelas->getRealPath();
+            $array =
+                Excel::toArray(new TagihanImport, $fileExcel);
+
+            for ($i = 3; $i < sizeof($array[0]); $i++) {
+                $dataS[] = $array[0][$i][0];
+            }
+            $santri = santri::whereIn('nis', $dataS)->get();
         } else {
             $santri = santri::select('id')->get();
         }
