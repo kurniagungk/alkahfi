@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\TagihanImport;
+use Illuminate\Support\Facades\Storage;
 
 
 use App\santri;
@@ -91,7 +92,6 @@ class Tambah extends Component
             'selisih' => $selisih->m
         );
     }
-
 
 
     public function tambah()

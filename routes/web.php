@@ -349,7 +349,15 @@ Route::group(['middleware' => ['get.menu']], function () {
         //     return view('livewire.tagihan.tampil');
         // });
 
+        Route::get('default/{filename}', function ($filename) {
 
+            $filePath = storage_path() . '/app/default/' . $filename;
+
+            if (File::exists($filePath)) {
+                return response()->download($filePath);
+            }
+            abort(404);
+        })->name('default');
 
         Route::get('/print', 'Laporan@printTagihanBulanan');
         Route::get('/prints', 'Laporan@printTagihanCicil');

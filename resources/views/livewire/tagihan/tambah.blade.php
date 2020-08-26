@@ -125,8 +125,8 @@
              <label class="col-md-3 col-form-label">Custom</label>
 
              <div class="col-md-9">
-                 <a class="btn btn-link" href="{{asset('public/'.'default/importtagihan.xlsx')   }}">format file</a>
-                 <input type="file" wire:model="kelas">
+                 <a class="btn btn-link" href="{{route('default','importtagihan.xlsx')   }}">format file</a>
+                 <input type="file" class="form-control-file" wire:model="kelas">
                  @error('kelas') <span class="error">{{ $message }}</span> @enderror
              </div>
          </div>
