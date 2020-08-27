@@ -351,7 +351,7 @@ Route::group(['middleware' => ['get.menu']], function () {
 
         Route::get('default/{filename}', function ($filename) {
 
-            $filePath = storage_path() . '/app/default/' . $filename;
+            $filePath = storage_path() . '\default/' . $filename;
 
             if (File::exists($filePath)) {
                 return response()->download($filePath);
