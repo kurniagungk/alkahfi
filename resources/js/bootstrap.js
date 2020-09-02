@@ -12,9 +12,6 @@ try {
 
 } catch (e) { }
 require('bootstrap');
-require('datatables.net-bs4')();
-require('datatables.net-scroller-bs4')();
-require('datatables.net-searchpanes-bs4')();
 
 
 /**
