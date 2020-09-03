@@ -293,7 +293,9 @@ Route::group(['middleware' => ['get.menu']], function () {
     ]);
 
     Route::group(['middleware' => ['role:admin']], function () {
-        Route::livewire('setting/user/create', 'setting.create-user')->layout('dashboard.base');
+        Route::livewire('setting/user/create', 'setting.create-user')->layout('dashboard.base')->name('user.create');
+        Route::livewire('setting/user', 'setting.index-user')->layout('dashboard.base')->name('setting.user');
+        Route::livewire('setting/user/{id}/edit', 'setting.useredit')->layout('dashboard.base')->name('user.edit');
     });
 
 
@@ -358,6 +360,8 @@ Route::group(['middleware' => ['get.menu']], function () {
             }
             abort(404);
         })->name('default');
+
+
 
         Route::get('/print', 'Laporan@printTagihanBulanan');
         Route::get('/prints', 'Laporan@printTagihanCicil');

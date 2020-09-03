@@ -45,6 +45,8 @@ class CreateUser extends Component
             'sekolah_id' => $this->sekolahId
         ]);
 
+        $user->assignRole($this->roleId);
+
         session()->flash('message', 'User successfully created.');
     }
 
