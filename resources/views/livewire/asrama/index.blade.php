@@ -9,39 +9,12 @@
                 <div class="card-body">
                     <form method="GET" action="" class="form-horizontal">
                         <input type="hidden" name="view" value="siswa">
-                        <table class="table table-striped">
+                        <table>
                             <tbody>
                                 <tr>
                                     <td>
-                                        <select id="kelas" name="kelas" class="form-control">
-                                            <option value="" selected=""> - Pilih Filter - </option>
-                                            <option value="1">ASRAMA</option>
-                                            <option value="3">SEKOLAH</option>
-                                            <option value="5">JENIS KELAMIN</option>
-                                            <option value="6">TAHUN MASUK</option>
-
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select class="form-control" name="status">
-                                            <option value="">- Rincian Filter -</option>
-                                            <option value="Aktif">Aktif</option>
-                                            <option value="Non Aktif">Non Aktif</option>
-                                            <option value="Drop Out">Drop Out</option>
-                                            <option value="Pindah">Pindah</option>
-                                            <option value="Lulus">Lulus</option>
-                                        </select>
-                                    </td>
-                                    <td width="100">
-                                        <input type="submit" name="tampil" value="Tampilkan" class="btn btn-primary pull-right">
-                                    </td>
-                                    <td>
-
                                         <span class="pull-right">
-                                            <a class="btn btn-warning" href="index.php?view=siswa&amp;act=import">
-                                                <i class="fa fa-file-excel-o"></i> Import Data Santri
-                                            </a>
-                                            <a class="btn btn-success" href="{{route('asrama.create')}}">Tambahkan Data</a>
+                                            <a class="btn btn-success" href="{{route('asrama.create')}}">Tambah Data</a>
                                         </span>
                                     </td>
                                 </tr>

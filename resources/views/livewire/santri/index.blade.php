@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <form method="GET" action="" class="form-horizontal">
                         <input type="hidden" name="view" value="siswa">
-                        <table class="table table-striped">
+                        <table>
                             <tbody>
                                 <tr>
                                     <!--
@@ -48,9 +48,10 @@
                                     </td>
                                     -->
                                     <td>
-
-                                        <a class="btn btn-success" href="{{route('santri.create')}}">Tambahkan Data</a>
-
+                                        <a class="btn btn-success" href="{{route('santri.create')}}">Tambah Data</a>
+                                        <a class="btn btn-warning" href="index.php?view=siswa&amp;act=import">
+                                            <i class="fa fa-file-excel-o"></i> Import Data Santri
+                                        </a>
                                     </td>
                                 </tr>
                             </tbody>
