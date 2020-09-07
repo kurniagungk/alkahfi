@@ -207,7 +207,7 @@ Route::group(['middleware' => ['get.menu']], function () {
             'santri' => 'SantriController',
             'asrama' => 'asramaController',
             'tagihan' => 'TagihanController',
-            'tahun' => 'tahunajaran',
+            'tahun' => 'TahunAjaran',
             'kelas' => 'KelasControler'
         ]);
 
@@ -322,7 +322,7 @@ Route::group(['middleware' => ['get.menu']], function () {
             'santri' => 'SantriController',
             'asrama' => 'asramaController',
             'tagihan' => 'TagihanController',
-            'tahun' => 'tahunajaran',
+            'tahun' => 'TahunAjaran',
             'kelas' => 'KelasControler'
         ]);
 
