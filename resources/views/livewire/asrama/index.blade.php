@@ -37,7 +37,7 @@
                                         <i class="c-icon cil-search"></i>
                                     </div>
                                 </div>
-                                <input wire:model="search" type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Username">
+                                <input wire:model="search" type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Cari">
                             </div>
                         </div>
 

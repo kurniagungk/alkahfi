@@ -213,13 +213,13 @@ class MenusTableSeeder extends Seeder
 
         $this->insertTitle('admin,bendahara', 'LAPORAN');
         $this->beginDropdown('admin,bendahara', 'LAPORAN PEMBAYARAN', 'cil-money');
-        $id = $this->insertLink('admin,bendahara', 'Laporan Harian', '/laporan/harian');
+        //   $id = $this->insertLink('admin,bendahara', 'Laporan Harian', '/laporan/harian');
         $id = $this->insertLink('admin,bendahara', 'Laporan Umum', '/laporan/umum');
         $this->endDropdown();
 
         $this->beginDropdown('admin', 'Setting', 'cil-calculator');
         $this->insertLink('admin', 'user',         '/setting/user');
-        $this->insertLink('admin', 'akun',         'setting/akun');
+        // $this->insertLink('admin', 'akun',         'setting/akun');
         // $this->insertLink('user,admin', 'Error 404',     '/404');
         // $this->insertLink('user,admin', 'Error 500',     '/500');
         $this->endDropdown();

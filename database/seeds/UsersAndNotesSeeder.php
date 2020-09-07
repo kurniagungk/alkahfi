@@ -87,7 +87,7 @@ class UsersAndNotesSeeder extends Seeder
             'menuroles' => 'bendahara'
         ]);
         $user->assignRole('bendahara');
-
+        /*  insert notes
         for ($i = 0; $i < $numberOfUsers; $i++) {
             $user = User::create([
                 'name' => $faker->name(),
@@ -100,7 +100,7 @@ class UsersAndNotesSeeder extends Seeder
             $user->assignRole('user');
             array_push($usersIds, $user->id);
         }
-        /*  insert notes
+
         for ($i = 0; $i < $numberOfNotes; $i++) {
             $noteType = $faker->word();
             if (random_int(0, 1)) {

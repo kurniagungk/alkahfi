@@ -49,9 +49,6 @@
                                     -->
                                     <td>
                                         <a class="btn btn-success" href="{{route('santri.create')}}">Tambah Data</a>
-                                        <a class="btn btn-warning" href="index.php?view=siswa&amp;act=import">
-                                            <i class="fa fa-file-excel-o"></i> Import Data Santri
-                                        </a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -66,14 +63,14 @@
 
                     <div class="form-row align-items-center">
                         <div class="col-sm-3 my-2 ">
-                            <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
+                            <label class="sr-only" for="inlineFormInputGroupUsername"></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
                                         <i class="c-icon cil-search"></i>
                                     </div>
                                 </div>
-                                <input wire:model="search" type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Username">
+                                <input wire:model="search" type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Cari">
                             </div>
                         </div>
 
