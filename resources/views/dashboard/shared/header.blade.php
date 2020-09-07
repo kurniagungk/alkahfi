@@ -26,7 +26,7 @@
                     </svg></a></li>
     -->
             <li class="c-header-nav-item dropdown"><a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                    <div class="c-avatar"><img class="c-avatar-img" src="{{asset('assets/img/avatars/6.jpg')}}" alt="user@email.com"></div>
+                    <div class="c-avatar"><img class="c-avatar-img" src="{{asset('assets/img/avatars/alkahfi.jpg')}}" alt="user@email.com"></div>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right pt-0">
