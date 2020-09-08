@@ -10,7 +10,7 @@
          <div class="form-group row">
              <label class="col-md-3 col-form-label" for="text-input">Tingkat</label>
              <div class="col-md-9">
-                 <input wire:model="tingkat" class="form-control" id="text-number" type="number" name="text-input">
+                 <input wire:model="tingkat" class="form-control" id="text-number" type="text" name="text-input">
                  @error('tingkat') <span class="error">{{ $message }}</span> @enderror
              </div>
          </div>
