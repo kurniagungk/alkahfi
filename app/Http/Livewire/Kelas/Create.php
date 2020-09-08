@@ -35,7 +35,6 @@ class Create extends Component
         $this->validate([
             'tingkat' => 'required|',
             'kelas' => 'required|',
-            'keterangan' => 'required|',
             'sekolah_id' => 'required'
         ]);
 

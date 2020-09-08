@@ -6,15 +6,18 @@
                 <div class="card">
                     <div class="card-header"><i class="fa fa-align-justify"></i>Data Sekolah</div>
                     <div class="card-body">
+                        @role('admin')
                         <div class="mb-3">
                             <a class="btn btn-primary" href="{{route('sekolah.create')}}" role="button">Tambah</a>
                         </div>
+                        @endrole
 
                         @if (session()->has('message'))
                         <div class="alert alert-success">
                             {{ session('message') }}
                         </div>
                         @endif
+
                         <table class="table table-responsive-sm">
                             <thead>
                                 <tr>
@@ -35,11 +38,13 @@
                                     <td>
                                         <center>
                                             <a href="{{route('sekolah.edit', $data->id)}}" class="btn btn-outline-warning">edit</a>
+                                            @role('admin')
                                             @if($confirming===$data->id)
                                             <button wire:click="kill({{ $data->id }})" type="button" class="btn btn-danger">Sure?</button>
                                             @else
                                             <button wire:click="confirmDelete({{ $data->id }})" type="button" class="btn btn-warning">Delete</button>
                                             @endif
+                                            @endrole
                                         </center>
                                     </td>
                                 </tr>

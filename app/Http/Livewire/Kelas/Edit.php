@@ -28,7 +28,6 @@ class Edit extends Component
         $this->validate([
             'tingkat' => 'required|',
             'kelas' => 'required|',
-            'keterangan' => 'required|',
 
         ]);
 
