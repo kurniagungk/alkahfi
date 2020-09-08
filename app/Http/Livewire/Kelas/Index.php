@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Kelas;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
+
 use App\Kelas;
 use Livewire\WithPagination;
 
@@ -13,11 +15,20 @@ class Index extends Component
 
     public function render()
     {
+        $user = Auth::user();
+
+        if (!$user->hasRole('admin')) {
+            $kelas = Kelas::where('sekolah_id', $user->sekolah_id)->latest()
+                ->paginate(10);
+        } else {
+            $kelas = Kelas::latest()
+                ->paginate(10);
+        }
+
         return view(
             'livewire.kelas.index',
             [
-                'kelas' => Kelas::latest()
-                    ->paginate(10)
+                'kelas' => $kelas
             ]
         );
     }
