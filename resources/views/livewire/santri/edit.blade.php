@@ -8,11 +8,25 @@
 
                         <form class="form-horizontal" wire:submit.prevent="update" enctype="multipart/form-data">
                             <div class="form-group row">
-                                <label class="col-md-3 col-form-label" for="text-input">NIS</label>
+                                <label class="col-md-3 col-form-label" for="text-input">NISM</label>
                                 <div class="col-md-9">
-                                    <input wire:model="nis" class="form-control @error('nis') is-invalid @enderror" id="no_induk" type="text" name="no_induk" placeholder="Nomor Induk Pondok . . .">
+                                    <input wire:model="nisn" class="form-control @error('nisn') is-invalid @enderror" id="no_induk" type="text" placeholder="Nomor Induk Siswa Nasional . . .">
 
-                                    @error('nis')
+                                    @error('nisn')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label" for="">NISM</label>
+                                <div class="col-md-9">
+                                    <input wire:model="nism" class="form-control @error('nism') is-invalid @enderror" id="no_induk" type="text" placeholder="Nomor Induk santri Madrasah  . . .">
+
+                                    @error('nism')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -21,7 +35,7 @@
 
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 col-form-label" for="text-input">Nama Lengkap</label>
+                                <label class="col-md-3 col-form-label" for="">Nama Lengkap</label>
                                 <div class="col-md-9">
                                     <input wire:model="nama" class="form-control @error('nama') is-invalid @enderror" type="text" name="nama" placeholder=". . ."><span class="help-block">* Sesuai ijazah</span>
                                     @error('nama')
@@ -34,7 +48,7 @@
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label" for="date-input">tempat Lahir</label>
                                 <div class="col-md-9">
-                                    <input wire:model="tempat_lahir" class="form-control @error('tempat_lahir') is-invalid @enderror" id="text-input" name="tempat_lahir" placeholder="date">
+                                    <input wire:model="tempat_lahir" class="form-control @error('tempat_lahir') is-invalid @enderror" name="tempat_lahir" placeholder="date">
                                     @error('tempat_lahir')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -141,6 +155,28 @@
                                     @enderror
                                 </div>
                             </div>
+
+                            @if($sekolah > 1)
+
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label" for="kelas">Kelas</label>
+                                <div class="col-md-9">
+                                    <select wire:model="kelas" class="custom-select @error('kelas') is-invalid @enderror">
+                                        <option value="0">- Pilih Kelas -</option>
+                                        @foreach($DataKelas as $datak)
+                                        <option value="{{$datak->id}}">{{$datak->tingkat . ' '. $datak->kelas}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('kelas')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            @endif
+
+
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label" for="select1">asrama</label>
                                 <div class="col-md-9">
@@ -178,11 +214,7 @@
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label" for="text-input">Tahun Masuk</label>
                                 <div class="col-md-9">
-                                    <select wire:model="tahun" class="custom-select @error('tahun') is-invalid @enderror" id="ccyear" name="id_tahun" width="100">
-                                        <option value="0">- Pilih Tahun Ajaran -</option>
-                                        @for($i = date('yy')-7; $i <= date('yy'); $i++) <option value="{{$i}}">{{$i}}</option>
-                                            @endfor
-                                    </select>
+                                    <input wire:model="tahun" class="form-control @error('tahun') is-invalid @enderror" type="date" placeholder="date">
                                     @error('tahun')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -193,7 +225,7 @@
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label" for="text-input">Orang Tua / Wali</label>
                                 <div class="col-md-9">
-                                    <input wire:model="wali" class="form-control @error('wali') is-invalid @enderror" id="text-input" type="text" name="nama_wali" placeholder="Ex. Ahmad . . .">
+                                    <input wire:model="wali" class="form-control @error('wali') is-invalid @enderror" type="text" name="nama_wali" placeholder="Ex. Ahmad . . .">
                                     @error('wali')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -205,7 +237,7 @@
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label" for="text-input">No Telp / Hp</label>
                                 <div class="col-md-9">
-                                    <input wire:model="telepon" class="form-control @error('telepon') is-invalid @enderror" id="text-input" type="text" name="telepon" placeholder="08128888xxxx">
+                                    <input wire:model="telepon" class="form-control @error('telepon') is-invalid @enderror" type="text" name="telepon" placeholder="08128888xxxx">
                                     @error('telepon')
                                     <div class="invalid-feedback">
                                         {{ $message }}

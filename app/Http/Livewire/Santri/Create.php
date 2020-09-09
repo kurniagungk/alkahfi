@@ -4,10 +4,12 @@ namespace App\Http\Livewire\Santri;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use App\asrama, App\Sekolah;
+use App\asrama, App\Sekolah, App\Kelas;
 use App\TahunAjaran;
 use App\santri;
 use App\Wilayah;
@@ -17,12 +19,14 @@ class Create extends Component
 {
     use WithFileUploads;
 
-    public $nis;
+    public $nisn;
+    public $nism;
     public $nama;
     public $tempat_lahir;
     public $tanggal_lahir;
     public $alamat;
     public $sekolah;
+    public $kelas;
     public $asrama;
     public $telepon;
     public $jenis_kelamin;
@@ -30,6 +34,7 @@ class Create extends Component
     public $nama_wali;
     public $photo;
     public $DataAsrama;
+    public $DataKelas;
     public $DataSekolah;
     public $dataProvinsi;
     public $dataKabupaten;
@@ -42,10 +47,24 @@ class Create extends Component
 
     public function mount()
     {
+
+        $user = Auth::user();
+
+        if (!$user->hasRole('admin')) {
+            $sekolah = Sekolah::where('id', $user->sekolah_id)->get();
+        } else {
+            $sekolah = Sekolah::get();
+        }
+
         $this->DataAsrama = asrama::get();
-        $this->DataSekolah = Sekolah::get();
+        $this->DataSekolah = $sekolah;
         $this->dataProvinsi = Wilayah::whereRaw('CHAR_LENGTH(kode) = 2')
             ->get();
+    }
+
+    public function updatingsekolah($value)
+    {
+        $this->DataKelas = Kelas::where('sekolah_id', $value)->latest()->get();
     }
 
     public function updatingprovinsi($value)
@@ -88,8 +107,10 @@ class Create extends Component
     {
 
         $messages = [
-            'nis.required'    => 'NIS TIDAK BOLEH KOSONG',
-            'nis.unique'    => 'NIS TIDAK BOLEH SAMA',
+            'nisn.required'    => 'NIS TIDAK BOLEH KOSONG',
+            'nisn.unique'    => 'NIS TIDAK BOLEH SAMA',
+            'nism.required'    => 'NIS TIDAK BOLEH KOSONG',
+            'nism.unique'    => 'NIS TIDAK BOLEH SAMA',
             'nama.required'    => 'NAMA TIDAK BOLEH KOSONG',
             'tanggal_lahir.required'    => 'TANGGAL LAHIR TIDAK BOLEH KOSONG',
             'alamat.required'    => 'ALAMAT TIDAK BOLEH KOSONG',
@@ -108,7 +129,8 @@ class Create extends Component
         ];
 
         $validatedData = $this->validate([
-            'nis' => 'required|unique:santri|max:255',
+            'nisn' => 'required|unique:santri|max:255',
+            'nism' => 'required|unique:santri|max:255',
             'nama' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'date',
@@ -117,7 +139,7 @@ class Create extends Component
             'asrama' => 'required',
             'telepon' => 'required',
             'jenis_kelamin' => 'required',
-            'id_tahun' => 'required',
+            'id_tahun' => 'date',
             'nama_wali' => 'required',
             'photo' => 'image|max:2048',
             'photo' => 'image|max:2048',
@@ -128,12 +150,19 @@ class Create extends Component
 
         ], $messages);
 
+        if ($this->sekolah > 1)
+            $validatedData = $this->validate([
+                'kelas' => 'required',
+            ]);
+
+
         $photo = $this->photo->store('photos', 'public');
 
 
         $data = array(
             'id' => Str::uuid(),
-            'nis' => $this->nis,
+            'nisn' => $this->nisn,
+            'nism' => $this->nism,
             'nama' => $this->nama,
             'tempat_lahir' => $this->tempat_lahir,
             'tanggal_lahir' => $this->tanggal_lahir,

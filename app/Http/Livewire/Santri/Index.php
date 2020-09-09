@@ -3,8 +3,12 @@
 namespace App\Http\Livewire\Santri;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
+
 use App\santri;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Concerns\WithLimit;
 
 class Index extends Component
 {
@@ -52,16 +56,30 @@ class Index extends Component
 
     public function render()
     {
-        $santri =
+        $user = Auth::user();
+
+
+        $data =
             santri::with('asrama')
             ->with('provinsi')
             ->with('kabupaten')
             ->with('kecamatan')
-            ->with('desa')
-            ->where('nama', 'like', '%' . $this->search . '%')
-            ->orWhere('nis', 'like', '%' . $this->search . '%')
-            ->orWhere('alamat', 'like', '%' . $this->search . '%')
+            ->with('desa');
+
+
+        if (!$user->hasRole('admin'))
+            $data->where('sekolah_id', $user->sekolah_id);
+
+
+
+        $santri = $data
+            ->where(function (Builder $query) {
+                $query->Where('nama', 'like', '%' . $this->search . '%')
+                    ->orWhere('nisn', 'like', '%' . $this->search . '%')
+                    ->orWhere('nism', 'like', '%' . $this->search . '%');
+            })
             ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
+            ->latest()
             ->paginate($this->perpage);
 
 

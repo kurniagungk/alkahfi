@@ -12,7 +12,8 @@ class santri extends Model
 
     protected $fillable = [
         'id',
-        'nis',
+        'nisn',
+        'nism',
         'nama',
         'tanggal_lahir',
         'tempat_lahir',
@@ -27,6 +28,7 @@ class santri extends Model
         'wilayah_id',
         'asrama_id',
         'sekolah_id',
+        'kelas_id',
         'provinsi_id',
         'kabupaten_id',
         'kecamatan_id',
@@ -40,6 +42,11 @@ class santri extends Model
     {
         return $this->hasOne('App\asrama', 'id', 'asrama_id');
     }
+    public function sekolah()
+    {
+        return $this->hasOne(Sekolah::class, 'id', 'sekolah_id');
+    }
+
     public function provinsi()
     {
         return $this->hasOne('App\Wilayah', 'kode', 'provinsi_id');

@@ -18,10 +18,10 @@ class Index extends Component
         $user = Auth::user();
 
         if (!$user->hasRole('admin')) {
-            $kelas = Kelas::where('sekolah_id', $user->sekolah_id)->latest()
+            $kelas = Kelas::with('sekolah')->where('sekolah_id', $user->sekolah_id)->latest()
                 ->paginate(10);
         } else {
-            $kelas = Kelas::latest()
+            $kelas = Kelas::with('sekolah')->latest()
                 ->paginate(10);
         }
 

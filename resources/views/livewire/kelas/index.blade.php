@@ -14,6 +14,7 @@
             <thead>
                 <tr>
                     <th>No</th>
+                    <th>Sekolah</th>
                     <th>Tingkat</th>
                     <th>Kelas</th>
                     <th>Keterangan</th>
@@ -26,6 +27,7 @@
                 @foreach ($kelas as $data)
                 <tr>
                     <td>{{$loop->index+1}}</td>
+                    <td>{{$data->sekolah->nama}}</td>
                     <td>{{$data->tingkat}}</td>
                     <td>{{$data->kelas}}</td>
                     <td>{{$data->keterangan}}</td>

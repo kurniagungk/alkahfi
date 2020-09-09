@@ -22,7 +22,7 @@ class Index extends Component
             $sekolah = Sekolah::where('id', $user->sekolah_id)->latest()
                 ->paginate(10);
         } else {
-            $kelas = Sekolah::latest()
+            $sekolah = Sekolah::latest()
                 ->paginate(10);
         }
 
