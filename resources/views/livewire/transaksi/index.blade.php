@@ -32,7 +32,7 @@
 
         @if($find)
         <div class="col-sm-12">
-            @livewire('transaksi.profil', ['id' => $nis] )
+            @livewire('transaksi.profil', ['profil' => $profil] )
         </div>
 
         @livewire('transaksi.detail', ['id' => $nis])

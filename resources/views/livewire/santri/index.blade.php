@@ -40,15 +40,19 @@
 
                                     <td>
                                         <span class="pull-right">
-                                            <a class="btn btn-warning" href="index.php?view=siswa&amp;act=import">
-                                                <i class="fa fa-file-excel-o"></i> Import Data Santri
-                                            </a>
+
                                             <a class="btn btn-success" href="{{route('santri.create')}}">Tambahkan Data</a>
                                         </span>
                                     </td>
                                     -->
                                     <td>
                                         <a class="btn btn-success" href="{{route('santri.create')}}">Tambah Data</a>
+
+                                    </td>
+                                    <td>
+                                        <span class="pull-right">
+                                            <livewire:santri.import>
+                                        </span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -103,8 +107,12 @@
                             <tr>
 
                                 <th>No</th>
-                                <th> <a wire:click.prevent="sortBy('no_induk')" role="button">
-                                        Nis
+                                <th> <a wire:click.prevent="sortBy('nisn')" role="button">
+                                        Nism
+                                        <i class="cil-resize-height" @if($sortField=='no_induk' ) style="color:red" @endif></i>
+                                    </a></th>
+                                <th> <a wire:click.prevent="sortBy('nism')" role="button">
+                                        Nisn
                                         <i class="cil-resize-height" @if($sortField=='no_induk' ) style="color:red" @endif></i>
                                     </a></th>
                                 <th><a wire:click.prevent="sortBy('nama')" role="button">
@@ -124,7 +132,8 @@
                             @foreach($santri as $data)
                             <tr>
                                 <td>{{$loop->index +1}}</td>
-                                <td>{{$data->nis}}</td>
+                                <td>{{$data->nism}}</td>
+                                <td>{{$data->nisn}}</td>
                                 <td>{{$data->nama}}</td>
                                 <td>{{optional($data->asrama)->nama}}</td>
                                 <td>{{$data->jenis_kelamin}}</td>

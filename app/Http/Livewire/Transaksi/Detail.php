@@ -3,6 +3,9 @@
 namespace App\Http\Livewire\Transaksi;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
+
 use App\Tagihan;
 use App\Transaksi;
 use App\Bayar;
@@ -30,7 +33,18 @@ class Detail extends Component
 
     public function mount($id)
     {
-        $santri = santri::firstWhere('nis', $id);
+        $data = santri::where(function (Builder $query) {
+            return $query->Where('nism', $this->santri_id)
+                ->orWhere('nisn', $this->santri_id);
+        });
+
+        $user = Auth::user();
+
+
+        if (!$user->hasRole('admin'))
+            $data->where('sekolah_id', $user->sekolah_id);
+
+        $santri = $data->first();
 
         if (!is_null($santri)) {
             $this->santri_id = $santri->id;

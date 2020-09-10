@@ -3,11 +3,16 @@
 namespace App\Http\Livewire\Transaksi;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
+
+use App\santri;
 
 class Index extends Component
 {
 
     public $nis;
+    public $profil;
     public $find = false;
     public $data = false;
 
@@ -15,10 +20,7 @@ class Index extends Component
     protected $updatesQueryString = [
         'nis',
     ];
-    protected $listeners = [
-        'resetFind' => 'resetFind',
-        'profil' => 'profil'
-    ];
+    protected $listeners = [];
 
     public function render()
     {
@@ -27,17 +29,26 @@ class Index extends Component
 
     public function find()
     {
-        $this->find = true;
-        $this->emit('reset');
-    }
 
-    public function profil()
-    {
-    }
 
-    public function resetFind()
-    {
-        $this->find = false;
-        $this->data = true;
+        $data = santri::where(function (Builder $query) {
+            return $query->Where('nism', $this->nis)
+                ->orWhere('nisn', $this->nis);
+        });
+
+        $user = Auth::user();
+
+
+        if (!$user->hasRole('admin'))
+            $data->where('sekolah_id', $user->sekolah_id);
+
+        $this->profil = $data->first();
+
+        if ($this->profil)
+            $this->find = true;
+        else {
+            $this->find = false;
+            $this->data = true;
+        }
     }
 }

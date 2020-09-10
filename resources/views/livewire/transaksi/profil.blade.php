@@ -19,7 +19,12 @@
                     <tr>
                         <td>NIS</td>
                         <td>:</td>
-                        <td>{{$profil->nis}}</td>
+                        <td>{{$profil->nism}}</td>
+                    </tr>
+                    <tr>
+                        <td>NIS</td>
+                        <td>:</td>
+                        <td>{{$profil->nisn}}</td>
                     </tr>
                     <tr>
                         <td>Nama Lengkap</td>
@@ -29,7 +34,7 @@
                     <tr>
                         <td>Sekolah - Kelas</td>
                         <td>:</td>
-                        <td>{{$profil->sekolah}}</td>
+                        <td>{{$profil->sekolah->nama}} - {{$profil->kelas->tingkat}} {{$profil->kelas->kelas}}</td>
                     </tr>
                     <tr>
                         <td>Asrama</td>

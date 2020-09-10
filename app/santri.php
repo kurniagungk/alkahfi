@@ -47,6 +47,11 @@ class santri extends Model
         return $this->hasOne(Sekolah::class, 'id', 'sekolah_id');
     }
 
+    public function kelas()
+    {
+        return $this->hasOne(Kelas::class, 'id', 'kelas_id');
+    }
+
     public function provinsi()
     {
         return $this->hasOne('App\Wilayah', 'kode', 'provinsi_id');

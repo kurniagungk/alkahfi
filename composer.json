@@ -47,7 +47,8 @@
         ],
         "files": [
             "database/seeds/UsersAndNotesSeeder.php",
-            "database/seeds/MenusTableSeeder.php"
+            "database/seeds/MenusTableSeeder.php",
+            "app/Helpers/helpers.php"
         ]
     },
     "autoload-dev": {

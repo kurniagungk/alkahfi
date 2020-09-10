@@ -3,6 +3,9 @@
 namespace App\Http\Livewire\Transaksi;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
+
 use App\santri;
 
 class Profil extends Component
@@ -12,23 +15,13 @@ class Profil extends Component
 
     protected $listeners = ['reset' => 'DataProfil'];
 
-    public function mount($id)
+    public function mount($profil)
     {
-        $this->santri_id = $id;
-        $this->DataProfil();
+        $this->profil = $profil;
     }
 
     public function DataProfil()
     {
-
-        $profil = santri::firstWhere('nis', $this->santri_id);
-
-        if (is_null($profil)) {
-            $this->emit('resetFind');
-        } else {
-            $this->emit('profil');
-            $this->profil = $profil;
-        }
     }
 
 
