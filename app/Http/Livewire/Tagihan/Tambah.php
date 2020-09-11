@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\TagihanImport;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 
 use App\santri;
@@ -69,7 +70,15 @@ class Tambah extends Component
 
         $this->reset('DataSelect');
         if ($value == 2) {
-            $this->DataSelect = Kelas::latest()->get();
+            $user = Auth::user();
+
+            if (!$user->hasRole('admin')) {
+                $kelas = Kelas::where('id', $user->sekolah_id)->get();
+            } else {
+                $kelas = Kelas::get();
+            }
+
+            $this->DataSelect = $kelas;
         } elseif ($value == 3) {
             $this->DataSelect = asrama::latest()->get();
         } else {

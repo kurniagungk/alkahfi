@@ -33,9 +33,15 @@ class Detail extends Component
 
     public function mount($id)
     {
-        $data = santri::where(function (Builder $query) {
-            return $query->Where('nism', $this->santri_id)
-                ->orWhere('nisn', $this->santri_id);
+
+
+
+
+
+
+        $data = santri::where(function (Builder $query) use ($id) {
+            return $query->Where('nism', $id)
+                ->orWhere('nisn', $id);
         });
 
         $user = Auth::user();
@@ -45,6 +51,8 @@ class Detail extends Component
             $data->where('sekolah_id', $user->sekolah_id);
 
         $santri = $data->first();
+
+
 
         if (!is_null($santri)) {
             $this->santri_id = $santri->id;

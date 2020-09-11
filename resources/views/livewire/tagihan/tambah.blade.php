@@ -70,10 +70,12 @@
                      <input wire:model="select" class="form-check-input" id="inline-radio2" type="radio" value="2" name="inline-radios">
                      <label class="form-check-label" for="inline-radio2">Kelas</label>
                  </div>
+                 <!--
                  <div class="form-check form-check-inline mr-1">
                      <input wire:model="select" class="form-check-input" id="inline-radio3" type="radio" value="3" name="inline-radios">
                      <label class="form-check-label" for="inline-radio3">Asrama</label>
                  </div>
+                 -->
                  <div class="form-check form-check-inline mr-1">
                      <input wire:model="select" class="form-check-input" id="inline-radio4" type="radio" value="4" name="inline-radios">
                      <label class="form-check-label" for="inline-radio4">Custom</label>

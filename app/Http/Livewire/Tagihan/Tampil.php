@@ -57,7 +57,8 @@ class Tampil extends Component
             ->with('santri')
             ->whereHas('santri', function (Builder $query) {
                 $query->where('nama', 'like', '%' . $this->search . '%');
-                $query->orWhere('nis', 'like', '%' . $this->search . '%');
+                $query->orWhere('nism', 'like', '%' . $this->search . '%');
+                $query->orWhere('nisn', 'like', '%' . $this->search . '%');
             })
             ->paginate($this->perpage);
 
