@@ -35,6 +35,8 @@ class CreateUser extends Component
                 'sekolahId' => 'required'
             ]);
 
+
+
         $user = User::create([
             'name' => $this->name,
             'email' => $this->email,

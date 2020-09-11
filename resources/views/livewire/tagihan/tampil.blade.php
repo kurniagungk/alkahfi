@@ -105,7 +105,7 @@
                                 @foreach($santri as $s)
                                 <tr>
                                     <td>{{$loop->index +1}}</td>
-                                    <td>{{$s->santri->nis}}</td>
+                                    <td>{{$s->santri->nisn}}</td>
                                     <td>{{$s->santri->nama}}</td>
                                     <td>{{$s->tempo}}</td>
                                     <td>{{$s->jumlah}}</td>

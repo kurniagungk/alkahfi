@@ -9,7 +9,7 @@
                         <form class="form-horizontal" wire:submit.prevent="store" enctype="multipart/form-data">
 
                             <div class="form-group row">
-                                <label class="col-md-3 col-form-label" for="text-input">NISM</label>
+                                <label class="col-md-3 col-form-label" for="text-input">NISN</label>
                                 <div class="col-md-9">
                                     <input wire:model="nisn" class="form-control @error('nisn') is-invalid @enderror" id="no_induk" type="text" placeholder="Nomor Induk Siswa Nasional . . .">
 

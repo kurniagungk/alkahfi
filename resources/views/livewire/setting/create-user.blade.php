@@ -68,7 +68,7 @@
                                  <select wire:model="sekolahId" class="form-control">
                                      <option selected>Choose...</option>
                                      @foreach($data['sekolah'] as $s)
-                                     <option value="{$s->id}}">{{$s->nama}}</option>
+                                     <option value="{{$s->id}}">{{$s->nama}}</option>
                                      @endforeach
                                  </select>
                                  @error('sekolahId') <span class="error">{{ $message }}</span> @enderror

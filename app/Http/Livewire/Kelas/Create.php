@@ -42,6 +42,7 @@ class Create extends Component
             'tingkat' => $this->tingkat,
             'kelas' => $this->kelas,
             'keterangan' => $this->keterangan,
+            'sekolah_id' => $this->sekolah_id
 
         );
         Kelas::create($data);

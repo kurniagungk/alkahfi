@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'menuroles', 'sekolah_id'
     ];
 
     /**
@@ -43,9 +43,5 @@ class User extends Authenticatable
 
     protected $dates = [
         'deleted_at'
-    ];
-
-    protected $attributes = [ 
-        'menuroles' => 'user',
     ];
 }

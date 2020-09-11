@@ -17,12 +17,12 @@
                         <td><b>Semua Tahun Ajaran<b></td>
                     </tr>
                     <tr>
-                        <td>NIS</td>
+                        <td>NISM</td>
                         <td>:</td>
                         <td>{{$profil->nism}}</td>
                     </tr>
                     <tr>
-                        <td>NIS</td>
+                        <td>NISN</td>
                         <td>:</td>
                         <td>{{$profil->nisn}}</td>
                     </tr>
