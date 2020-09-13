@@ -73,6 +73,9 @@
             </tr>
         </tbody>
     </table>
+
+
+    @include('print.footer')
 </body>
 
 </html>

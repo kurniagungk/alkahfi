@@ -87,6 +87,8 @@
         </tfoot>
     </table>
 
+    @include('print.footer')
+
 </body>
 
 </html>
