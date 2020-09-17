@@ -212,10 +212,13 @@ class TransaksiController extends Controller
             ->first();
         $santri = santri::find($tagihan->santri_id);
 
+
+
         $data = [
             'santri' => $santri,
             'tagihan' => $tagihan,
         ];
+
 
         $pdf = PDF::loadview('print.kwitansib', compact('data'));
         $pdf->setPaper('A4', 'landscape');

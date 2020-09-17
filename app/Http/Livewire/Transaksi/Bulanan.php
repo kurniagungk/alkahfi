@@ -141,6 +141,7 @@ class Bulanan extends Component
             'detail' => $detail
         ];
 
+
         $pdf = PDF::loadview('print.kwitansibulanan', compact('data'));
         $pdf->setPaper('A4', 'landscape');
         Storage::disk('public')->put('pdf/invoice.pdf', $pdf->output());
