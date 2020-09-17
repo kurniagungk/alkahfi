@@ -11,15 +11,18 @@
                     <div class="col-sm-12">
 
                         <div class="col-sm-12">
+                            <form wire:submit.prevent="find">
+                                <div class="form-group row">
 
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                        <input wire:model="nis" class="form-control" id="input2-group2" name="id" placeholder="MASUKAN NOMER INDUK SISWA / SANTRI"><span class="input-group-append">
-                                            <button wire:click="find" class="btn btn-primary" type="submit">Submit</button></span>
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <input wire:model="nis" class="form-control" id="input2-group2" name="id" placeholder="MASUKAN NOMER INDUK SISWA / SANTRI"><span class="input-group-append">
+                                                <button class="btn btn-primary" type="submit">Submit</button></span>
+                                        </div>
                                     </div>
+
                                 </div>
-                            </div>
+                            </form>
                         </div>
                         <br>
 

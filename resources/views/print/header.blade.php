@@ -6,9 +6,14 @@
             <td><img src="{{public_path('/public/logo/logo.jpeg')}}" width="70" height="70" alt="img"></td>
             <td>
                 <center>
-                    <font size="5">YAYASAN RUBATH AL-KAHFI</font><BR>
+                    <font size="3">YAYASAN RUBATH AL KAHFI (YAKFI)</font><BR>
+                    @hasrole('admin')
                     <font size="5"><b>PONDOK PESANTREN AL-KAHFI SOMALANGU<b></font><BR>
-                    <font size="3"><i>Sekretariat : Ds. Sumberadi Po Box.32 Kebumen 54351 Telp. (0287) 3870814</i></font>
+                    @else
+                    <font size="5"><b>{{auth()->user()->sekolah->nama}}<b></font><BR>
+                    @endhasrole
+
+                    <font size="3"><i>Alamat: {{auth()->user()->sekolah->keterangan}}</i></font>
                 </center>
             </td>
         </tr>

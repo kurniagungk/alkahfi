@@ -1,14 +1,16 @@
 <br>
+<br>
 <div>
     <table align="right">
         <tr>
             <td>
-                <div align="center">
-                    <font size="3">Bendahara,</font><br>
+                <div align="center" style="font-size: x-small;">
+                    Somalangu, {{date("d-m-Y")}}<br>
+                    Bendahara,<br>
                     <br>
                     <br>
                     <br>
-                    <font size="3">{{auth()->user()->name}}</font>
+                    {{auth()->user()->name}}
                 </div>
             </td>
         </tr>

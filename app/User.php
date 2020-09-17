@@ -44,4 +44,9 @@ class User extends Authenticatable
     protected $dates = [
         'deleted_at'
     ];
+
+    public function sekolah()
+    {
+        return $this->hasOne(Sekolah::class, 'id', 'sekolah_id');
+    }
 }
