@@ -345,6 +345,10 @@ Route::group(['middleware' => ['get.menu']], function () {
                 ->layout('dashboard.base');
             Route::livewire('/umum', 'laporan.umum')
                 ->layout('dashboard.base');
+            Route::livewire('/tunggakan', 'tunggakan.index')
+                ->layout('dashboard.base');
+            Route::livewire('/cek', 'tunggakan.cek')
+                ->layout('dashboard.kosong');
         });
 
         // Route::get('/tagihan/tampil', function () {
