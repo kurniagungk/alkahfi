@@ -164,7 +164,7 @@
                                     <select wire:model="kelas" class="custom-select @error('kelas') is-invalid @enderror">
                                         <option value="0">- Pilih Kelas -</option>
                                         @foreach($DataKelas as $datak)
-                                        <option value="{{$datak->id}}">{{$datak->nama}}</option>
+                                        <option value="{{$datak->id}}">{{$datak->tingkat}} - {{$datak->kelas}}</option>
                                         @endforeach
                                     </select>
                                     @error('kelas')

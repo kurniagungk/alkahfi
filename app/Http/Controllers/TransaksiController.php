@@ -206,9 +206,13 @@ class TransaksiController extends Controller
 
     public function kwitansiBulanan($id)
     {
+
+
+
         $tagihan =
             Tagihan::Where('id', $id)
             ->with('jenis')
+            ->with('tahun')
             ->first();
         $santri = santri::find($tagihan->santri_id);
 
@@ -231,14 +235,17 @@ class TransaksiController extends Controller
             Bayar::where('id', $id)
             ->first();
 
+
+
         $detail =
             Tagihan::Where('id', $tagihan->tagihan_id)
             ->with('jenis')
+            ->with('tahun')
             ->first();
-
+        $santri = santri::find($detail->santri_id);
 
         $data = [
-
+            'santri' => $santri,
             'tagihan' => $tagihan,
             'detail' => $detail
         ];

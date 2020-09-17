@@ -22,8 +22,6 @@
         .gray {
             background-color: lightgray
         }
-
-        
     </style>
 
 </head>
@@ -40,13 +38,19 @@
             <table width="100%">
                 <tbody>
                     <tr>
+                        <td width="93"><span>NIS</span></td>
+                        <td width="200"><span>: &nbsp; <b>{{$data['santri']->nisn}}</b></span></td>
+                    </tr>
+                    <tr>
                         <td width="93"><span>Nama</span></td>
                         <td width="200"><span>: &nbsp; <b>{{$data['santri']->nama}}</b></span></td>
                     </tr>
                     <tr>
-                        <td><span>Tagihan</span></td>
-                        <td><span>: &nbsp; <b>{{$data['tagihan']->jenis->nama}}</b></span></td>
+                        <td><span>Kelas</span></td>
+                        <td><span>: &nbsp; <b>{{$data['santri']->kelas->tingkat}} - {{$data['santri']->kelas->kelas}}</b></span></td>
                     </tr>
+
+
                     <tr></tr>
                 </tbody>
             </table>
@@ -55,17 +59,18 @@
             <table width="100%">
                 <tbody>
                     <tr>
-                        <td width="93"><span>NIS</span></td>
-                        <td width="200"><span>: &nbsp; <b>{{$data['santri']->nisn}}</b></span></td>
+                        <td><span>Tahun Ajaran</span></td>
+                        <td><span>: &nbsp; {{$data['tagihan']->tahun->nama}}</span></td>
                     </tr>
                     <tr>
-                        <td><span>Kelas</span></td>
-                        <td><span>: &nbsp; <b>{{$data['santri']->kelas->tingkat}} - {{$data['santri']->kelas->kelas}}</b></span></td>
+                        <td><span>Tagihan</span></td>
+                        <td><span>: &nbsp; <b>{{$data['tagihan']->jenis->nama}}</b></span></td>
                     </tr>
                     <tr>
                         <td><span>ID Transaksi</span></td>
                         <td><span>: &nbsp; {{substr($data['tagihan']->id, 0, 8)}}</span></td>
                     </tr>
+
                 </tbody>
             </table>
         </td>

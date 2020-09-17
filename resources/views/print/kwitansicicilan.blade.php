@@ -32,7 +32,7 @@
     @include('print.header')
 
     <h3>
-        <center>KWITANSI PEMBAYARAN PONDOK</center>
+        <center>KWITANSI PEMBAYARAN</center>
     </h3>
 
     <table align="center">
@@ -40,36 +40,39 @@
             <table width="100%">
                 <tbody>
                     <tr>
-                        <td width="93"><span>Nama</span></td>
-                        <td width="200"><span>: &nbsp; <b>munir</b></span></td>
+                        <td width="93"><span>NIS</span></td>
+                        <td width="200"><span>: &nbsp; <b>{{$data['santri']->nisn}}</b></span></td>
                     </tr>
                     <tr>
-                        <td><span>Sekolah</span></td>
-                        <td><span>: &nbsp; <b>SMK</b></span></td>
+                        <td width="93"><span>Nama</span></td>
+                        <td width="200"><span>: &nbsp; <b>{{$data['santri']->nama}}</b></span></td>
+                    </tr>
+                    <tr>
+                        <td><span>Kelas</span></td>
+                        <td><span>: &nbsp; <b>{{$data['santri']->kelas->tingkat}} - {{$data['santri']->kelas->kelas}}</b></span></td>
+                    </tr>
+
+
+                    <tr></tr>
+                </tbody>
+            </table>
+        </td>
+        <td colspan="2">
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td><span>Tahun Ajaran</span></td>
+                        <td><span>: &nbsp; {{$data['detail']->tahun->nama}}</span></td>
                     </tr>
                     <tr>
                         <td><span>Tagihan</span></td>
                         <td><span>: &nbsp; <b>{{$data['detail']->jenis->nama}}</b></span></td>
                     </tr>
-                </tbody>
-            </table>
-        </td>
-
-        <td colspan="2">
-            <table width="100%">
-                <tbody>
-                    <tr>
-                        <td width="93"><span>NIS</span></td>
-                        <td width="200"><span>: &nbsp; <b>101-1</b></span></td>
-                    </tr>
-                    <tr>
-                        <td><span>Kelas</span></td>
-                        <td><span>: &nbsp; <b>IPA-B</b></span></td>
-                    </tr>
                     <tr>
                         <td><span>ID Transaksi</span></td>
-                        <td><span>: &nbsp; jjkad778as</span></td>
+                        <td><span>: &nbsp; {{substr($data['detail']->id, 0, 8)}}</span></td>
                     </tr>
+
                 </tbody>
             </table>
         </td>

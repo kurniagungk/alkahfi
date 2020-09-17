@@ -23,7 +23,9 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
+                                    <th>Alamat</th>
                                     <th>Keterangan</th>
+                                    <th>logo</th>
                                     <th>
                                         <center>Action</center>
                                     </th>
@@ -34,7 +36,11 @@
                                 <tr>
                                     <td>{{$loop->index+1}}</td>
                                     <td>{{$data->nama}}</td>
+                                    <td>{{$data->alamat}}</td>
                                     <td>{{$data->keterangan}}</td>
+                                    <td>
+                                        <img src="{{asset('public/'.$data->logo)   }}" width="50px" class="img-thumbnail" alt="...">
+                                    </td>
                                     <td>
                                         <center>
                                             <a href="{{route('sekolah.edit', $data->id)}}" class="btn btn-outline-warning">edit</a>

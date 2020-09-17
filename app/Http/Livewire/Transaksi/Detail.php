@@ -28,7 +28,7 @@ class Detail extends Component
     public $santri_id;
 
 
-    protected $listeners = ['reset' => 'resetdata'];
+    protected $listeners = ['find' => 'resetdata'];
 
 
     public function mount($id)
@@ -107,6 +107,8 @@ class Detail extends Component
     public function resetdata()
     {
         $this->data();
+        $this->detail = false;
+        $this->detail = false;
     }
 
     public function detail($id)

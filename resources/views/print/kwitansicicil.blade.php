@@ -30,21 +30,47 @@
 
     @include('print.header')
 
-    <table width="100%">
-        <tr>
-            <td valign="top"><img alt="" width="150" /></td>
-            <td align="right">
-                <h3>Alkahfi</h3>
-            </td>
-        </tr>
+    <h3>
+        <center>KWITANSI PEMBAYARAN</center>
+    </h3>
+    <table align="center">
+        <td colspan="2">
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td width="93"><span>NIS</span></td>
+                        <td width="200"><span>: &nbsp; <b>{{$data['santri']->nisn}}</b></span></td>
+                    </tr>
+                    <tr>
+                        <td width="93"><span>Nama</span></td>
+                        <td width="200"><span>: &nbsp; <b>{{$data['santri']->nama}}</b></span></td>
+                    </tr>
+                    <tr>
+                        <td><span>Kelas</span></td>
+                        <td><span>: &nbsp; <b>{{$data['santri']->kelas->tingkat}} - {{$data['santri']->kelas->kelas}}</b></span></td>
+                    </tr>
 
-    </table>
-    <table width="100%">
-        <tr>
-            <td><strong>Tagihan:</strong> {{$data['detail']->jenis->nama}}</td>
 
-        </tr>
+                    <tr></tr>
+                </tbody>
+            </table>
+        </td>
+        <td colspan="2">
+            <table width="100%">
+                <tbody>
+                    <tr>
+                        <td><span>Tahun Ajaran</span></td>
+                        <td><span>: &nbsp; {{$data['detail']->tahun->nama}}</span></td>
+                    </tr>
+                    <tr>
+                        <td><span>Tagihan</span></td>
+                        <td><span>: &nbsp; <b>{{$data['detail']->jenis->nama}}</b></span></td>
+                    </tr>
 
+
+                </tbody>
+            </table>
+        </td>
     </table>
 
     <br />
@@ -53,6 +79,7 @@
         <thead style="background-color: lightgray;">
             <tr>
                 <th>#</th>
+                <th>Id Transaksi </th>
                 <th>Tanggal Bayar </th>
                 <th>Jumlah</th>
 
@@ -63,6 +90,7 @@
             @foreach($data['tagihan'] as $tagihan)
             <tr>
                 <td>{{$loop->index+1}}</td>
+                <td>{{substr($tagihan->id, 0, 8)}}</td>
                 <td>{{Date_format($tagihan->created_at, "d/m/Y")}}</td>
                 <td>{{$tagihan->jumlah }}</td>
 

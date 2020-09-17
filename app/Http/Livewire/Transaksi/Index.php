@@ -43,6 +43,7 @@ class Index extends Component
             $data->where('sekolah_id', $user->sekolah_id);
 
         $this->profil = $data->first();
+        $this->emit('find');
 
         if ($this->profil)
             $this->find = true;

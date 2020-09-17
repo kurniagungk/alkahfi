@@ -10,5 +10,7 @@ class Sekolah extends Model
     protected $fillable = [
         'nama',
         'keterangan',
+        'alamat',
+        'logo',
     ];
 }

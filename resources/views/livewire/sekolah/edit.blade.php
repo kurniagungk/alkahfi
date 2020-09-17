@@ -24,11 +24,47 @@
 
 
                          <div class="form-group row">
+                             <label class="col-md-3 col-form-label" for="text-input">Alamat</label>
+                             <div class="col-md-9">
+                                 <input wire:model="alamat" class="form-control" type="text" name="text-input">
+                                 @error('alamat') <span class="error">{{ $message }}</span> @enderror
+                             </div>
+                         </div>
+
+                         <div class="form-group row">
                              <label class="col-md-3 col-form-label" for="text-input">Keterangan</label>
                              <div class="col-md-9">
                                  <input wire:model="keterangan" class="form-control" id="text-number" type="text" name="text-input">
                                  @error('ket') <span class="error">{{ $message }}</span> @enderror
                              </div>
+                         </div>
+
+
+                         <div class="form-group row">
+                             <label class="col-md-3 col-form-label" for="file-input">Pas Foto</label>
+                             <div class="col-md-9">
+                                 <input wire:model="Newlogo" type="file" name="foto" class="form-control-file @error('Newlogo') is-invalid @enderror"><span class="help-block">* Ukuran (3x4) Format .jpg</span>
+                                 <br>
+                                 @if ($Newlogo)
+                                 @if(!$errors->has('Newlogo'))
+                                 <img src="{{ $Newlogo->temporaryUrl() }}" height="200px" width="200px" class="img-thumbnail" alt="...">
+                                 @endif
+
+
+                                 @else
+
+
+                                 <img src="{{asset('public/'.$logo)   }}" height="200px" width="200px" class="img-thumbnail" alt="...">
+                                 @endif
+
+                                 @error('logo')
+                                 <div class="invalid-feedback">
+                                     {{ $message }}
+                                 </div>
+                                 @enderror
+                             </div>
+
+
                          </div>
 
 
