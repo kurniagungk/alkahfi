@@ -41,9 +41,8 @@ class Create extends Component
         $data = array(
             'tingkat' => $this->tingkat,
             'kelas' => $this->kelas,
-            'keterangan' => $this->keterangan,
+            'keterangan' => $this->keterangan ?? '',
             'sekolah_id' => $this->sekolah_id
-
         );
         Kelas::create($data);
         session()->flash('message',   $this->kelas . ' berhasil di tambahkan');

@@ -37,7 +37,7 @@ class Edit extends Component
         $data = array(
             'tingkat' => $this->tingkat,
             'kelas' => $this->kelas,
-            'keterangan' => $this->keterangan,
+            'keterangan' => $this->keterangan ?? '',
             'sekolah_id' => $this->sekolah_id
         );
 
