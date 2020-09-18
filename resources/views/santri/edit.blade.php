@@ -2,7 +2,6 @@
 
   @section('content')
 
-
   @livewire('santri.edit', ['santri' => $santri])
 
 

@@ -47,9 +47,8 @@ class Edit extends Component
     public $kecamatan;
     public $desa;
 
-    public function mount(dataSantri $santri)
+    public function mount($santri)
     {
-
         $this->nism = $santri->nism;
         $this->nisn = $santri->nisn;
         $this->nama = $santri->nama;
