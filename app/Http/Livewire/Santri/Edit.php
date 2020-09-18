@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Auth;
 
 
 use App\asrama, App\TahunAjaran, App\Kelas;
-use App\santri, App\Wilayah;
+use App\santri;
+use App\Wilayah;
 use App\Sekolah;
 
 class Edit extends Component
@@ -214,7 +215,7 @@ class Edit extends Component
         $santri->wali = $this->wali;
         $santri->asrama_id = $this->asrama;
         $santri->sekolah_id = $this->sekolah;
-        $santri->kelas_id = $this->kelas;
+        $santri->kelas_id = $this->kelas ?? '';
         $santri->provinsi_id = $this->provinsi;
         $santri->kabupaten_id = $this->kabupaten;
         $santri->kecamatan_id = $this->kecamatan;

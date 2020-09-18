@@ -173,6 +173,7 @@ class Create extends Component
             'wali' => $this->nama_wali,
             'foto' => $photo,
             'sekolah_id' => $this->sekolah,
+            'kelas_id' => $this->kelas ?? '',
             'asrama_id' => $this->asrama,
             'provinsi_id' => $this->provinsi,
             'kabupaten_id' => $this->kabupaten,
