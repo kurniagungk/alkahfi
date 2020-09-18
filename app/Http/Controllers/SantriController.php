@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Datatables;
-use App\Santri;
+use App\santri;
 use Redirect, Response, DB, Config;
 use Validator;
 use Illuminate\Validation\Rule;
@@ -60,7 +60,7 @@ class SantriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Santri $santri)
+    public function edit(santri $santri)
     {
         //
         return view('santri.edit', compact('santri'));
