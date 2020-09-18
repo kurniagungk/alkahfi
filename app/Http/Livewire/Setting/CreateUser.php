@@ -48,7 +48,7 @@ class CreateUser extends Component
         ]);
 
         $user->assignRole($this->roleId);
-
+        $this->reset();
         session()->flash('message', 'User successfully created.');
     }
 

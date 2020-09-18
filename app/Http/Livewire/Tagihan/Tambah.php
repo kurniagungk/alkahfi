@@ -135,7 +135,7 @@ class Tambah extends Component
         } else {
 
             $user = Auth::user();
-            $data = santri::select('id')->get();
+            $data = santri::select('id');
             if (!$user->hasRole('admin'))
                 $data->where('sekolah_id', $user->sekolah_id);
             $santri = $data->get();
