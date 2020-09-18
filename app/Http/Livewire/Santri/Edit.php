@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 use App\asrama, App\TahunAjaran, App\Kelas;
-use App\santri;
+use App\santri as dataSantri;
 use App\Wilayah;
 use App\Sekolah;
 
@@ -47,7 +47,7 @@ class Edit extends Component
     public $kecamatan;
     public $desa;
 
-    public function mount(santri $santri)
+    public function mount(dataSantri $santri)
     {
 
         $this->nism = $santri->nism;
@@ -188,7 +188,7 @@ class Edit extends Component
 
 
 
-        $santri = santri::find($this->santri_id);
+        $santri = dataSantri::find($this->santri_id);
 
 
         if ($this->NewPhoto) {
