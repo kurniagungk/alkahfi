@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\asrama, App\Sekolah, App\Kelas;
 use App\TahunAjaran;
-use App\santri;
+use App\santri as Santri;
 use App\Wilayah;
 
 
