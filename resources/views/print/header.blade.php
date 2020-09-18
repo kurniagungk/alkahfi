@@ -17,7 +17,7 @@
                 <font size="5"><b>PONDOK PESANTREN AL-KAHFI SOMALANGU<b></font><BR>
                 <font size="3"><i>Sekretariat : Ds. Sumberadi Po Box.32 Kebumen 54351 Telp. (0287) 3870814</i></font>
                 @else
-                @if(auth()->user()->sekolah->id > 1)
+                @if(auth()->user()->sekolah->id > 2)
                 <font size="3">YAYASAN RUBATH AL KAHFI (YAKFI)</font><BR>
                 @else
                 <font size="3">LEMBAGA PENDIDIKAN MA’ARIF NU KABUPATEN KEBUMEN</font><BR>
