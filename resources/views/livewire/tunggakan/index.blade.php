@@ -40,72 +40,38 @@
 
                                         <form>
 
+
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Tanggal</label>
-                                                <div class="col-sm-4">
-                                                    <input wire:model="awal" type="date" class="form-control @error('awal') is-invalid @enderror" id="inputPassword2">
-
-                                                    <div class="invalid-feedback">
-
-                                                    </div>
-
+                                                <label class="col-md-3 col-form-label">Periode Pembayaran</label>
+                                                <div class="col-md-9">
+                                                    <select class="form-control  @error('periode') is-invalid @enderror" wire:model="periode">
+                                                        <option value=''>pilih salah satu</option>
+                                                        <option value="spp">bulanan</option>
+                                                        <option value="cicilan">Cicilan</option>
+                                                    </select>
+                                                    @error('periode')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
-                                                <div class="col-sm-1"></div>
-                                                <div class="col-sm-4">
-                                                    <input wire:model="akhir" type="date" class="form-control @error('akhir') is-invalid @enderror" id="inputPassword2">
-
-                                                    <div class="invalid-feedback">
-
-                                                    </div>
-
-                                                </div>
-
                                             </div>
 
-
+                                            @if($periode)
                                             <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Jenis Tagihan</label>
-                                                <div class="col-sm-9">
-                                                    <div class="custom-control custom-radio custom-control-inline">
-                                                        <input wire:model="periode" type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" value="0">
-                                                        <label class="custom-control-label" for="customRadioInline1">Semua</label>
-                                                    </div>
-                                                    <div class="custom-control custom-radio custom-control-inline">
-                                                        <input wire:model="periode" type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input" value="1">
-                                                        <label class="custom-control-label" for="customRadioInline2">Bulanan</label>
-                                                    </div>
-                                                    <div class="custom-control custom-radio custom-control-inline">
-                                                        <input wire:model="periode" type="radio" id="customRadioInline3" name="customRadioInline1" class="custom-control-input" value="2">
-                                                        <label class="custom-control-label" for="customRadioInline3">Cicilan</label>
-                                                    </div>
+                                                <label class="col-md-3 col-form-label">Jenis Pembayaran</label>
+                                                <div class="col-md-9">
 
-                                                    <div class="invalid-feedback">
+                                                    <select class="form-control @error('jenis') is-invalid @enderror" wire:model="jenis">
+                                                        <option value=''>pilih salah satu</option>
+                                                        @foreach ($dataJenis as $data)
+                                                        <option value="{{$data->id}}">{{$data->nama}}</option>
 
-                                                    </div>
-
-
-                                                </div>
-
-                                            </div>
-
-
-
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Nama Tagihan</label>
-                                                <div class="col-sm-9">
-                                                    <select wire:model="jenis" class="form-control">
-                                                        <option value=""> pilih salah satu </option>
-
-                                                        <option value=""> </option>
+                                                        @endforeach
 
                                                     </select>
-
-                                                    <div class="invalid-feedback">
-
-                                                    </div>
-
+                                                    @error('jenis') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                                 </div>
                                             </div>
+                                            @endif
 
                                             <center>
                                                 <button wire:click="data" class="btn btn-info btn-icon-split" type="button">
@@ -114,6 +80,12 @@
                                                     </span>
                                                     <span class="text">Filter</span>
                                                 </button>
+                                                <button wire:click="export" class="btn btn-warning btn-icon-split" type="button">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-download"></i>
+                                                    </span>
+                                                    <span class="text">Export</span>
+                                                </button>
                                             </center>
                                         </form>
 
@@ -121,7 +93,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-xl-4 col-lg-5">
+                            <div class="col-xl-4 col-lg-5 d-none">
                                 <div class="card shadow mb-4">
                                     <div class="card-body">
                                         <div class="form-group row">
@@ -160,26 +132,33 @@
                                         <th>No</th>
                                         <th>NIS</th>
                                         <th>Nama</th>
+                                        @role('admin')
+                                        <th>Sekolah</th>
+                                        @endrole
                                         <th>Kelas</th>
                                         <th>Jumlah Tunggakan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    @if($dataTunggakan)
+                                    @foreach ($dataTunggakan as $tunggakan)
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{$loop->index + 1}}</td>
+                                        <td>{{$tunggakan->nisn }}</td>
+                                        <td>{{$tunggakan->nama }}</td>
+                                        @role('admin')
+                                        <td>{{$tunggakan->sekolah->nama}}</td>
+                                        @endrole
+                                        <td>{{$tunggakan->kelas->tingkat }} - {{$tunggakan->kelas->kelas }}</td>
+                                        <td>{{FormatRupiah($tunggakan->tagihan->sum('jumlah') - $tunggakan->tagihan->sum('bayar_count'))}} </td>
                                     </tr>
 
+                                    @endforeach
+                                    @else
                                     <tr>
                                         <td colspan="7" class="text-center">No Data</td>
                                     </tr>
-
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -189,3 +168,10 @@
         </div>
     </div>
 </div>
+@push('scripts')
+<script type="text/javascript">
+    window.livewire.on('download', () => {
+        window.open("{{asset('public/'.'export/tunggakan.xlsx')   }}", '_blank');
+    })
+</script>
+@endpush

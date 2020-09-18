@@ -68,4 +68,8 @@ class santri extends Model
     {
         return $this->hasOne('App\Wilayah', 'kode', 'desa_id');
     }
+    public function tagihan()
+    {
+        return $this->hasMany(Tagihan::class, 'santri_id',);
+    }
 }

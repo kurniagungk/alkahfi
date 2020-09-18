@@ -133,7 +133,12 @@ class Tambah extends Component
             }
             $santri = santri::whereIn('nis', $dataS)->get();
         } else {
-            $santri = santri::select('id')->get();
+
+            $user = Auth::user();
+            $data = santri::select('id')->get();
+            if (!$user->hasRole('admin'))
+                $data->where('sekolah_id', $user->sekolah_id);
+            $santri = $data->get();
         }
 
 

@@ -18,7 +18,6 @@ class Import extends Component
     public function updatingfile($value)
     {
         $data = Excel::import(new SantriImport, $value);
-        dd($data);
     }
 
 

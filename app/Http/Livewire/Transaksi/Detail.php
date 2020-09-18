@@ -86,8 +86,8 @@ class Detail extends Component
             'id',
             'jenis_tagihan_id',
             'santri_id',
-            DB::raw('sum(jumlah) as total'),
-            DB::raw('sum(jumlah) - sum(if(status = "lunas", jumlah, 0)) as status'),
+            DB::raw('jumlah as total'),
+            'status',
         )
 
             ->where('santri_id', $this->santri_id)
@@ -100,7 +100,7 @@ class Detail extends Component
                 $query->select(DB::raw('sum(jumlah) as dibayar'));
             }])
 
-            ->groupBy('jenis_tagihan_id')
+
             ->get();
     }
 
@@ -115,7 +115,6 @@ class Detail extends Component
     {
         $this->detail = true;
         $this->jenis = true;
-
         $this->t = $id;
     }
 
