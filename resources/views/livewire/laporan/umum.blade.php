@@ -160,12 +160,14 @@
                                         </div>
                                         <form>
                                             <center>
-                                                <button wire:click="export" class="btn btn-warning btn-icon-split" type="button">
+
+                                                <a href="/laporan/layout" class="btn btn-warning btn-icon-split">
                                                     <span class="icon text-white-50">
-                                                        <i class="fas fa-download"></i>
+                                                        <i class="fas fa-arrow-left"></i>
                                                     </span>
-                                                    <span class="text">Export</span>
-                                                </button>
+                                                    <span class="text">Layout Cetak >></span>
+                                                </a>
+
                                             </center>
                                         </form>
                                     </div>

@@ -331,6 +331,7 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::livewire('/sekolah/{sekolah}/edit', 'sekolah.edit')->layout('dashboard.base')->name('sekolah.edit');
 
         Route::livewire('/tagihan/{id}/show', 'tagihan.tampil')->layout('dashboard.base')->name('tagihan.tampil');
+        Route::livewire('/transaksi/keluar', 'transaksi.keluar')->layout('dashboard.base')->name('transaksi.keluar');
 
         Route::resource('transaksi', 'TransaksiController', [
             'only' => ['index', 'create', 'store']
@@ -345,12 +346,16 @@ Route::group(['middleware' => ['get.menu']], function () {
                 ->layout('dashboard.base');
             Route::livewire('/umum', 'laporan.umum')
                 ->layout('dashboard.base');
-            Route::livewire('/tunggakan', 'tunggakan.index')
+            Route::livewire('/layout', 'laporan.layout')
+                ->layout('dashboard.kosong');
+        });
+
+        route::prefix('tunggakan')->group(function () {
+            Route::livewire('/', 'tunggakan.index')
                 ->layout('dashboard.base');
             Route::livewire('/cek', 'tunggakan.cek')
                 ->layout('dashboard.kosong');
         });
-
         // Route::get('/tagihan/tampil', function () {
         //     return view('livewire.tagihan.tampil');
         // });

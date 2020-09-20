@@ -8,16 +8,20 @@
         @endif
 
         <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Input MAP</label>
+            <div class="col-md-9">
+                <input class="form-control" type="text" name="text-input" placeholder=". . . ">
+
+            </div>
+        </div>
+
+        <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Nama Tagihan</label>
             <div class="col-md-9">
                 <input wire:model="nama" class="form-control" id="text-input" type="text" name="text-input" placeholder=". . . ">
                 @error('nama') <span class="error">{{ $message }}</span> @enderror
             </div>
         </div>
-
-
-
-
 
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="select1">tahun ajaran</label>
