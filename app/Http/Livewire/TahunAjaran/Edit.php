@@ -11,7 +11,6 @@ class Edit extends Component
     public $nama;
     public $awal;
     public $akhir;
-    public $semester;
     public $idt;
 
 
@@ -23,7 +22,6 @@ class Edit extends Component
     public function mount($id)
     {
         $data = TahunAjaran::find($id);
-        $this->semester = $data->semester;
         $this->nama = $data->nama;
         $this->awal = $data->awal;
         $this->akhir = $data->akhir;
@@ -35,7 +33,6 @@ class Edit extends Component
 
         $this->validate([
             'nama' => 'required|',
-            'semester' => 'required|',
             'awal' => 'required|date',
             'akhir' => 'required|date',
 
@@ -43,7 +40,6 @@ class Edit extends Component
 
         $data = array(
             'nama' => $this->nama,
-            'semester' => $this->semester,
             'awal' => $this->awal,
             'akhir' => $this->akhir
         );

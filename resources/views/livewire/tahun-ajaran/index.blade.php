@@ -15,7 +15,6 @@
                 <tr>
                     <th>No</th>
                     <th>Nama</th>
-                    <th>Semester</th>
                     <th>Awal</th>
                     <th>Akhir</th>
                     <th>Action</th>
@@ -26,7 +25,6 @@
                 <tr>
                     <td>{{$loop->index+1}}</td>
                     <td>{{$data->nama}}</td>
-                    <td>{{$data->semester}}</td>
                     <td>{{$data->awal}}</td>
                     <td>{{$data->akhir}}</td>
                     <td>

@@ -10,13 +10,11 @@ class Create extends Component
     public $nama;
     public $awal;
     public $akhir;
-    public $semester;
 
     public function store()
     {
         $this->validate([
             'nama' => 'required|',
-            'semester' => 'required|',
             'awal' => 'required|date',
             'akhir' => 'required|date',
 
@@ -24,7 +22,6 @@ class Create extends Component
 
         $data = array(
             'nama' => $this->nama,
-            'semester' => $this->semester,
             'awal' => $this->awal,
             'akhir' => $this->akhir
 
