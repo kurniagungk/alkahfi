@@ -9,6 +9,7 @@ class Jenis_tagihan extends Model
     protected $table = 'jenis_tagihan';
     protected $fillable = [
         'id',
+        'map',
         'nama',
         'tipe',
         'tahun_id'

@@ -28,7 +28,7 @@
 
                 <tr>
                     <td>{{$loop->index+1}}</td>
-                    <td>MAP 1</td>
+                    <td>{{$data->map}}</td>
                     <td>{{$data->nama}}</td>
                     <td>{{$data->tipe}}</td>
                     <td>{{$data->tahun->nama}}</td>

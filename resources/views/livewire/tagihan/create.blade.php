@@ -10,8 +10,8 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Input MAP</label>
             <div class="col-md-9">
-                <input class="form-control" type="text" name="text-input" placeholder=". . . ">
-
+                <input wire:model="map" class="form-control" type="text" name="text-input" placeholder=". . . ">
+                @error('map') <span class="error">{{ $message }}</span> @enderror
             </div>
         </div>
 

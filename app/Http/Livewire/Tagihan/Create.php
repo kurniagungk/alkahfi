@@ -10,6 +10,7 @@ class Create extends Component
 {
     public $nama;
     public $periode;
+    public $map;
     public $tahun;
     public $TahunAjaran;
 
@@ -28,12 +29,14 @@ class Create extends Component
     {
         $this->validate([
             'nama' => 'required|',
+            'map' => 'required|',
             'periode' => 'required|',
             'tahun' => 'required|',
         ]);
 
         Jenis_tagihan::create([
             'nama' => $this->nama,
+            'map' => $this->nama,
             'tipe' => $this->periode,
             'tahun_id' => $this->tahun,
         ]);

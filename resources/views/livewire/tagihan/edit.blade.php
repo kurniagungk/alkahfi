@@ -8,6 +8,14 @@
          @endif
 
          <div class="form-group row">
+             <label class="col-md-3 col-form-label" for="text-input">Input MAP</label>
+             <div class="col-md-9">
+                 <input wire:model="map" class="form-control" type="text" name="text-input" placeholder=". . . ">
+                 @error('map') <span class="error">{{ $message }}</span> @enderror
+             </div>
+         </div>
+
+         <div class="form-group row">
              <label class="col-md-3 col-form-label" for="text-input">Text Input</label>
              <div class="col-md-9">
                  <input wire:model="nama" class="form-control" id="text-input" type="text" name="text-input" placeholder="Text">

@@ -9,6 +9,7 @@ use App\TahunAjaran;
 class Edit extends Component
 {
     public $nama;
+    public $map;
     public $periode;
     public $tahun;
     public $idt;
@@ -19,6 +20,7 @@ class Edit extends Component
     {
         $data = Jenis_tagihan::find($id);
         $this->nama = $data->nama;
+        $this->map = $data->map;
         $this->periode = $data->tipe;
         $this->tahun = $data->tahun_id;
         $this->idt = $id;
@@ -30,12 +32,14 @@ class Edit extends Component
 
         $this->validate([
             'nama' => 'required|',
+            'map' => 'required|',
             'periode' => 'required|',
             'tahun' => 'required|',
         ]);
 
         $data = array(
             'nama' => $this->nama,
+            'map' => $this->nama,
             'tipe' => $this->periode,
             'tahun_id' => $this->tahun,
         );
