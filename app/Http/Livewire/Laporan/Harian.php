@@ -3,57 +3,75 @@
 namespace App\Http\Livewire\Laporan;
 
 use Livewire\Component;
-use App\Bayar;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use PDF;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
+
+use App\Exports\LaporanHarian;
+use Maatwebsite\Excel\Facades\Excel;
+
+use App\santri;
+use App\Jenis_tagihan;
+use App\Tagihan;
+
 
 class Harian extends Component
 {
 
-    public $select;
-    public $jenis;
-    public $tanggal = array();
-    public $data;
+    public $tanggal;
 
 
-    public function click()
+    public function export()
     {
-        $date = $this->tanggal['awal'];
-        // End date
-        $end_date = $this->tanggal['ahir'];
+        $user = Auth::user();
 
-        $data = array();
+        $datasantri = santri::select('*');
+        if (!$user->hasRole('admin'))
+            $datasantri->where('sekolah_id', $user->sekolah_id);
 
-        while (strtotime($date) <= strtotime($end_date)) {
+        $santri = $datasantri->get();
+        $tanggal = $this->tanggal;
+
+        $jenistagihan = Jenis_tagihan::with(['tagihan' => function ($query) use ($tanggal) {
+            $query->whereHas('bayar', function (Builder $query) use ($tanggal) {
+                $query->whereRaw("DATE(created_at) = '" . $tanggal . "'");
+            });
+            $query->withCount(['bayar AS bayar' => function ($query) use ($tanggal) {
+                $query->select(DB::raw('SUM(JUMLAH)'));
+            }]);
+        }])
+            ->get();
+
+        $data = [];
+
+        foreach ($santri as $s) {
+            $datasantri = [];
+            $datasantri['nama'] = $s->nama;
+            $datasantri['kelas'] = $s->kelas->kelas;
+            $datatagihan = [];
+            foreach ($jenistagihan as $j) {
+
+                $tagihan = Tagihan::where('santri_id', $s->id)
+                    ->whereHas('bayar', function (Builder $query) use ($tanggal) {
+                        $query->whereRaw("DATE(created_at) = '" . $tanggal . "'");
+                    })
+                    ->where('jenis_tagihan_id', $j->id)
+                    ->withCount(['bayar AS bayar' => function ($query) {
+                        $query->select(DB::raw('SUM(JUMLAH)'));
+                    }])
+                    ->get();
 
 
 
-
-            $bayar = Bayar::whereRaw('Date(created_at) = "' . date($date) . '"')
-                ->with('jenis_tagihan')
-                ->with('santri')
-                ->get();
-
-
-
-
-            $data[$date] = $bayar;
-            $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
+                $datatagihan[] = $tagihan;
+            }
+            $datasantri['tagihan'] = $datatagihan;
+            $data[] = $datasantri;
         }
+        $this->data = $data;
 
-
-        $pdf = PDF::loadview('laporan.harianpdf', compact('data'));
-
-        $pdf->setPaper('A4', 'landscape');
-        //  $pdf->setOptions(['isHtml5ParserEnabled' => true, 'enable_remote' => true]);
-        Storage::disk('public')->put('pdf/laporan-harian.pdf', $pdf->output());
-        $this->emit('download');
-    }
-
-    public function updatedselect()
-    {
-        $this->jenis = null;
+        Excel::store(new LaporanHarian($data, $jenistagihan, $this->tanggal), 'export\laporanharian.xlsx', 'public');
+        //  $this->emit('download');
     }
 
     public function render()

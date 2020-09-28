@@ -55,7 +55,7 @@ class Bulanan extends Component
             'id' => $codeTransaksi,
             'tagihan_id' =>  $tagihan->id,
             'transaksi_id' => $codeTransaksi,
-            'tipe' => $tagihan->jumlah,
+            'jumlah' => $tagihan->jumlah,
             'status' => 1,
             'user_id' => $userId
         ]);
@@ -65,7 +65,7 @@ class Bulanan extends Component
         $codeTransaksi = Transaksi::create([
             'id' => $bayar->transaksi_id,
             'jumlah' => $tagihan->jumlah,
-            'jenis' => 1,
+            'tipe' => 1,
             'user_id' => $userId
         ]);
 

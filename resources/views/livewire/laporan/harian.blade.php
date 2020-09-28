@@ -32,17 +32,8 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Tanggal</label>
                                                 <div class="col-sm-4">
-                                                    <input wire:model="awal" type="date" class="form-control @error('awal') is-invalid @enderror" id="inputPassword2">
-                                                    @error('awal')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                    @enderror
-                                                </div>
-                                                <div class="col-sm-1"></div>
-                                                <div class="col-sm-4">
-                                                    <input wire:model="akhir" type="date" class="form-control @error('akhir') is-invalid @enderror" id="inputPassword2">
-                                                    @error('akhir')
+                                                    <input wire:model="tanggal" type="date" class="form-control @error('awal') is-invalid @enderror" id="inputPassword2">
+                                                    @error('tanggal')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
@@ -51,76 +42,18 @@
                                             </div>
 
                                             <center>
-                                                <button wire:click="data" class="btn btn-info btn-icon-split" type="button">
+                                                <button wire:click="export" class="btn btn-info btn-icon-split" type="button">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-filter"></i>
-                                                    </span>
-                                                    <span class="text">Filter</span>
-                                                </button>
-                                            </center>
-                                        </form>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-4 col-lg-5">
-                                <div class="card shadow mb-4">
-                                    <div class="card-body">
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-5 col-form-label">Periode : </label>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-7 col-form-label">Pemasukan : </label>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-7 col-form-label">Pengeluaran : </label>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-7 col-form-label">Total Pendapatan : </label>
-                                        </div>
-                                        <form>
-                                            <center>
-                                                <button wire:click="export" class="btn btn-warning btn-icon-split" type="button">
-                                                    <span class="icon text-white-50">
-                                                        <i class="fas fa-download"></i>
                                                     </span>
                                                     <span class="text">Export</span>
                                                 </button>
                                             </center>
                                         </form>
+
                                     </div>
                                 </div>
                             </div>
-
-
-                        </div>
-
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>MAP</th>
-                                        <th>JENIS PEMASUKAN</th>
-                                        <th>JUMLAH</th>
-                                        <th>MAK</th>
-                                        <th>JENIS PENGELUARAN</th>
-                                        <th>JUMLAH</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    <tr>
-                                        <td>MAP 1</td>
-                                        <td>SPP</td>
-                                        <td>10.000.000</td>
-                                        <td>MAK 1</td>
-                                        <td>Ivnentaris Kantor</td>
-                                        <td>2.000.000</td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
@@ -128,3 +61,11 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script type="text/javascript">
+    window.livewire.on('download', () => {
+        window.open("{{asset('public/'.'export/laporanharian.xlsx')   }}", '_blank');
+    })
+</script>
+@endpush
