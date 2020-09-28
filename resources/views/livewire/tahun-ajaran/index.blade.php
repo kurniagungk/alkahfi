@@ -17,6 +17,7 @@
                     <th>Nama</th>
                     <th>Awal</th>
                     <th>Akhir</th>
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -28,9 +29,15 @@
                     <td>{{$data->awal}}</td>
                     <td>{{$data->akhir}}</td>
                     <td>
+                        <span class="badge {{$data->status == 'aktif' ? 'badge badge-success' : 'badge badge-danger'}}">{{$data->status}}</span>
+                    </td>
+                    <td>
                         <a href="{{route('tahun.edit', $data->id)}}" class="btn btn-outline-warning">edit</a>
-                        <button wire:click="destroy({{$data->id_tahun}})" class="btn btn-outline-danger" type="button">
+                        <button wire:click="destroy({{$data->id}})" class="btn btn-outline-danger" type="button">
                             Hapus
+                        </button>
+                        <button wire:click="status({{$data->id}})" wire:click="destroy({{$data->id}})" class="btn btn-outline-primary" type="button">
+                            aktif
                         </button>
                     </td>
                 </tr>

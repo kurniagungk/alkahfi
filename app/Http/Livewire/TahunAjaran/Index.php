@@ -26,6 +26,13 @@ class Index extends Component
         $this->confirming = $id;
     }
 
+    public function status($id)
+    {
+        TahunAjaran::where('status', 'aktif')->update(['status' => 'tidak']);
+
+        TahunAjaran::where('id', $id)->update(['status' => 'aktif']);
+    }
+
     public function kill($id)
     {
         TahunAjaran::destroy($id);

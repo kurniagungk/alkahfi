@@ -17,7 +17,7 @@ class Jenis_tagihan extends Model
 
     public function tagihan()
     {
-        return $this->hasMany('App\Tagihan', 'tagihan_id');
+        return $this->hasMany('App\Tagihan', 'jenis_tagihan_id');
     }
 
     public function tahun()

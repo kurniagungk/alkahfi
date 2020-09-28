@@ -83,51 +83,23 @@
                                     <th>NO</th>
                                     <th>NAMA</th>
                                     <th>KELAS</th>
-                                    <th>SPP</th>
-                                    <th>MOS</th>
-                                    <th>TES</th>
-                                    <th>PRAKTEK</th>
-                                    <th>TUNGGAKAN</th>
-                                    <th>JUMLAH</th>
+                                    @foreach($tagihan as $t)
+                                    <th>{{$t->nama}}</th>
+                                    @endforeach
                                 </tr>
                             </thead>
                             <tbody>
 
+                                @foreach($data as $d)
                                 <tr>
-                                    <td>1</td>
-                                    <td>Amad</td>
-                                    <td>VI-B</td>
-                                    <td>50.000</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>50.000</td>
+                                    <td>{{$loop->index + 1}}</td>
+                                    <td>{{$d['nama']}}</td>
+                                    <td>{{$d['kelas']}}</td>
+                                    @foreach ($d['tagihan'] as $dt)
+                                    <td>{{$dt->sum('bayar') ?? ''}}</td>
+                                    @endforeach
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Agung</td>
-                                    <td>VI-A</td>
-                                    <td>50.000</td>
-                                    <td>-</td>
-                                    <td>70.000</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>120.000</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td><b>
-                                            <center>Jumlah</center>
-                                        </b></td>
-                                    <td><b>100.000</b></td>
-                                    <td><b>-</b></td>
-                                    <td><b>70.000</b></td>
-                                    <td><b>-</b></td>
-                                    <td><b>-</b></td>
-                                    <td><b>170.000</b></td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
