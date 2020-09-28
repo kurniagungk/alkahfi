@@ -55,7 +55,7 @@ class Bulanan extends Component
             'id' => $codeTransaksi,
             'tagihan_id' =>  $tagihan->id,
             'transaksi_id' => $codeTransaksi,
-            'jumlah' => $tagihan->jumlah,
+            'tipe' => $tagihan->jumlah,
             'status' => 1,
             'user_id' => $userId
         ]);

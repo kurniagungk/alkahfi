@@ -10,6 +10,7 @@ class Transaksi extends Model
     protected $fillable = [
         'id',
         'id_transaksi',
+        'tipe',
         'tanggal',
         'jumlah',
     ];

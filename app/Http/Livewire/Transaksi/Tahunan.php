@@ -111,7 +111,7 @@ class Tahunan extends Component
         $Transaksi =   Transaksi::create([
             'id' => $bayar->transaksi_id,
             'jumlah' => $this->biaya,
-            'jenis' => 1,
+            'tipe' => 1,
             'user_id' => $userId
         ]);
 
