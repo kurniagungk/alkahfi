@@ -20,6 +20,9 @@ class Keluar extends Component
 
     public function save()
     {
+
+        $userId = Auth::id();
+
         $this->validate([
             'nama' => 'required',
             'jenisTagihan' => 'required',
@@ -29,7 +32,8 @@ class Keluar extends Component
         $pengeluaran = Pengeluaran::create([
             'id' => Str::Uuid(),
             'transaksi_id' => Str::Uuid(),
-            'jenisTagihan' => $this->jenisTagihan,
+            'user_id' => $userId,
+            'jenis_tagihan_id' => $this->jenisTagihan,
             'keterangan' => $this->keterangan,
             'jumlah' => $this->jumlah
         ]);
@@ -38,7 +42,7 @@ class Keluar extends Component
             'id' => $pengeluaran->transaksi_id,
             'jumlah' => $pengeluaran->jumlah,
             'tipe' => 2,
-            'user_id' => Auth::id()
+            'user_id' => $userId
         ]);
 
 

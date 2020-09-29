@@ -344,6 +344,8 @@ Route::group(['middleware' => ['get.menu']], function () {
         route::prefix('laporan')->group(function () {
             Route::livewire('/harian', 'laporan.harian')
                 ->layout('dashboard.base');
+            Route::livewire('/bulanan', 'laporan.bulanan')
+                ->layout('dashboard.base');
             Route::livewire('/umum', 'laporan.umum')
                 ->layout('dashboard.base');
             Route::livewire('/layout', 'laporan.layout')

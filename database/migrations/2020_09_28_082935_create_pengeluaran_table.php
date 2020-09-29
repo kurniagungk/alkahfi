@@ -17,6 +17,7 @@ class CreatePengeluaranTable extends Migration
             $table->uuid('id');
             $table->primary('id');
             $table->bigInteger('jenis_tagihan_id');
+            $table->bigInteger('user_id');
             $table->uuid('transaksi_id');
             $table->bigInteger('jumlah');
             $table->string('keterangan');

@@ -10,6 +10,7 @@ class Pengeluaran extends Model
     protected $fillable = [
         'id',
         'jenis_tagihan_id',
+        'user_id',
         'transaksi_id',
         'jumlah',
         'keterangan',

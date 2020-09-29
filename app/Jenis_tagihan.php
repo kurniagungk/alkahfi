@@ -20,6 +20,11 @@ class Jenis_tagihan extends Model
         return $this->hasMany('App\Tagihan', 'jenis_tagihan_id');
     }
 
+    public function pengeluara()
+    {
+        return $this->hasMany(Pengeluaran::class, 'jenis_tagihan_id');
+    }
+
     public function tahun()
     {
         return $this->belongsTo('App\TahunAjaran', 'tahun_id');

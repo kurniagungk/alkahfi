@@ -32,7 +32,15 @@ class Harian extends Component
         $santri = $datasantri->get();
         $tanggal = $this->tanggal;
 
-        $jenistagihan = Jenis_tagihan::with(['tagihan' => function ($query) use ($tanggal) {
+        $jenistagihan = Jenis_tagihan::with(['tagihan' => function ($query) use ($tanggal, $user) {
+
+
+            $query->whereHas('santri', function (Builder $query) use ($user) {
+                if (!$user->hasRole('admin'))
+                    $query->where('sekolah_id', $user->sekolah_id);
+            });
+
+
             $query->whereHas('bayar', function (Builder $query) use ($tanggal) {
                 $query->whereRaw("DATE(created_at) = '" . $tanggal . "'");
             });
@@ -71,7 +79,7 @@ class Harian extends Component
         $this->data = $data;
 
         Excel::store(new LaporanHarian($data, $jenistagihan, $this->tanggal), 'export\laporanharian.xlsx', 'public');
-        //  $this->emit('download');
+        $this->emit('download');
     }
 
     public function render()

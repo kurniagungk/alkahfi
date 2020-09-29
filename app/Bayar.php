@@ -11,6 +11,7 @@ class Bayar extends Model
         'id',
         'tagihan_id',
         'jumlah',
+        'user_id',
         'transaksi_id',
     ];
 
