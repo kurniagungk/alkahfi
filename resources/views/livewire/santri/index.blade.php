@@ -119,7 +119,7 @@
                                         Nama
                                         <i class="cil-resize-height" @if($sortField=='nama' ) style="color:red" @endif></i>
                                     </a></th>
-                                <th>ASRAMA</th>
+                                <th>Kelas</th>
                                 <th>JK</th>
                                 <th>Alamat</th>
                                 <th>MASUK </th>
@@ -129,19 +129,20 @@
                             </tr>
                         </thead>
                         <tbody>
+
                             @foreach($santri as $data)
                             <tr>
                                 <td>{{$loop->index +1}}</td>
                                 <td>{{$data->nism}}</td>
                                 <td>{{$data->nisn}}</td>
                                 <td>{{$data->nama}}</td>
-                                <td>{{optional($data->asrama)->nama}}</td>
+                                <td>{{$data->kelas->tingkat}} - {{$data->kelas->kelas}}</td>
                                 <td>{{$data->jenis_kelamin}}</td>
                                 <td>
-                                    {{$data->desa->nama}},
-                                    {{$data->kecamatan->nama}},
-                                    {{$data->kabupaten->nama}},
-                                    {{$data->provinsi->nama}}
+                                    {{optional($data->desa)->nama}},
+                                    {{optional($data->kecamatan)->nama}},
+                                    {{optional($data->kabupaten)->nama}},
+                                    {{optional($data->provinsi)->nama}}
                                 </td>
                                 <td>{{$data->tahun}}</td>
                                 <td>

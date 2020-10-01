@@ -60,7 +60,7 @@ class Index extends Component
 
 
         $data =
-            santri::with('asrama')
+            santri::with('kelas')
             ->with('provinsi')
             ->with('kabupaten')
             ->with('kecamatan')
