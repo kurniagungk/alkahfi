@@ -17,7 +17,7 @@ class Layout extends Component
 
     public function mount()
     {
-        $santri = santri::get();
+        $santri = santri::where('nisn', '0021487587')->get();
 
         $jenistagihan = Jenis_tagihan::with(['tagihan' => function ($query) {
             $query->whereHas('bayar');

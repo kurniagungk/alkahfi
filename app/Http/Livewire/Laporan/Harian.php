@@ -23,14 +23,21 @@ class Harian extends Component
 
     public function export()
     {
-        $user = Auth::user();
+        DB::enableQueryLog();
 
-        $datasantri = santri::select('*');
+        // and then you can get q
+
+        $user = Auth::user();
+        $tanggal = $this->tanggal;
+
+        $datasantri = santri::select('*')->whereHas('bayar', function (Builder $query) use ($tanggal) {
+            $query->whereRaw("DATE(bayar.created_at) = '" . $tanggal . "'");
+        });
         if (!$user->hasRole('admin'))
             $datasantri->where('sekolah_id', $user->sekolah_id);
 
         $santri = $datasantri->get();
-        $tanggal = $this->tanggal;
+
 
         $jenistagihan = Jenis_tagihan::with(['tagihan' => function ($query) use ($tanggal, $user) {
 

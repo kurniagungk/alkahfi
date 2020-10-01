@@ -36,11 +36,6 @@
                         <td>:</td>
                         <td>{{$profil->sekolah->nama}} - {{$profil->kelas->tingkat}} {{$profil->kelas->kelas}}</td>
                     </tr>
-                    <tr>
-                        <td>Asrama</td>
-                        <td>:</td>
-                        <td>{{$profil->asrama->nama}}</td>
-                    </tr>
 
                 </tbody>
             </table>

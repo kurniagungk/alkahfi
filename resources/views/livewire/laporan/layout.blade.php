@@ -91,13 +91,20 @@
                             <tbody>
 
                                 @foreach($data as $d)
+                                @php
+                                $sum = 0;
+                                @endphp
                                 <tr>
                                     <td>{{$loop->index + 1}}</td>
                                     <td>{{$d['nama']}}</td>
                                     <td>{{$d['kelas']}}</td>
                                     @foreach ($d['tagihan'] as $dt)
+                                    @php
+                                    $sum += $dt->sum('bayar');
+                                    @endphp
                                     <td>{{$dt->sum('bayar') ?? ''}}</td>
                                     @endforeach
+                                    <td>{{$sum}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

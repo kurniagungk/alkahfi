@@ -346,10 +346,8 @@ Route::group(['middleware' => ['get.menu']], function () {
                 ->layout('dashboard.base');
             Route::livewire('/bulanan', 'laporan.bulanan')
                 ->layout('dashboard.base');
-            Route::livewire('/umum', 'laporan.umum')
-                ->layout('dashboard.base');
-            Route::livewire('/layout', 'laporan.layout')
-                ->layout('dashboard.kosong');
+            // Route::livewire('/umum', 'laporan.umum')->layout('dashboard.base');
+            Route::livewire('/layout', 'laporan.layout')->layout('dashboard.kosong');
         });
 
         route::prefix('tunggakan')->group(function () {

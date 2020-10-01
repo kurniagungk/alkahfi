@@ -72,4 +72,9 @@ class santri extends Model
     {
         return $this->hasMany(Tagihan::class, 'santri_id',);
     }
+
+    function bayar()
+    {
+        return $this->hasManyThrough(Bayar::class, Tagihan::class);
+    }
 }
