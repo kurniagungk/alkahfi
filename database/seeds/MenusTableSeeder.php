@@ -217,7 +217,7 @@ class MenusTableSeeder extends Seeder
         $id = $this->insertLink('admin,bendahara', 'Laporan Harian', '/laporan/harian');
         $id = $this->insertLink('admin,bendahara', 'Laporan Umum', '/laporan/umum');
         $id = $this->insertLink('admin,bendahara', 'Laporan MAP - MAK', '/laporan/harian');
-        $id = $this->insertLink('admin,bendahara', 'Laporan Tunggakan', '/laporan/tunggakan');
+        //  $id = $this->insertLink('admin,bendahara', 'Laporan Tunggakan', '/laporan/tunggakan');
         $this->endDropdown();
 
         $this->beginDropdown('admin', 'Setting', 'cil-calculator');

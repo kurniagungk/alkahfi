@@ -33,9 +33,13 @@
                     </td>
                     <td>
                         <a href="{{route('tahun.edit', $data->id)}}" class="btn btn-outline-warning">edit</a>
-                        <button wire:click="destroy({{$data->id}})" class="btn btn-outline-danger" type="button">
-                            Hapus
-                        </button>
+                        @role('admin')
+                        @if($confirming===$data->id)
+                        <button wire:click="kill({{ $data->id }})" type="button" class="btn btn-danger">Sure?</button>
+                        @else
+                        <button wire:click="confirmDelete({{ $data->id }})" type="button" class="btn btn-warning">Delete</button>
+                        @endif
+                        @endrole
                         <button wire:click="status({{$data->id}})" wire:click="destroy({{$data->id}})" class="btn btn-outline-primary" type="button">
                             aktif
                         </button>
