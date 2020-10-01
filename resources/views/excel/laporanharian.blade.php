@@ -14,6 +14,7 @@
              @foreach($tagihan as $t)
              <th>{{$t->nama}}</th>
              @endforeach
+             <th>jumlah</th>
          </tr>
      </thead>
      <tbody>
