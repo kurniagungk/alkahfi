@@ -18,20 +18,28 @@ use App\Tagihan;
 class Harian extends Component
 {
 
-    public $tanggal;
+    public $awal;
+    public $akhir;
+    private $data;
+    private $tagihan;
 
-
-    public function export()
+    public function mount()
     {
-        DB::enableQueryLog();
+        $this->awal = date("Y-m-d");
+        $this->akhir = date("Y-m-d");
+        $this->datat();
+    }
 
-        // and then you can get q
+    public function datat()
+    {
+
 
         $user = Auth::user();
-        $tanggal = $this->tanggal;
+        $awal = $this->awal;
+        $akhir = $this->akhir;
 
-        $datasantri = santri::select('*')->whereHas('bayar', function (Builder $query) use ($tanggal) {
-            $query->whereRaw("DATE(bayar.created_at) = '" . $tanggal . "'");
+        $datasantri = santri::select('*')->whereHas('bayar', function (Builder $query) use ($awal, $akhir) {
+            $query->whereRaw('DATE(bayar.created_at) BETWEEN "' . $awal . '" AND "' . $akhir . '"');
         });
         if (!$user->hasRole('admin'))
             $datasantri->where('sekolah_id', $user->sekolah_id);
@@ -39,7 +47,7 @@ class Harian extends Component
         $santri = $datasantri->get();
 
 
-        $jenistagihan = Jenis_tagihan::with(['tagihan' => function ($query) use ($tanggal, $user) {
+        $jenistagihan = Jenis_tagihan::with(['tagihan' => function ($query) use ($awal, $akhir, $user) {
 
 
             $query->whereHas('santri', function (Builder $query) use ($user) {
@@ -48,14 +56,16 @@ class Harian extends Component
             });
 
 
-            $query->whereHas('bayar', function (Builder $query) use ($tanggal) {
-                $query->whereRaw("DATE(created_at) = '" . $tanggal . "'");
+            $query->whereHas('bayar', function (Builder $query) use ($awal, $akhir) {
+                $query->whereRaw('DATE(bayar.created_at) BETWEEN "' . $awal . '" AND "' . $akhir . '"');
             });
-            $query->withCount(['bayar AS bayar' => function ($query) use ($tanggal) {
+            $query->withCount(['bayar AS bayar' => function ($query) {
                 $query->select(DB::raw('SUM(JUMLAH)'));
             }]);
         }])
             ->get();
+
+        $this->tagihan = $jenistagihan;
 
         $data = [];
 
@@ -67,8 +77,8 @@ class Harian extends Component
             foreach ($jenistagihan as $j) {
 
                 $tagihan = Tagihan::where('santri_id', $s->id)
-                    ->whereHas('bayar', function (Builder $query) use ($tanggal) {
-                        $query->whereRaw("DATE(created_at) = '" . $tanggal . "'");
+                    ->whereHas('bayar', function (Builder $query) use ($awal, $akhir) {
+                        $query->whereRaw('DATE(bayar.created_at) BETWEEN "' . $awal . '" AND "' . $akhir . '"');
                     })
                     ->where('jenis_tagihan_id', $j->id)
                     ->withCount(['bayar AS bayar' => function ($query) {
@@ -84,13 +94,28 @@ class Harian extends Component
             $data[] = $datasantri;
         }
         $this->data = $data;
+    }
 
-        Excel::store(new LaporanHarian($data, $jenistagihan, $this->tanggal), 'export\laporanharian.xlsx', 'public');
+
+    public function export()
+    {
+        $this->datat();
+        $data = $this->data;
+        $tagihan = $this->tagihan;
+        $tanggal = [
+            'awal' => $this->awal,
+            'akhir' => $this->akhir
+        ];
+
+        Excel::store(new LaporanHarian($data, $tagihan, $tanggal), 'export\laporanharian.xlsx', 'public');
         $this->emit('download');
     }
 
+
     public function render()
     {
-        return view('livewire.laporan.harian');
+        $data = $this->data;
+        $tagihan = $this->tagihan;
+        return view('livewire.laporan.harian', \compact('data', 'tagihan'));
     }
 }

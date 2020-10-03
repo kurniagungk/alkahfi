@@ -36,7 +36,7 @@ class Create extends Component
 
         Jenis_tagihan::create([
             'nama' => $this->nama,
-            'map' => $this->nama,
+            'map' => $this->map,
             'tipe' => $this->periode,
             'tahun_id' => $this->tahun,
         ]);

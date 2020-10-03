@@ -16,19 +16,20 @@ use App\Jenis_tagihan;
 
 class Bulanan extends Component
 {
-    public $tanggal;
+    public $awal;
+    public $akhir;
 
 
     public function export()
     {
         $user = Auth::user();
 
-        $tanggal = $this->tanggal;
-        $tahun = substr($this->tanggal, 0, 4);
-        $bulan = substr($this->tanggal, 5, 2);
+        $awal = $this->awal;
+        $akhir = $this->akhir;
 
 
-        $jenistagihan = Jenis_tagihan::with(['tagihan' => function ($query) use ($tahun, $bulan, $user) {
+
+        $jenistagihan = Jenis_tagihan::with(['tagihan' => function ($query) use ($awal, $akhir, $user) {
 
             $query->whereHas('santri', function (Builder $query) use ($user) {
                 if (!$user->hasRole('admin'))
@@ -36,24 +37,26 @@ class Bulanan extends Component
             });
 
 
-            $query->whereHas('bayar', function (Builder $query) use ($tahun, $bulan) {
-                $query->whereYear('created_at', '=', $tahun);
-                $query->whereMonth('created_at', '=', $bulan);
+            $query->whereHas('bayar', function (Builder $query) use ($awal, $akhir) {
+                $query->whereRaw('DATE(created_at) BETWEEN "' . $awal . '" AND "' . $akhir . '"');
             });
             $query->withCount(['bayar AS bayar' => function ($query) {
                 $query->select(DB::raw('SUM(JUMLAH)'));
             }]);
         }])
-            ->with(['pengeluara' => function ($query) use ($tahun, $bulan, $user) {
-                $query->whereYear('created_at', '=', $tahun);
-                $query->whereMonth('created_at', '=', $bulan);
+            ->with(['pengeluaran' => function ($query) use ($awal, $akhir, $user) {
+                $query->whereRaw('DATE(created_at) BETWEEN "' . $awal . '" AND "' . $akhir . '"');
                 if (!$user->hasRole('admin'))
                     $query->where('user_id', $user);
             }])
             ->get();
 
+        $tanggal = [
+            'awal' => $awal,
+            'akhir' => $akhir
+        ];
 
-        Excel::store(new LaporanBulanan($jenistagihan, $this->tanggal), 'export\laporanbulanan.xlsx', 'public');
+        Excel::store(new LaporanBulanan($jenistagihan, $tanggal), 'export\laporanbulanan.xlsx', 'public');
         $this->emit('download');
     }
 

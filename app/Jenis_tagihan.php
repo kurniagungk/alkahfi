@@ -20,7 +20,7 @@ class Jenis_tagihan extends Model
         return $this->hasMany('App\Tagihan', 'jenis_tagihan_id');
     }
 
-    public function pengeluara()
+    public function pengeluaran()
     {
         return $this->hasMany(Pengeluaran::class, 'jenis_tagihan_id');
     }

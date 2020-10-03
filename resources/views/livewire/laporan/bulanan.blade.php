@@ -32,8 +32,16 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Tanggal</label>
                                                 <div class="col-sm-4">
-                                                    <input wire:model="tanggal" type="month" class="form-control @error('awal') is-invalid @enderror" id="inputPassword2">
+                                                    <input wire:model="awal" type="date" class="form-control @error('awal') is-invalid @enderror" id="inputPassword2">
                                                     @error('awal')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <input wire:model="akhir" type="date" class="form-control @error('akhir') is-invalid @enderror" id="inputPassword2">
+                                                    @error('akhir')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
