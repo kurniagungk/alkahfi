@@ -36,4 +36,9 @@ class Tagihan extends Model
     {
         return $this->hasOneThrough(TahunAjaran::class, Jenis_tagihan::class, 'id', 'id', 'jenis_tagihan_id', 'tahun_id',);
     }
+
+    function transaksi()
+    {
+        return $this->hasManyThrough(transaksi::class, Bayar::class, 'tagihan_id', 'id', 'id', 'transaksi_id');
+    }
 }

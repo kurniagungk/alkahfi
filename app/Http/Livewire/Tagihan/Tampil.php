@@ -45,6 +45,7 @@ class Tampil extends Component
 
     public function kill($id)
     {
+
         Tagihan::destroy($id);
         session()->flash('success', 'Data Tagihan successfully deleted.');
     }
@@ -66,6 +67,7 @@ class Tampil extends Component
                 $query->orWhere('nism', 'like', '%' . $this->search . '%');
                 $query->orWhere('nisn', 'like', '%' . $this->search . '%');
             })
+            ->whereDoesntHave('bayar')
             ->paginate($this->perpage);
 
 
