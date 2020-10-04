@@ -360,15 +360,7 @@ Route::group(['middleware' => ['get.menu']], function () {
         //     return view('livewire.tagihan.tampil');
         // });
 
-        Route::get('default/{filename}', function ($filename) {
 
-            $filePath = storage_path() . '\default/' . $filename;
-
-            if (File::exists($filePath)) {
-                return response()->download($filePath);
-            }
-            abort(404);
-        })->name('default');
 
 
 

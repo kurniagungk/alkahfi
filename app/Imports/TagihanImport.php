@@ -4,20 +4,17 @@ namespace App\Imports;
 
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
-use Maatwebsite\Excel\Concerns\WithMappedCells;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class TagihanImport implements WithMappedCells, ToCollection
+class TagihanImport implements WithHeadingRow, ToCollection
 {
     /**
      * @param Collection $collection
      */
 
-    public function mapping(): array
+    public function headingRow(): int
     {
-        return [
-            'name'  => 'B1',
-            'email' => 'B2',
-        ];
+        return 1;
     }
 
 

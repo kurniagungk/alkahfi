@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\TagihanImport;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -35,6 +34,7 @@ class Tambah extends Component
     public $tahun = [];
     public $tempo;
     public $custom;
+    public $file;
 
 
 
@@ -122,16 +122,15 @@ class Tambah extends Component
             })->get();
         } elseif ($this->select == 4) {
             $this->validate([
-                'kelas' => 'required|mimes:xls,xlsx'
+                'file' => 'required|mimes:xls,xlsx'
             ]);
-            $fileExcel = $this->kelas->getRealPath();
-            $array =
-                Excel::toArray(new TagihanImport, $fileExcel);
+            $fileExcel = $this->file->getRealPath();
+            $array = Excel::toArray(new TagihanImport, $fileExcel);
 
-            for ($i = 3; $i < sizeof($array[0]); $i++) {
-                $dataS[] = $array[0][$i][0];
+            for ($i = 0; $i < sizeof($array[0]); $i++) {
+                $dataS[] = $array[0][$i]['nis'];
             }
-            $santri = santri::whereIn('nis', $dataS)->get();
+            $santri = santri::whereIn('nisn', $dataS)->get();
         } else {
 
             $user = Auth::user();
