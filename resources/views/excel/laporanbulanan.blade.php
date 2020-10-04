@@ -54,6 +54,9 @@
          @endif
 
          @empty
+         <td>{{$d->map}}</td>
+         <td></td>
+         <td></td>
          </tr>
          @endforelse
 

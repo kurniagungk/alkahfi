@@ -86,7 +86,7 @@
             <tr>
                 <td>{{$loop->index+1}}</td>
                 <td>{{substr($tagihan->id, 0, 8)}}</td>
-                <td>{{date('F', strtotime($tagihan->jatuh_tempo))}}</td>
+                <td>{{date('F', strtotime($tagihan->tempo))}}</td>
                 <td>{{FormatRupiah($tagihan->jumlah)}}</td>
                 <td>{{ $tagihan->updated_at ? Date_format($tagihan->updated_at, "d/m/Y"): null }}</td>
                 <td>

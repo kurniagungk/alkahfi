@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Tagihan;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 
 use App\Jenis_tagihan;
@@ -52,10 +53,15 @@ class Tampil extends Component
 
     public function render()
     {
+        $user = Auth::user();
 
         $santri = Tagihan::where('jenis_tagihan_id', $this->jenisTagihan->id)
             ->with('santri')
-            ->whereHas('santri', function (Builder $query) {
+            ->whereHas('santri', function (Builder $query) use ($user) {
+
+                if (!$user->hasRole('admin'))
+                    $query->where('sekolah_id', $user->sekolah_id);
+
                 $query->where('nama', 'like', '%' . $this->search . '%');
                 $query->orWhere('nism', 'like', '%' . $this->search . '%');
                 $query->orWhere('nisn', 'like', '%' . $this->search . '%');

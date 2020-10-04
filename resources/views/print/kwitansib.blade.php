@@ -95,7 +95,7 @@
                 <td>
                     <center>1</center>
                 </td>
-                <td>{{date('F', strtotime($data['tagihan'] ->jatuh_tempo))}}</td>
+                <td>{{date('F', strtotime($data['tagihan'] ->tempo))}}</td>
                 <td>{{FormatRupiah($data['tagihan'] ->jumlah)}}</td>
                 <td>{{ $data['tagihan']->updated_at ? Date_format($data['tagihan'] ->updated_at, "d/m/Y"): null }}</td>
                 <td>Lunas</td>

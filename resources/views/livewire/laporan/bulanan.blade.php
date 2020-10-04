@@ -51,10 +51,10 @@
 
                                             <center>
                                                 <button wire:click="export" class="btn btn-info btn-icon-split" type="button">
-                                                    <span class="icon text-white-50">
-                                                        <i class="fas fa-filter"></i>
-                                                    </span>
-                                                    <span class="text">Filter</span>
+                                                    <div wire:loading wire:target="export">
+                                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                    </div>
+                                                    <span class="text">export</span>
                                                 </button>
                                             </center>
                                         </form>
