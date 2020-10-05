@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -256,14 +256,14 @@ self.showCard('file-info-card');
 
 /***/ }),
 
-/***/ 3:
+/***/ 4:
 /*!********************************************!*\
   !*** multi ./resources/js/coreui/media.js ***!
   \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\alkahfi\resources\js\coreui\media.js */"./resources/js/coreui/media.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\alkahfi\resources\js\coreui\media.js */"./resources/js/coreui/media.js");
 
 
 /***/ })

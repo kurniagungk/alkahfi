@@ -1,7 +1,9 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/css/backand.css": "/css/backand.css",
     "/css/style.css": "/css/style.css",
+    "/js/backand.js": "/js/backand.js",
     "/js/media.js": "/js/media.js",
     "/js/media-cropp.js": "/js/media-cropp.js",
     "/js/menu-create.js": "/js/menu-create.js",

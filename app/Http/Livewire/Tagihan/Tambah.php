@@ -68,19 +68,23 @@ class Tambah extends Component
     function updatedselect($value)
     {
 
-        $this->reset('DataSelect');
+
         if ($value == 2) {
+
+
             $user = Auth::user();
 
             if (!$user->hasRole('admin')) {
-                $kelas = Kelas::where('id', $user->sekolah_id)->get();
+                $kelas = Kelas::where('sekolah_id', $user->sekolah_id)->get();
             } else {
                 $kelas = Kelas::get();
             }
 
             $this->DataSelect = $kelas;
+            $this->emit('select');
         } elseif ($value == 3) {
             $this->DataSelect = asrama::latest()->get();
+            $this->emit('select');
         } else {
             $this->DataSelect = null;
         }
@@ -103,6 +107,7 @@ class Tambah extends Component
     }
 
 
+
     public function tambah()
     {
 
@@ -115,10 +120,10 @@ class Tambah extends Component
 
 
         if ($this->select == 2) {
-            $santri = santri::where('kelas_id', $this->kelas)->get();
+            dd($santri = santri::whereIn('kelas_id', $this->kelas)->get());
         } elseif ($this->select == 3) {
             $santri = santri::whereHas('asrama', function (Builder $query) {
-                $query->where('id', $this->kelas);
+                $query->whereIn('id', $this->kelas);
             })->get();
         } elseif ($this->select == 4) {
             $this->validate([

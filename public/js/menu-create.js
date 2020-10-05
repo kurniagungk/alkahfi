@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -146,14 +146,14 @@ document.getElementById("type").onchange = function () {
 
 /***/ }),
 
-/***/ 1:
+/***/ 2:
 /*!**************************************************!*\
   !*** multi ./resources/js/coreui/menu-create.js ***!
   \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\alkahfi\resources\js\coreui\menu-create.js */"./resources/js/coreui/menu-create.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\alkahfi\resources\js\coreui\menu-create.js */"./resources/js/coreui/menu-create.js");
 
 
 /***/ })

@@ -14,7 +14,11 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js');
 mix.sass('resources/sass/app.scss', 'public/css');
 
-//**************** CSS ******************** 
+
+mix.js('resources/js/backand.js', 'public/js');
+mix.sass('resources/sass/backand.scss', 'public/css');
+
+//**************** CSS ********************
 //css
 mix.copy('resources/vendors/pace-progress/css/pace.min.css', 'public/css');
 mix.copy('node_modules/@coreui/coreui-chartjs/dist/css/coreui-chartjs.css', 'public/css');
@@ -22,7 +26,7 @@ mix.copy('node_modules/cropperjs/dist/cropper.css', 'public/css');
 //main css
 mix.sass('resources/sass/style.scss', 'public/css');
 
-//************** SCRIPTS ****************** 
+//************** SCRIPTS ******************
 // general scripts
 mix.copy('node_modules/axios/dist/axios.min.js', 'public/js');
 mix.copy('node_modules/pace-progress/pace.min.js', 'public/js');
@@ -44,7 +48,7 @@ mix.js('resources/js/coreui/menu-create.js', 'public/js');
 mix.js('resources/js/coreui/menu-edit.js', 'public/js');
 mix.js('resources/js/coreui/media.js', 'public/js');
 mix.js('resources/js/coreui/media-cropp.js', 'public/js');
-//*************** OTHER ****************** 
+//*************** OTHER ******************
 //fonts
 mix.copy('node_modules/@coreui/icons/fonts', 'public/fonts');
 //icons
