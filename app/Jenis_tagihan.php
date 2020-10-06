@@ -12,7 +12,8 @@ class Jenis_tagihan extends Model
         'map',
         'nama',
         'tipe',
-        'tahun_id'
+        'tahun_id',
+        'sekolah_id'
     ];
 
     public function tagihan()

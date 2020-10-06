@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Tagihan;
 
+use Illuminate\Support\Facades\Auth;
+
 use Livewire\Component;
 use App\Jenis_tagihan;
 use App\TahunAjaran;
@@ -27,6 +29,14 @@ class Create extends Component
 
     public function store()
     {
+        $user = Auth::user();
+
+        $sekolah = null;
+
+        if (!$user->hasRole('admin'))
+            $sekolah = $user->sekolah_id;
+
+
         $this->validate([
             'nama' => 'required|',
             'map' => 'required|',
@@ -39,6 +49,7 @@ class Create extends Component
             'map' => $this->map,
             'tipe' => $this->periode,
             'tahun_id' => $this->tahun,
+            'sekolah_id' => $sekolah
         ]);
 
         session()->flash('message', 'taguhan ' . $this->nama . ' berhasil di tambahkan');

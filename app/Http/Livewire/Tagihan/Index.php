@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Tagihan;
 use Livewire\Component;
 use App\Jenis_tagihan;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Auth;
 
 
 class Index extends Component
@@ -16,11 +17,17 @@ class Index extends Component
     public function render()
     {
 
-        return view('livewire.tagihan.index', [
-            'DaftarTagihan' => Jenis_tagihan::latest()
-                ->with('tahun')
-                ->paginate(10),
-        ]);
+        $user = Auth::user();
+        $data = Jenis_tagihan::with('tahun');
+
+        if (!$user->hasRole('admin'))
+            $data->Where('sekolah_id', $user->sekolah_id)
+                ->orWhere('sekolah_id', null);
+
+
+        $DaftarTagihan = $data->latest()->paginate(10);
+
+        return view('livewire.tagihan.index', compact('DaftarTagihan'));
     }
 
 
