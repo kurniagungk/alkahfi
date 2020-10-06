@@ -87,8 +87,7 @@
         "popper.js": "^1.16.1",
         "select2": "^4.0.13",
         "serialize-javascript": "^3.1.0",
-        "sweetalert2": "^9.14.0",
-        "turbolinks": "^5.2.0"
+        "sweetalert2": "^9.14.0"
     },
     "devDependencies": {
         "cross-env": "^6.0.0",

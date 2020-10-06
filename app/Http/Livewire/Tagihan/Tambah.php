@@ -47,10 +47,18 @@ class Tambah extends Component
     public function updatedperiode($value)
     {
         $this->reset('jenis');
-        $this->dataJenis = Jenis_tagihan::where('tipe', $value)->with('tahun')->get();
+
+        $user = Auth::user();
+        $data = Jenis_tagihan::where('tipe', $value)->with('tahun');
+
+        if (!$user->hasRole('admin'))
+            $data->Where('sekolah_id', $user->sekolah_id)
+                ->orWhere('sekolah_id', null);
+
+        $this->dataJenis = $data->get();
 
         if (is_null($this->dataJenis)) {
-            dd($this->dataJenis);
+
             $this->jenis = $this->dataJenis['0']->daftar_tgh_id;
 
             $awal = date_create_from_format('Y-m-d', substr($this->dataJenis['0']->tahun->awal, 0, 8) . '01');

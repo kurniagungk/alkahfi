@@ -8,6 +8,4 @@ window.Popper = require('popper.js').default;
 window.$ = window.jQuery = require('jquery');
 
 
-var Turbolinks = require("turbolinks");
-Turbolinks.start();
 

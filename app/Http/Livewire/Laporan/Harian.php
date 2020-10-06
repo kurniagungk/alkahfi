@@ -62,10 +62,13 @@ class Harian extends Component
             $query->withCount(['bayar AS bayar' => function ($query) {
                 $query->select(DB::raw('SUM(JUMLAH)'));
             }]);
-        }])
-            ->get();
+        }]);
 
-        $this->tagihan = $jenistagihan;
+        if (!$user->hasRole('admin'))
+            $jenistagihan->Where('sekolah_id', $user->sekolah_id)
+                ->orWhere('sekolah_id', null);
+
+        $this->tagihan = $jenistagihan->get();
 
         $data = [];
 
