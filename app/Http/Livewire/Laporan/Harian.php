@@ -77,7 +77,8 @@ class Harian extends Component
             $datasantri['nama'] = $s->nama;
             $datasantri['kelas'] = $s->kelas->kelas;
             $datatagihan = [];
-            foreach ($jenistagihan as $j) {
+
+            foreach ($this->tagihan as $j) {
 
                 $tagihan = Tagihan::where('santri_id', $s->id)
                     ->whereHas('bayar', function (Builder $query) use ($awal, $akhir) {
@@ -88,7 +89,6 @@ class Harian extends Component
                         $query->select(DB::raw('SUM(JUMLAH)'));
                     }])
                     ->get();
-
 
 
                 $datatagihan[] = $tagihan;
@@ -120,7 +120,7 @@ class Harian extends Component
         $data = $this->data;
         $tagihan = $this->tagihan;
         return view('livewire.laporan.harian', \compact('data', 'tagihan'))
-        ->extends('dashboard.base')
-        ->section('content');
+            ->extends('dashboard.base')
+            ->section('content');
     }
 }

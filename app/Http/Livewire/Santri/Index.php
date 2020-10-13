@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\santri;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\WithPagination;
-use Maatwebsite\Excel\Concerns\WithLimit;
+use App\Kelas;
 
 class Index extends Component
 {
@@ -20,6 +20,7 @@ class Index extends Component
     public $page = 1;
     public $perpage = 10;
     public $confirming;
+    public $selectKelas;
 
 
     protected $queryString  = [
@@ -43,6 +44,16 @@ class Index extends Component
         $this->resetPage();
     }
 
+    public function updatingselectKelas()
+    {
+        $this->resetPage();
+    }
+
+    public function updating()
+    {
+        $this->resetPage();
+    }
+
     public function confirmDelete($id)
     {
         $this->confirming = $id;
@@ -60,6 +71,7 @@ class Index extends Component
         $user = Auth::user();
 
 
+
         $data =
             santri::with('kelas')
             ->with('provinsi')
@@ -68,8 +80,16 @@ class Index extends Component
             ->with('desa');
 
 
-        if (!$user->hasRole('admin'))
+        if (!$user->hasRole('admin')) {
             $data->where('sekolah_id', $user->sekolah_id);
+            $kelas = Kelas::where('sekolah_id', $user->sekolah_id)->get();
+        } else {
+            $kelas = Kelas::get();
+        }
+
+        if ($this->selectKelas > 0)
+            $data->where('kelas_id', $this->selectKelas);
+
 
 
 
@@ -84,6 +104,6 @@ class Index extends Component
             ->paginate($this->perpage);
 
 
-        return view('livewire.santri.index', compact('santri'));
+        return view('livewire.santri.index', compact('santri', 'kelas'));
     }
 }

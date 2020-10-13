@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\asramaController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\KelasControler;
 use App\Http\Controllers\SantriController;
 use App\Http\Controllers\TagihanController;
@@ -22,7 +23,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::group(['middleware' => ['get.menu']], function () {
 
-    Route::get('/', 'Auth\LoginController@showLoginForm')->name('login');
+    Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
 
     /*
     Route::group(['middleware' => ['role:admin']], function () {
