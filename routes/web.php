@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::group(['middleware' => ['get.menu']], function () {
 
-    Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::get('/', [LoginController::class, 'showLoginForm']);
 
     /*
     Route::group(['middleware' => ['role:admin']], function () {
@@ -296,9 +296,9 @@ Route::group(['middleware' => ['get.menu']], function () {
     ]);
 
     Route::group(['middleware' => ['role:admin']], function () {
-//Route::livewire('setting/user/create', 'setting.create-user')->layout('dashboard.base')->name('user.create');
-//Route::livewire('setting/user', 'setting.index-user')->layout('dashboard.base')->name('setting.user');
-      //  Route::livewire('setting/user/{id}/edit', 'setting.useredit')->layout('dashboard.base')->name('user.edit');
+        //Route::livewire('setting/user/create', 'setting.create-user')->layout('dashboard.base')->name('user.create');
+        //Route::livewire('setting/user', 'setting.index-user')->layout('dashboard.base')->name('setting.user');
+        //  Route::livewire('setting/user/{id}/edit', 'setting.useredit')->layout('dashboard.base')->name('user.edit');
     });
 
 
@@ -306,17 +306,17 @@ Route::group(['middleware' => ['get.menu']], function () {
 
 
 
-    Route::get('/dashboard', \App\Http\Livewire\Dashboard\Index::class );
+        Route::get('/dashboard', \App\Http\Livewire\Dashboard\Index::class);
 
 
         route::prefix('santri')->group(function () {
             Route::POST('/GetData', 'SantriController@getBasicData')->name('santri.getData');
         });
         Route::get('tagihan/tambah', [TagihanController::class, 'tambah'])->name('tagihan.tambah');
-        Route::get('/transaksi/cetakb/{santri_id}/{tagihan_id}', [TransaksiController::class,'printTagihanBulanan'])->name('transaksi.cetak');
-        Route::get('/transaksi/cetakc/{tagihan_id}', [TransaksiController::class,'printTagihanCicil'])->name('transaksi.cetakc');
-        Route::get('/transaksi/kwitansi/{id}', [TransaksiController::class,'kwitansiBulanan'])->name('transaksi.kwitansi');
-        Route::get('/transaksi/kwitansicicilan/{id}', [TransaksiController::class,'kwitansicicilan'])->name('transaksi.kwitansicicilan');
+        Route::get('/transaksi/cetakb/{santri_id}/{tagihan_id}', [TransaksiController::class, 'printTagihanBulanan'])->name('transaksi.cetak');
+        Route::get('/transaksi/cetakc/{tagihan_id}', [TransaksiController::class, 'printTagihanCicil'])->name('transaksi.cetakc');
+        Route::get('/transaksi/kwitansi/{id}', [TransaksiController::class, 'kwitansiBulanan'])->name('transaksi.kwitansi');
+        Route::get('/transaksi/kwitansicicilan/{id}', [TransaksiController::class, 'kwitansicicilan'])->name('transaksi.kwitansicicilan');
 
 
 
@@ -326,14 +326,14 @@ Route::group(['middleware' => ['get.menu']], function () {
             'tagihan' => TagihanController::class,
             'tahun' => TahunAjaran::class,
             'kelas' => KelasControler::class
-            ]);
+        ]);
 
-Route::get('/sekolah', \App\Http\Livewire\Sekolah\Index::class  )->name('sekolah');
-Route::get('/sekolah/create', \App\Http\Livewire\Sekolah\Create::class)->name('sekolah.create');
-Route::get('/sekolah/{sekolah}/edit', \App\Http\Livewire\Sekolah\Edit::class)->name('sekolah.edit');
+        Route::get('/sekolah', \App\Http\Livewire\Sekolah\Index::class)->name('sekolah');
+        Route::get('/sekolah/create', \App\Http\Livewire\Sekolah\Create::class)->name('sekolah.create');
+        Route::get('/sekolah/{sekolah}/edit', \App\Http\Livewire\Sekolah\Edit::class)->name('sekolah.edit');
 
-Route::get('/tagihan/{id}/show', \App\Http\Livewire\Tagihan\Tampil::class)->name('tagihan.tampil');
-Route::get('/transaksi/keluar', \App\Http\Livewire\Transaksi\Keluar::class)->name('transaksi.keluar');
+        Route::get('/tagihan/{id}/show', \App\Http\Livewire\Tagihan\Tampil::class)->name('tagihan.tampil');
+        Route::get('/transaksi/keluar', \App\Http\Livewire\Transaksi\Keluar::class)->name('transaksi.keluar');
 
         Route::resource('transaksi', TransaksiController::class, [
             'only' => ['index', 'create', 'store']
@@ -344,15 +344,15 @@ Route::get('/transaksi/keluar', \App\Http\Livewire\Transaksi\Keluar::class)->nam
         });
 
         route::prefix('laporan')->group(function () {
-           Route::get('/umum', \App\Http\Livewire\Laporan\Harian::class);
-          Route::get('/bulanan', \App\Http\Livewire\Laporan\Bulanan::class);
-         //   Route::get('/umum', 'laporan.umum')->layout('dashboard.base');
-       //    Route::get('/layout', 'laporan.layout')->layout('dashboard.kosong');
+            Route::get('/umum', \App\Http\Livewire\Laporan\Harian::class);
+            Route::get('/bulanan', \App\Http\Livewire\Laporan\Bulanan::class);
+            //   Route::get('/umum', 'laporan.umum')->layout('dashboard.base');
+            //    Route::get('/layout', 'laporan.layout')->layout('dashboard.kosong');
         });
 
         route::prefix('tunggakan')->group(function () {
-         //   Route::livewire('/', 'tunggakan.index')->layout('dashboard.base');
-// Route::livewire('/cek', 'tunggakan.cek')->layout('dashboard.kosong');
+            //   Route::livewire('/', 'tunggakan.index')->layout('dashboard.base');
+            // Route::livewire('/cek', 'tunggakan.cek')->layout('dashboard.kosong');
         });
         // Route::get('/tagihan/tampil', function () {
         //     return view('livewire.tagihan.tampil');
