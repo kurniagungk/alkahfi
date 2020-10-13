@@ -71,6 +71,8 @@ class Tampil extends Component
             ->paginate($this->perpage);
 
 
-        return view('livewire.tagihan.tampil', compact('santri'));
+        return view('livewire.tagihan.tampil', compact('santri'))
+        ->extends('dashboard.base')
+        ->section('content');
     }
 }

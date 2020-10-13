@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Concerns\WithLimit;
 class Index extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
     public $sortField = 'nama';
     public $sortAsc = true;
     public $search;
@@ -21,7 +22,7 @@ class Index extends Component
     public $confirming;
 
 
-    protected $updatesQueryString = [
+    protected $queryString  = [
         'search' => ['except' => ''],
         'page' => ['except' => 1],
     ];

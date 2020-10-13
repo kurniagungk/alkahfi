@@ -119,6 +119,8 @@ class Harian extends Component
     {
         $data = $this->data;
         $tagihan = $this->tagihan;
-        return view('livewire.laporan.harian', \compact('data', 'tagihan'));
+        return view('livewire.laporan.harian', \compact('data', 'tagihan'))
+        ->extends('dashboard.base')
+        ->section('content');
     }
 }

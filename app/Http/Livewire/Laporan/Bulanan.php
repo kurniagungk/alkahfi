@@ -63,6 +63,8 @@ class Bulanan extends Component
 
     public function render()
     {
-        return view('livewire.laporan.bulanan');
+        return view('livewire.laporan.bulanan')
+        ->extends('dashboard.base')
+        ->section('content');
     }
 }

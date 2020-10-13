@@ -29,7 +29,8 @@ class Edit extends Component
 
     public function render()
     {
-        return view('livewire.sekolah.edit');
+        return view('livewire.sekolah.edit')->extends('dashboard.base')
+        ->section('content');
     }
 
     public function update()
