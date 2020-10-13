@@ -126,13 +126,6 @@ class Edit extends Component
     }
 
 
-    public function updated($field)
-    {
-        $this->validateOnly($field, [
-            'nis' => 'unique:santri|max:255',
-            'tgl_lahir' => 'date'
-        ]);
-    }
 
 
     public function update()

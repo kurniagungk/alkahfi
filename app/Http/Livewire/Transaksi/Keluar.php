@@ -56,6 +56,8 @@ class Keluar extends Component
     {
 
         $jenis = Jenis_tagihan::get();
-        return view('livewire.transaksi.keluar', compact('jenis'));
+        return view('livewire.transaksi.keluar', compact('jenis'))
+        ->extends('dashboard.base')
+        ->section('content');
     }
 }

@@ -56,13 +56,14 @@ class Bulanan extends Component
             'akhir' => $akhir
         ];
 
-        Excel::store(new LaporanBulanan($jenistagihan, $tanggal), 'export\laporanbulanan.xlsx', 'public');
-        $this->emit('download');
+        return Excel::download(new LaporanBulanan($jenistagihan, $tanggal), 'laporan Bulanan '.$awal. ' - '. $akhir .'.xlsx');
     }
 
 
     public function render()
     {
-        return view('livewire.laporan.bulanan');
+        return view('livewire.laporan.bulanan')
+        ->extends('dashboard.base')
+        ->section('content');
     }
 }

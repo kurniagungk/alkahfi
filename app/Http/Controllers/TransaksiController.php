@@ -159,7 +159,7 @@ class TransaksiController extends Controller
         ];
 
         $pdf = PDF::loadview('print.tagihanbulanan', compact('data'));
-        $pdf->setPaper('A4', 'landscape');
+        $pdf->setPaper('A4', 'portrait');
         return $pdf->stream();
     }
 
@@ -200,7 +200,7 @@ class TransaksiController extends Controller
         ];
 
         $pdf = PDF::loadview('print.tagihannyicil', compact('data'));
-        $pdf->setPaper('A4', 'landscape');
+        $pdf->setPaper('A4', 'portrait');
         return $pdf->stream();
     }
 
@@ -225,7 +225,7 @@ class TransaksiController extends Controller
 
 
         $pdf = PDF::loadview('print.kwitansib', compact('data'));
-        $pdf->setPaper('A4', 'landscape');
+        $pdf->setPaper('A4', 'portrait');
         return $pdf->stream();
     }
 
@@ -251,7 +251,7 @@ class TransaksiController extends Controller
         ];
 
         $pdf = PDF::loadview('print.kwitansicicilan', compact('data'));
-        $pdf->setPaper('A4', 'landscape');
+        $pdf->setPaper('A4', 'portrait');
         return $pdf->stream();
     }
 }

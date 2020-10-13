@@ -61,6 +61,8 @@ class Index extends Component
             'totalTunggakan' => $totalTunggakan->sum('jumlah')
         ];
 
-        return view('livewire.dashboard.index', compact("data"));
+        return view('livewire.dashboard.index', compact("data"))
+        ->extends('dashboard.base')
+        ->section('content');
     }
 }

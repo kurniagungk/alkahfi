@@ -90,7 +90,26 @@
                                     <option value="10">10</option>
                                     <option value="50">50</option>
                                     <option value="100">100</option>
-                                    <option value="">Semua</option>
+                                </select>
+
+
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 my-1 mx-3">
+                            <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        Kelas
+                                    </div>
+                                </div>
+                                <select wire:model="selectKelas" class="form-control" name="status">
+                                    <option value="0" selected>- pilih kelas -</option>
+                                    @foreach($kelas as $k)
+                                    <option value="{{$k->id}}">{{$k->tingkat}} - {{$k->kelas}}</option>
+                                    @endforeach
                                 </select>
 
 
@@ -107,13 +126,13 @@
                             <tr>
 
                                 <th>No</th>
-                                <th> <a wire:click.prevent="sortBy('nisn')" role="button">
-                                        Nism
-                                        <i class="cil-resize-height" @if($sortField=='no_induk' ) style="color:red" @endif></i>
-                                    </a></th>
                                 <th> <a wire:click.prevent="sortBy('nism')" role="button">
+                                        Nism
+                                        <i class="cil-resize-height" @if($sortField=='nism' ) style="color:red" @endif></i>
+                                    </a></th>
+                                <th> <a wire:click.prevent="sortBy('nisn')" role=="button">
                                         Nisn
-                                        <i class="cil-resize-height" @if($sortField=='no_induk' ) style="color:red" @endif></i>
+                                        <i class="cil-resize-height" @if($sortField=='nisn' ) style="color:red" @endif></i>
                                     </a></th>
                                 <th><a wire:click.prevent="sortBy('nama')" role="button">
                                         Nama
@@ -123,7 +142,7 @@
                                 <th>JK</th>
                                 <th>Alamat</th>
                                 <th>MASUK </th>
-                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Aksi: activate to sort column ascending">
+                                <th>
                                     <center>Aksi</center>
                                 </th>
                             </tr>
@@ -131,8 +150,8 @@
                         <tbody>
 
                             @foreach($santri as $data)
-                            <tr>
-                                <td>{{$loop->index +1}}</td>
+                            <tr wire:key="{{ $loop->index }}">
+                                <td>{{$loop->iteration}}</td>
                                 <td>{{$data->nism}}</td>
                                 <td>{{$data->nisn}}</td>
                                 <td>{{$data->nama}}</td>
@@ -147,11 +166,11 @@
                                 <td>{{$data->tahun}}</td>
                                 <td>
                                     <center>
-                                        <a href="{{route('santri.edit', $data)}}" class="btn btn-primary" role="button" aria-pressed="true">EDIT</a>
+                                        <a href="{{route('santri.edit', $data)}}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">EDIT</a>
                                         @if($confirming == $data->id)
-                                        <button wire:click="kill('{{ $data->id }}')" type="button" class="btn btn-danger">Sure?</button>
+                                        <button wire:click="kill('{{ $data->id }}')" type="button" class="btn btn-danger btn-sm">Sure?</button>
                                         @else
-                                        <button wire:click="confirmDelete( '{{ $data->id }}' )" type="button" class="btn btn-warning">Delete</button>
+                                        <button wire:click="confirmDelete( '{{ $data->id }}' )" type="button" class="btn btn-warning btn-sm">Delete</button>
                                         @endif
                                     </center>
                                 </td>

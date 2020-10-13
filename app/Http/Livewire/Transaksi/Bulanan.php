@@ -22,7 +22,6 @@ class Bulanan extends Component
 
 
     public $DetailTagihan;
-    public $Tagihan;
     public $nama;
     public $tagihan_id;
     public $santri_id;
@@ -104,20 +103,6 @@ class Bulanan extends Component
             ->with('bayarbulanan')
             ->orderBy('tempo', 'asc')
             ->get();
-
-
-        $this->Tagihan = Tagihan::select(
-            'id',
-            'jenis_tagihan_id',
-            DB::raw('sum(jumlah) as total'),
-            DB::raw('sum(if(tempo < CURDATE() AND status = "belum" ,jumlah, 0 )) as tunggakan'),
-            DB::raw('sum(if(status = "lunas",jumlah, 0 )) as dibayar'),
-            DB::raw('sum(jumlah) - sum(if(status = "lunas", jumlah, 0)) as status'),
-        )
-            ->with('jenis')
-            ->where('jenis_tagihan_id', $this->tagihan_id)
-            ->Where('santri_id', $this->santri_id)
-            ->get();
     }
 
     public function cetak()
@@ -143,7 +128,8 @@ class Bulanan extends Component
 
 
         $pdf = PDF::loadview('print.kwitansibulanan', compact('data'));
-        $pdf->setPaper('A4', 'landscape');
+        $pdf->setPaper('A4');
+
         Storage::disk('public')->put('pdf/invoice.pdf', $pdf->output());
         $this->emit('download');
     }
@@ -151,6 +137,19 @@ class Bulanan extends Component
 
     public function render()
     {
-        return view('livewire.transaksi.bulanan');
+        $Tagihan = Tagihan::select(
+            'id',
+            'jenis_tagihan_id',
+            DB::raw('sum(jumlah) as total'),
+            DB::raw('sum(if(tempo < CURDATE() AND status = "belum" ,jumlah, 0 )) as tunggakan'),
+            DB::raw('sum(if(status = "lunas",jumlah, 0 )) as dibayar'),
+            DB::raw('sum(jumlah) - sum(if(status = "lunas", jumlah, 0)) as status'),
+        )
+            ->with('jenis')
+            ->where('jenis_tagihan_id', $this->tagihan_id)
+            ->Where('santri_id', $this->santri_id)
+            ->get();
+
+        return view('livewire.transaksi.bulanan', compact('Tagihan'));
     }
 }

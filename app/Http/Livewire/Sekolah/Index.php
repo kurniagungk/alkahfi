@@ -12,6 +12,7 @@ class Index extends Component
 {
     use WithPagination;
     public $confirming;
+    protected $paginationTheme = 'bootstrap';
 
     public function render()
     {
@@ -31,7 +32,8 @@ class Index extends Component
             [
                 'sekolah' => $sekolah
             ]
-        );
+        ) ->extends('dashboard.base')
+        ->section('content');
     }
 
     public function confirmDelete($id)
