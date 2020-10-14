@@ -10,18 +10,23 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Jenis_tagihan;
 use App\Tagihan;
+use App\Kelas;
 
 
 class Tampil extends Component
 {
 
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $jenisTagihan;
     public $search;
     public $page = 1;
     public $confirming;
     public $perpage = 10;
+    public $select = [];
+    public $selectKelas;
+    public $hapus = false;
 
     protected $updatesQueryString = [
         'search' => ['except' => ''],
@@ -31,6 +36,16 @@ class Tampil extends Component
     public function mount(Jenis_tagihan $id)
     {
         $this->jenisTagihan = $id;
+    }
+
+    public function updatingperpage()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingselectKelas()
+    {
+        $this->resetPage();
     }
 
     public function updatingSearch()
@@ -50,29 +65,56 @@ class Tampil extends Component
         session()->flash('success', 'Data Tagihan successfully deleted.');
     }
 
+    public function hapusPilihan()
+    {
+        $this->hapus = true;
+    }
 
+    public function hapus()
+    {
+        $deletedRows = Tagihan::whereIn('id', $this->select)->delete();
+        $this->reset('hapus', 'select');
+    }
 
     public function render()
     {
         $user = Auth::user();
 
+        $selectKelas = $this->selectKelas;
+
         $santri = Tagihan::where('jenis_tagihan_id', $this->jenisTagihan->id)
             ->with('santri')
-            ->whereHas('santri', function (Builder $query) use ($user) {
+            ->with('kelas')
+            ->whereHas('santri', function (Builder $query) use ($user, $selectKelas) {
+
+                if ($selectKelas > 0)
+                    $query->where('kelas_id', $selectKelas);
 
                 if (!$user->hasRole('admin'))
                     $query->where('sekolah_id', $user->sekolah_id);
 
-                $query->where('nama', 'like', '%' . $this->search . '%');
-                $query->orWhere('nism', 'like', '%' . $this->search . '%');
-                $query->orWhere('nisn', 'like', '%' . $this->search . '%');
+                $query->where(function (Builder $query) {
+                    $query->Where('nama', 'like', '%' . $this->search . '%')
+                        ->orWhere('nisn', 'like', '%' . $this->search . '%')
+                        ->orWhere('nism', 'like', '%' . $this->search . '%');
+                });
             })
-            ->whereDoesntHave('bayar')
-            ->paginate($this->perpage);
+            ->whereDoesntHave('bayar')->paginate($this->perpage);
 
 
-        return view('livewire.tagihan.tampil', compact('santri'))
-        ->extends('dashboard.base')
-        ->section('content');
+
+
+        if (!$user->hasRole('admin')) {
+            $data->where('sekolah_id', $user->sekolah_id);
+            $kelas = Kelas::where('sekolah_id', $user->sekolah_id)->get();
+        } else {
+            $kelas = Kelas::get();
+        }
+
+
+
+        return view('livewire.tagihan.tampil', compact('santri', 'kelas'))
+            ->extends('dashboard.base')
+            ->section('content');
     }
 }

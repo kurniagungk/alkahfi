@@ -41,4 +41,8 @@ class Tagihan extends Model
     {
         return $this->hasManyThrough(transaksi::class, Bayar::class, 'tagihan_id', 'id', 'id', 'transaksi_id');
     }
+    function kelas()
+    {
+        return $this->hasOneThrough(Kelas::class, santri::class, 'id', 'id', 'santri_id', 'kelas_id');
+    }
 }

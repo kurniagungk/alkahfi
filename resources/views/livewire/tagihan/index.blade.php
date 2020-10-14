@@ -35,11 +35,11 @@
                     <td>
                         @if(!is_null($data->sekolah_id))
                         <a href="{{route('tagihan.edit', $data->id)}}" class="btn btn-outline-warning">edit</a>
-                        <a href="{{route('tagihan.tampil', $data->id)}}" class="btn btn-outline-warning">setting</a>
                         <button wire:click="destroy({{$data->id}})" class="btn btn-outline-danger" type="button">
                             Hapus
                         </button>
                         @else
+                        <a href="{{route('tagihan.tampil', $data->id)}}" class="btn btn-outline-warning">setting</a>
                         <span class="badge badge-danger">admin</span>
                         @endif
                     </td>

@@ -183,9 +183,4 @@
     })
 </script>
 
-<script type="text/javascript">
-    window.livewire.on('download', () => {
-        window.open("{{asset('public/'.'export/laporanharian.xlsx')   }}", '_blank');
-    })
-</script>
 @endpush

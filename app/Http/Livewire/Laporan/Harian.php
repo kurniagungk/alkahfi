@@ -125,8 +125,7 @@ class Harian extends Component
             'akhir' => $this->akhir
         ];
 
-        Excel::store(new LaporanHarian($data, $tagihan, $tanggal), 'export\laporanharian.xlsx', 'public');
-        $this->emit('download');
+        return Excel::download(new LaporanHarian($data, $tagihan, $tanggal), 'Laporan Umum ' . $this->awal . ' - ' . $this->akhir . '.xlsx');
     }
 
 

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class Index extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
     public $confirming;
 
 
