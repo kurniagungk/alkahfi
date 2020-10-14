@@ -32,7 +32,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Tanggal</label>
                                                 <div class="col-sm-4">
-                                                    <input wire:model="awal" type="date" class="form-control @error('awal') is-invalid @enderror" id="inputPassword2">
+                                                    <input wire:model="awal" type="date" class="form-control @error('awal') is-invalid @enderror">
                                                     @error('awal')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -40,12 +40,24 @@
                                                     @enderror
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <input wire:model="akhir" type="date" class="form-control @error('akhir') is-invalid @enderror" id="inputPassword2">
+                                                    <input wire:model="akhir" type="date" class="form-control @error('akhir') is-invalid @enderror">
                                                     @error('akhir')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
+                                                </div>
+                                            </div>
+
+                                            <div wire:ignore class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Tanggal</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" id="select2" multiple="multiple">
+                                                        @forelse ($datatagihan as $t)
+                                                        <option value="{{$t->id}}">{{$t->nama}}</option>
+                                                        @empty
+                                                        @endforelse
+                                                    </select>
                                                 </div>
                                             </div>
 
@@ -88,7 +100,7 @@
                                                         <th height="25" colspan="{{count($tagihan) + 4}}">Laporan harian</th>
                                                     </tr>
                                                     <tr>
-                                                        <th colspan="3">Tanggal</th>
+                                                        <th colspan="2">Tanggal</th>
                                                         <th>{{$awal}}</th>
                                                         <th>-</th>
                                                         <th>{{$awal}}</th>
@@ -109,7 +121,7 @@
                                                     @endphp
                                                     @foreach($data as $d)
                                                     @php
-                                                    $sum = 0;
+                                                    $jumlah = 0;
                                                     @endphp
                                                     <tr>
                                                         <td>{{$loop->index + 1}}</td>
@@ -117,12 +129,12 @@
                                                         <td>{{$d['kelas']}}</td>
                                                         @foreach ($d['tagihan'] as $dt)
                                                         @php
-                                                        $sum += $dt->sum('bayar');
-                                                        $total += $dt->sum('bayar');
+                                                        $jumlah += $dt->sum('bayar') ;
+                                                        $total += $dt->sum('bayar') ;
                                                         @endphp
-                                                        <td>{{$dt->sum('bayar') ?? ''}}</td>
+                                                        <td>{{$dt->sum('bayar')}}</td>
                                                         @endforeach
-                                                        <td>{{$sum}}</td>
+                                                        <td>{{$jumlah}}</td>
                                                     </tr>
                                                     @endforeach
                                                     <tr>
@@ -150,7 +162,27 @@
     </div>
 </div>
 
+@section('css')
+<link href="{{ asset('css/backand.css') }}" rel="stylesheet">
+@endsection
+
+
 @push('scripts')
+
+<script src="{{ asset('js/backand.js') }}"></script>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        $('#select2').select2({
+            placeholder: "Semua Tagihan"
+        });
+        $('#select2').on('change', function(e) {
+            var data = $('#select2').select2("val");
+            @this.select = data
+
+        });
+    })
+</script>
+
 <script type="text/javascript">
     window.livewire.on('download', () => {
         window.open("{{asset('public/'.'export/laporanharian.xlsx')   }}", '_blank');

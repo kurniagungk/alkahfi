@@ -22,6 +22,7 @@ class Harian extends Component
     public $akhir;
     private $data;
     private $tagihan;
+    public $select = [];
 
     public function mount()
     {
@@ -32,7 +33,6 @@ class Harian extends Component
 
     public function datat()
     {
-
 
         $user = Auth::user();
         $awal = $this->awal;
@@ -64,13 +64,20 @@ class Harian extends Component
             }]);
         }]);
 
+        if (!empty($this->select))
+            $jenistagihan->whereIn('id', $this->select);
+
         if (!$user->hasRole('admin'))
             $jenistagihan->Where('sekolah_id', $user->sekolah_id)
                 ->orWhere('sekolah_id', null);
 
-        $this->tagihan = $jenistagihan->get();
+        $tagihan = $jenistagihan->get();
+        $this->tagihan = $tagihan;
+
+
 
         $data = [];
+        $i = 1;
 
         foreach ($santri as $s) {
             $datasantri = [];
@@ -78,7 +85,13 @@ class Harian extends Component
             $datasantri['kelas'] = $s->kelas->kelas;
             $datatagihan = [];
 
+
+
+
+
             foreach ($this->tagihan as $j) {
+
+
 
                 $tagihan = Tagihan::where('santri_id', $s->id)
                     ->whereHas('bayar', function (Builder $query) use ($awal, $akhir) {
@@ -95,7 +108,9 @@ class Harian extends Component
             }
             $datasantri['tagihan'] = $datatagihan;
             $data[] = $datasantri;
+            $i++;
         }
+
         $this->data = $data;
     }
 
@@ -119,7 +134,22 @@ class Harian extends Component
     {
         $data = $this->data;
         $tagihan = $this->tagihan;
-        return view('livewire.laporan.harian', \compact('data', 'tagihan'))
+        $user = Auth::user();
+
+        $jenistagihan = Jenis_tagihan::select('*');
+
+        if (!empty($this->select))
+            $jenistagihan->whereIn('id', $this->select);
+
+        if (!$user->hasRole('admin'))
+            $jenistagihan->Where('sekolah_id', $user->sekolah_id)
+                ->orWhere('sekolah_id', null);
+
+        $datatagihan = $jenistagihan->get();
+
+
+
+        return view('livewire.laporan.harian', \compact('data', 'tagihan', 'datatagihan'))
             ->extends('dashboard.base')
             ->section('content');
     }

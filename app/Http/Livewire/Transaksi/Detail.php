@@ -28,21 +28,13 @@ class Detail extends Component
     public $santri_id;
 
 
-    protected $listeners = ['find' => 'resetdata'];
+
 
 
     public function mount($id)
     {
 
-
-
-
-
-
-        $data = santri::where(function (Builder $query) use ($id) {
-            return $query->Where('nism', $id)
-                ->orWhere('nisn', $id);
-        });
+        $data = santri::where('id', $id);
 
         $user = Auth::user();
 
@@ -80,7 +72,6 @@ class Detail extends Component
             })
             ->groupBy('jenis_tagihan_id')
             ->get();
-
 
         $this->tagihanPeriode = Tagihan::select(
             'id',

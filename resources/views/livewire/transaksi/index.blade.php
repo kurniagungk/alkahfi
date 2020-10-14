@@ -34,33 +34,33 @@
 
 
         @if($find)
+
         <div class="col-sm-12">
-            @livewire('transaksi.profil', ['profil' => $profil] )
+            <livewire:transaksi.profil :profil="$profil" :key="$nis">
         </div>
 
-        @livewire('transaksi.detail', ['id' => $nis])
+        <livewire:transaksi.detail :id="$profil->id" :key="$nis+1">
+            @else
 
-        @else
+            @if($data)
+            <div class="col-sm-12">
+                <div class="card">
 
-        @if($data)
-        <div class="col-sm-12">
-            <div class="card">
-
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <br>
-
-                    <div class="col-sm-12">
-                        <div class="text-center">
-                            <h1>Data Not found</h1>
-                        </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
                         <br>
-                    </div><!-- /.box-body -->
-                </div><!-- /.box -->
+
+                        <div class="col-sm-12">
+                            <div class="text-center">
+                                <h1>Data Not found</h1>
+                            </div>
+                            <br>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div>
             </div>
-        </div>
-        @endif
-        @endif
+            @endif
+            @endif
     </div>
 </div>
 
