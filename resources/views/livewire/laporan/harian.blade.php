@@ -50,7 +50,7 @@
                                             </div>
 
                                             <div wire:ignore class="form-group row">
-                                                <label class="col-sm-3 col-form-label">Tanggal</label>
+                                                <label class="col-sm-3 col-form-label">Jenis Tagihan</label>
                                                 <div class="col-sm-9">
                                                     <select class="form-control" id="select2" multiple="multiple">
                                                         @forelse ($datatagihan as $t)
