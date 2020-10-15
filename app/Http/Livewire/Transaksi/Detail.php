@@ -3,15 +3,8 @@
 namespace App\Http\Livewire\Transaksi;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Builder;
-
-use App\Tagihan;
-use App\Transaksi;
-use App\Bayar;
-use App\santri;
-use Illuminate\Support\Facades\DB;
-
+use Illuminate\{Support\Facades\Auth, Support\Facades\DB};
+use App\{Tagihan, santri};
 
 class Detail extends Component
 {

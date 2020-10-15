@@ -2,9 +2,8 @@
 
 namespace App\Http\Livewire\TahunAjaran;
 
-use Livewire\Component;
+use Livewire\{Component, WithPagination};
 use App\TahunAjaran;
-use Livewire\WithPagination;
 
 class Index extends Component
 {

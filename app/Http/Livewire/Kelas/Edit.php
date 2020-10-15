@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Kelas;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
-use App\Kelas, App\Sekolah;
+use App\{Kelas, Sekolah};
 
 class Edit extends Component
 {

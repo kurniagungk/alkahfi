@@ -2,17 +2,9 @@
 
 namespace App\Http\Livewire\Santri;
 
-use Livewire\Component;
-use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Auth;
-
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use App\asrama, App\Sekolah, App\Kelas;
-use App\TahunAjaran;
-use App\santri;
-use App\Wilayah;
+use Livewire\{Component, WithFileUploads};
+use Illuminate\{Support\Str,  Support\Facades\Auth};
+use App\{asrama, Kelas, santri, Wilayah, Sekolah};
 
 
 class Create extends Component

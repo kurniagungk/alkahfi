@@ -3,16 +3,11 @@
 namespace App\Http\Livewire\Laporan;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Auth;
 
+use Illuminate\{Support\Facades\DB, Database\Eloquent\Builder, Support\Facades\Auth};
+use App\{santri, Jenis_tagihan, Tagihan};
 use App\Exports\LaporanHarian;
 use Maatwebsite\Excel\Facades\Excel;
-
-use App\santri;
-use App\Jenis_tagihan;
-use App\Tagihan;
 
 
 class Harian extends Component

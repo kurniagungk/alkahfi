@@ -7,9 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 
 
-use App\santri;
-use App\Bayar;
-use App\Tagihan;
+use App\{santri, Bayar, Tagihan};
 
 class Index extends Component
 {
@@ -62,7 +60,7 @@ class Index extends Component
         ];
 
         return view('livewire.dashboard.index', compact("data"))
-        ->extends('dashboard.base')
-        ->section('content');
+            ->extends('dashboard.base')
+            ->section('content');
     }
 }

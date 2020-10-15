@@ -2,13 +2,10 @@
 
 namespace App\Http\Livewire\Santri;
 
-use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
+use Livewire\{Component, WithPagination};
+use App\{santri, Kelas};
+use Illuminate\{Database\Eloquent\Builder, Support\Facades\Auth};
 
-use App\santri;
-use Illuminate\Database\Eloquent\Builder;
-use Livewire\WithPagination;
-use App\Kelas;
 
 class Index extends Component
 {

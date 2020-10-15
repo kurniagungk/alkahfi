@@ -3,8 +3,7 @@
 namespace App\Http\Livewire\Transaksi;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\{Support\Facades\Auth, Database\Eloquent\Builder};
 
 use App\santri;
 

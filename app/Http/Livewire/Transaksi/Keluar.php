@@ -3,12 +3,8 @@
 namespace App\Http\Livewire\Transaksi;
 
 use Livewire\Component;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
-
-use App\Jenis_tagihan;
-use App\Pengeluaran;
-use App\Transaksi;
+use Illuminate\{Support\Str, Support\Facades\Auth};
+use App\{Jenis_tagihan, Pengeluaran, Transaksi};
 
 class Keluar extends Component
 {
@@ -57,7 +53,7 @@ class Keluar extends Component
 
         $jenis = Jenis_tagihan::get();
         return view('livewire.transaksi.keluar', compact('jenis'))
-        ->extends('dashboard.base')
-        ->section('content');
+            ->extends('dashboard.base')
+            ->section('content');
     }
 }

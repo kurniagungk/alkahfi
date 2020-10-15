@@ -2,11 +2,10 @@
 
 namespace App\Http\Livewire\Sekolah;
 
-use Livewire\Component;
+use Livewire\{Component, WithPagination};
 use Illuminate\Support\Facades\Auth;
-
 use App\Sekolah;
-use Livewire\WithPagination;
+
 
 class Index extends Component
 {
@@ -32,8 +31,8 @@ class Index extends Component
             [
                 'sekolah' => $sekolah
             ]
-        ) ->extends('dashboard.base')
-        ->section('content');
+        )->extends('dashboard.base')
+            ->section('content');
     }
 
     public function confirmDelete($id)

@@ -5,9 +5,8 @@ namespace App\Http\Livewire\Laporan;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 
-use App\santri;
-use App\Jenis_tagihan;
-use App\Tagihan;
+use App\{santri, Jenis_tagihan, Tagihan};
+
 
 class Layout extends Component
 {

@@ -3,14 +3,9 @@
 namespace App\Http\Livewire\Laporan;
 
 use Livewire\Component;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\DB;
 use PDF;
-use Illuminate\Support\Facades\Storage;
-
-use App\Sekolah;
-use App\Jenis_tagihan;
-use App\Bayar;
+use Illuminate\{Support\Facades\Storage, Database\Eloquent\Builder};
+use App\{Sekolah, Jenis_tagihan, Bayar};
 
 
 class Umum extends Component

@@ -2,10 +2,9 @@
 
 namespace App\Http\Livewire\Sekolah;
 
-use Livewire\WithFileUploads;
+use Livewire\{WithFileUploads, Component};
 use Illuminate\Support\Facades\Storage;
 
-use Livewire\Component;
 use App\Sekolah;
 
 class Edit extends Component
@@ -30,7 +29,7 @@ class Edit extends Component
     public function render()
     {
         return view('livewire.sekolah.edit')->extends('dashboard.base')
-        ->section('content');
+            ->section('content');
     }
 
     public function update()

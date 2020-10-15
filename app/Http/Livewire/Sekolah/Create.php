@@ -2,9 +2,8 @@
 
 namespace App\Http\Livewire\Sekolah;
 
-use Livewire\WithFileUploads;
+use Livewire\{WithFileUploads, Component};
 
-use Livewire\Component;
 use App\Sekolah;
 use phpDocumentor\Reflection\Types\This;
 

@@ -2,8 +2,7 @@
 
 namespace App\Http\Livewire\Asrama;
 
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use App\asrama;
 
 class Index extends Component

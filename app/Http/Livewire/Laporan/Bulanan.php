@@ -4,13 +4,8 @@ namespace App\Http\Livewire\Laporan;
 
 use App\Exports\LaporanBulanan;
 use Livewire\Component;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\{Support\Facades\DB, Database\Eloquent\Builder, Support\Facades\Auth};
 use Maatwebsite\Excel\Facades\Excel;
-
-
-
 use App\Jenis_tagihan;
 
 
@@ -56,14 +51,14 @@ class Bulanan extends Component
             'akhir' => $akhir
         ];
 
-        return Excel::download(new LaporanBulanan($jenistagihan, $tanggal), 'laporan Bulanan '.$awal. ' - '. $akhir .'.xlsx');
+        return Excel::download(new LaporanBulanan($jenistagihan, $tanggal), 'laporan Bulanan ' . $awal . ' - ' . $akhir . '.xlsx');
     }
 
 
     public function render()
     {
         return view('livewire.laporan.bulanan')
-        ->extends('dashboard.base')
-        ->section('content');
+            ->extends('dashboard.base')
+            ->section('content');
     }
 }

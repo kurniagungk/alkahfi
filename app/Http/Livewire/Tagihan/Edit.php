@@ -3,8 +3,7 @@
 namespace App\Http\Livewire\Tagihan;
 
 use Livewire\Component;
-use App\Jenis_tagihan;
-use App\TahunAjaran;
+use App\{TahunAjaran, Jenis_tagihan};
 
 class Edit extends Component
 {

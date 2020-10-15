@@ -2,17 +2,9 @@
 
 namespace App\Http\Livewire\Santri;
 
-use Livewire\Component;
-use Livewire\WithFileUploads;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Auth;
-
-
-use App\asrama, App\TahunAjaran, App\Kelas;
-use App\santri as dataSantri;
-use App\Wilayah;
-use App\Sekolah;
+use Livewire\{Component, WithFileUploads};
+use Illuminate\{Validation\Rule, Support\Facades\Storage, Support\Facades\Auth};
+use App\{asrama, TahunAjaran, Kelas, santri as dataSantri, Wilayah, Sekolah};
 
 class Edit extends Component
 {

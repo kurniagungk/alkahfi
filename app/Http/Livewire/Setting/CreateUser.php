@@ -3,11 +3,9 @@
 namespace App\Http\Livewire\Setting;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\{Support\Facades\Hash, Support\Facades\DB};
 
-use Illuminate\Support\Facades\DB;
-use App\Sekolah;
-use App\User;
+use App\{Sekolah, User};
 
 
 class CreateUser extends Component

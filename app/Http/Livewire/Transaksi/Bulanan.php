@@ -3,18 +3,9 @@
 namespace App\Http\Livewire\Transaksi;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
+use Illuminate\{Support\Facades\DB, Support\Facades\Auth, Support\Str};
 use PDF;
-use Illuminate\Support\Facades\Auth;
-
-use App\Tagihan;
-use App\Transaksi;
-use App\Bayar;
-use App\santri;
-
-
-
+use App\{Tagihan, Transaksi,  Bayar, santri};
 use Illuminate\Support\Facades\Storage;
 
 class Bulanan extends Component

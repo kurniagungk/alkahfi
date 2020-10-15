@@ -3,10 +3,8 @@
 namespace App\Http\Livewire\Santri;
 
 use App\Imports\SantriImport;
-use Livewire\Component;
-use Livewire\WithFileUploads;
+use Livewire\{Component, WithFileUploads};
 
-use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class Import extends Component

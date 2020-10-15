@@ -2,8 +2,7 @@
 
 namespace App\Http\Livewire\Setting;
 
-use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\{Component, WithPagination};
 use App\User;
 
 

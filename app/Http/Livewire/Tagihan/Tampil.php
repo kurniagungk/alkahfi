@@ -2,15 +2,9 @@
 
 namespace App\Http\Livewire\Tagihan;
 
-use Livewire\Component;
-use Livewire\WithPagination;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Auth;
-
-
-use App\Jenis_tagihan;
-use App\Tagihan;
-use App\Kelas;
+use Livewire\{Component, WithPagination};
+use Illuminate\{Database\Eloquent\Builder, Support\Facades\Auth};
+use App\{Kelas, Jenis_tagihan, Tagihan};
 
 
 class Tampil extends Component
@@ -105,7 +99,6 @@ class Tampil extends Component
 
 
         if (!$user->hasRole('admin')) {
-            $data->where('sekolah_id', $user->sekolah_id);
             $kelas = Kelas::where('sekolah_id', $user->sekolah_id)->get();
         } else {
             $kelas = Kelas::get();

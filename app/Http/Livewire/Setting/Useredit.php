@@ -3,10 +3,9 @@
 namespace App\Http\Livewire\Setting;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rule;
+use Illuminate\{Support\Facades\DB, Validation\Rule};
 
-use App\Sekolah, App\User;
+use App\{Sekolah, User};
 
 class Useredit extends Component
 {

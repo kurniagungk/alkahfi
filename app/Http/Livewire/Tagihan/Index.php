@@ -2,9 +2,8 @@
 
 namespace App\Http\Livewire\Tagihan;
 
-use Livewire\Component;
+use Livewire\{Component, WithPagination};
 use App\Jenis_tagihan;
-use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 
 

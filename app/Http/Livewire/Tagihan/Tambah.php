@@ -2,20 +2,14 @@
 
 namespace App\Http\Livewire\Tagihan;
 
-use Livewire\Component;
-use Livewire\WithFileUploads;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Str;
+use Livewire\{Component, WithFileUploads};
+
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\TagihanImport;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\{Support\Facades\Auth, Database\Eloquent\Builder, Support\Str};
 
+use App\{santri, Tagihan, Kelas, asrama, Jenis_tagihan};
 
-use App\santri;
-use App\Tagihan;
-use App\Kelas;
-use App\asrama;
-use App\Jenis_tagihan;
 
 
 

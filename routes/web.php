@@ -11,15 +11,16 @@
 |
 */
 
-use App\Http\Controllers\asramaController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\KelasControler;
-use App\Http\Controllers\SantriController;
-use App\Http\Controllers\TagihanController;
-use App\Http\Controllers\TahunAjaran;
-use App\Http\Controllers\TransaksiController;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\{
+    asramaController,
+    KelasControler,
+    SantriController,
+    TagihanController,
+    TahunAjaran,
+    TransaksiController,
+    Auth\LoginController
+};
+use Illuminate\Support\Facades\{Route, Auth};
 
 Route::group(['middleware' => ['get.menu']], function () {
 

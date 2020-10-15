@@ -2,11 +2,11 @@
 
 namespace App\Http\Livewire\Kelas;
 
-use Livewire\Component;
+use Livewire\{Component, WithPagination};
 use Illuminate\Support\Facades\Auth;
 
 use App\Kelas;
-use Livewire\WithPagination;
+
 
 class Index extends Component
 {

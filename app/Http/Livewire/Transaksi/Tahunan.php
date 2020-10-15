@@ -3,18 +3,9 @@
 namespace App\Http\Livewire\Transaksi;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
+use Illuminate\{Support\Facades\Auth, Support\Str, Support\Facades\Storage, Support\Facades\DB};
+use App\{Tagihan, Transaksi, Bayar, santri};
 use PDF;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
-
-
-use App\Tagihan;
-use App\Transaksi;
-use App\Bayar;
-use App\santri;
-
 
 
 

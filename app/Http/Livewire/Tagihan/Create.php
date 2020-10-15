@@ -5,8 +5,7 @@ namespace App\Http\Livewire\Tagihan;
 use Illuminate\Support\Facades\Auth;
 
 use Livewire\Component;
-use App\Jenis_tagihan;
-use App\TahunAjaran;
+use App\{Jenis_tagihan, TahunAjaran};
 
 class Create extends Component
 {

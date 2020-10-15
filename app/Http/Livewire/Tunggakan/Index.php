@@ -4,17 +4,10 @@ namespace App\Http\Livewire\Tunggakan;
 
 
 use Livewire\Component;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\{Support\Facades\DB, Support\Facades\Auth};
 use App\Exports\TunggakanExpor;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Auth;
-
-use App\Sekolah;
-use App\Jenis_tagihan;
-use App\Bayar;
-use App\santri;
-use App\Tagihan;
+use App\{Sekolah, Jenis_tagihan, santri};
 
 class Index extends Component
 {

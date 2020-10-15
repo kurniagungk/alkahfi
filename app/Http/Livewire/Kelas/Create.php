@@ -3,8 +3,7 @@
 namespace App\Http\Livewire\Kelas;
 
 use Livewire\Component;
-use App\Kelas;
-use App\Sekolah;
+use App\{Kelas, Sekolah};
 use Illuminate\Support\Facades\Auth;
 
 
