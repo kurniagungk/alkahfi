@@ -32,6 +32,7 @@ class Harian extends Component
         $user = Auth::user();
         $awal = $this->awal;
         $akhir = $this->akhir;
+        $sekolah_id = $user->sekolah_id;
 
         $datasantri = santri::select('*')->whereHas('bayar', function (Builder $query) use ($awal, $akhir) {
             $query->whereRaw('DATE(bayar.created_at) BETWEEN "' . $awal . '" AND "' . $akhir . '"');
@@ -59,14 +60,23 @@ class Harian extends Component
             }]);
         }]);
 
+
+
         if (!empty($this->select))
             $jenistagihan->whereIn('id', $this->select);
 
-        if (!$user->hasRole('admin'))
-            $jenistagihan->Where('sekolah_id', $user->sekolah_id)
-                ->orWhere('sekolah_id', null);
+        if (!$user->hasRole('admin')) {
+            $jenistagihan->where(function (Builder $query) use ($sekolah_id) {
+                $query->Where('sekolah_id', $sekolah_id)
+                    ->orWhere('sekolah_id', null);
+            });
+        }
+
 
         $tagihan = $jenistagihan->get();
+
+
+
         $this->tagihan = $tagihan;
 
 

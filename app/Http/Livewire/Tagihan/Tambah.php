@@ -122,7 +122,7 @@ class Tambah extends Component
 
 
         if ($this->select == 2) {
-            dd($santri = santri::whereIn('kelas_id', $this->kelas)->get());
+            $santri = santri::whereIn('kelas_id', $this->kelas)->get();
         } elseif ($this->select == 3) {
             $santri = santri::whereHas('asrama', function (Builder $query) {
                 $query->whereIn('id', $this->kelas);
