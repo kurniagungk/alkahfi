@@ -6,7 +6,7 @@
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h5 class="m-0 font-weight-bold text-primary">Laporan Tunggakan</h5>
+                        <h5 class="m-0 font-weight-bold text-primary">Laporan asd</h5>
                         <div class="dropdown no-arrow">
                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -38,140 +38,129 @@
                                 </div> -->
 
 
-                                        <form>
 
 
-                                            <div class="form-group row">
-                                                <label class="col-md-3 col-form-label">Periode Pembayaran</label>
-                                                <div class="col-md-9">
-                                                    <select class="form-control  @error('periode') is-invalid @enderror" wire:model="periode">
-                                                        <option value=''>pilih salah satu</option>
-                                                        <option value="spp">bulanan</option>
-                                                        <option value="cicilan">Cicilan</option>
-                                                    </select>
-                                                    @error('periode')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                        <div wire:ignore class="form-group row">
+                                            <label class="col-sm-3 col-form-label">Jenis Tagihan</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="select2" multiple="multiple">
+                                                    @forelse ($datatagihan as $t)
+                                                    <option value="{{$t->id}}">{{$t->nama}}</option>
+                                                    @empty
+                                                    @endforelse
+                                                </select>
                                             </div>
+                                        </div>
 
-                                            @if($periode)
-                                            <div class="form-group row">
-                                                <label class="col-md-3 col-form-label">Jenis Pembayaran</label>
-                                                <div class="col-md-9">
 
-                                                    <select class="form-control @error('jenis') is-invalid @enderror" wire:model="jenis">
-                                                        <option value=''>pilih salah satu</option>
-                                                        @foreach ($dataJenis as $data)
-                                                        <option value="{{$data->id}}">{{$data->nama}}</option>
 
-                                                        @endforeach
-
-                                                    </select>
-                                                    @error('jenis') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                        <center>
+                                            <button wire:click.prefetch="datat" class="btn btn-info btn-icon-split" type="button">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-filter"></i>
+                                                </span>
+                                                <div wire:loading wire:target="datat">
+                                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                                 </div>
-                                            </div>
-                                            @endif
-
-                                            <center>
-                                                <button wire:click="data" class="btn btn-info btn-icon-split" type="button">
-                                                    <span class="icon text-white-50">
-                                                        <i class="fas fa-filter"></i>
-                                                    </span>
-                                                    <span class="text">Filter</span>
-                                                </button>
-                                                <button wire:click="export" class="btn btn-warning btn-icon-split" type="button">
-                                                    <span class="icon text-white-50">
-                                                        <i class="fas fa-download"></i>
-                                                    </span>
-                                                    <span class="text">Export</span>
-                                                </button>
-                                            </center>
-                                        </form>
+                                                <span class="text">Filter</span>
+                                            </button>
+                                            <button wire:click.prefetch="export" class="btn btn-warning btn-icon-split" type="button">
+                                                <div wire:loading wire:target="export">
+                                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                </div>
+                                                <span class="text">Export</span>
+                                            </button>
+                                        </center>
 
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-xl-4 col-lg-5 d-none">
-                                <div class="card shadow mb-4">
-                                    <div class="card-body">
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-5 col-form-label">Periode : </label>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-7 col-form-label">Nama Tagihan : </label>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-7 col-form-label">Siswa Tertagih : </label>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-7 col-form-label">Total Tagihan : </label>
-                                        </div>
-                                        <form>
-                                            <center>
-                                                <button wire:click="export" class="btn btn-warning btn-icon-split" type="button">
-                                                    <span class="icon text-white-50">
-                                                        <i class="fas fa-download"></i>
-                                                    </span>
-                                                    <span class="text">Export</span>
-                                                </button>
-                                            </center>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
 
 
                         </div>
-
+                        @if(!empty($data))
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>NIS</th>
-                                        <th>Nama</th>
-                                        @role('admin')
-                                        <th>Sekolah</th>
-                                        @endrole
-                                        <th>Kelas</th>
-                                        <th>Jumlah Tunggakan</th>
+                                        <th height="25" colspan="{{count($jenistagihan) + 4}}">Laporan harian</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">Tanggal</th>
+                                        <th>{{$awal}}</th>
+                                        <th>-</th>
+                                        <th>{{$awal}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>NAMA</th>
+                                        <th>KELAS</th>
+                                        @foreach($jenistagihan as $t)
+                                        <th>{{$t->nama}}</th>
+                                        @endforeach
+                                        <th>jumlah</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if($dataTunggakan)
-                                    @foreach ($dataTunggakan as $tunggakan)
+                                    @php
+                                    $total = 0;
+                                    @endphp
+                                    @foreach($data as $d)
+                                    @php
+                                    $jumlah = 0;
+                                    @endphp
                                     <tr>
                                         <td>{{$loop->index + 1}}</td>
-                                        <td>{{$tunggakan->nisn }}</td>
-                                        <td>{{$tunggakan->nama }}</td>
-                                        @role('admin')
-                                        <td>{{$tunggakan->sekolah->nama}}</td>
-                                        @endrole
-                                        <td>{{$tunggakan->kelas->tingkat }} - {{$tunggakan->kelas->kelas }}</td>
-                                        <td>{{FormatRupiah($tunggakan->tagihan->sum('jumlah') - $tunggakan->tagihan->sum('bayar_count'))}} </td>
+                                        <td>{{$d['nama']}}</td>
+                                        <td>{{$d['kelas']}}</td>
+                                        @foreach ($d['tagihan'] as $dt)
+                                        <td>{{$dt->sum('jumlah') - $dt->sum('bayar') }}</td>
+                                        @php
+                                        $jumlah += $dt->sum('jumlah') - $dt->sum('bayar') ;
+                                        $total += $dt->sum('jumlah') - $dt->sum('bayar') ;
+                                        @endphp
+                                        @endforeach
+                                        <td>{{$jumlah}}</td>
                                     </tr>
-
                                     @endforeach
-                                    @else
                                     <tr>
-                                        <td colspan="7" class="text-center">No Data</td>
+
+                                        <td colspan="3">jumlah</td>
+                                        @foreach($jenistagihan as $t)
+                                        <th>{{$t->tagihan->sum('jumlah')}}</th>
+                                        @endforeach
+                                        <td>{{$total}}</td>
                                     </tr>
-                                    @endif
                                 </tbody>
                             </table>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@section('css')
+<link href="{{ asset('css/backand.css') }}" rel="stylesheet">
+@endsection
+
+
 @push('scripts')
+
+<script src="{{ asset('js/backand.js') }}"></script>
 <script type="text/javascript">
-    window.livewire.on('download', () => {
-        window.open("{{asset('public/'.'export/tunggakan.xlsx')   }}", '_blank');
+    document.addEventListener('DOMContentLoaded', function() {
+        $('#select2').select2({
+            placeholder: "Semua Tagihan"
+        });
+        $('#select2').on('change', function(e) {
+            var data = $('#select2').select2("val");
+            @this.select = data
+
+        });
     })
 </script>
+
 @endpush

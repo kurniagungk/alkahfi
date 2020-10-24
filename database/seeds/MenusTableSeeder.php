@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -217,6 +219,7 @@ class MenusTableSeeder extends Seeder
         // $id = $this->insertLink('admin,bendahara', 'Laporan Harian', '/laporan/harian');
         $id = $this->insertLink('admin,bendahara', 'Laporan Umum', '/laporan/umum');
         $id = $this->insertLink('admin,bendahara', 'Laporan MAP - MAK', '/laporan/bulanan');
+        $id = $this->insertLink('admin,bendahara', 'Laporan Tunggakan', '/tunggakan');
         //  $id = $this->insertLink('admin,bendahara', 'Laporan Tunggakan', '/laporan/tunggakan');
         $this->endDropdown();
 

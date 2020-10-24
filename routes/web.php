@@ -352,7 +352,7 @@ Route::group(['middleware' => ['get.menu']], function () {
         });
 
         route::prefix('tunggakan')->group(function () {
-            //   Route::livewire('/', 'tunggakan.index')->layout('dashboard.base');
+            Route::get('/', \App\Http\Livewire\Tunggakan\Index::class);
             // Route::livewire('/cek', 'tunggakan.cek')->layout('dashboard.kosong');
         });
         // Route::get('/tagihan/tampil', function () {

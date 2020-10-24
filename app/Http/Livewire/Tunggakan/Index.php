@@ -4,95 +4,138 @@ namespace App\Http\Livewire\Tunggakan;
 
 
 use Livewire\Component;
-use Illuminate\{Support\Facades\DB, Support\Facades\Auth};
+use Illuminate\{Support\Facades\DB, Database\Eloquent\Builder, Support\Facades\Auth};
 use App\Exports\TunggakanExpor;
 use Maatwebsite\Excel\Facades\Excel;
-use App\{Sekolah, Jenis_tagihan, santri};
+use App\{Jenis_tagihan, santri, Tagihan};
 
 class Index extends Component
 {
 
     public $awal;
     public $akhir;
-    public $periode;
-    public $jenis;
-    public $sekolah;
+    public $data;
+    public $jenistagihan;
+    public $select = [];
 
-    public $dataSekolah;
-    public $dataJenis;
-    public $dataTunggakan;
 
-    public function mount()
+    public function datat()
     {
-        $this->dataSekolah = Sekolah::get();
-    }
-
-    public function updatedperiode($value)
-    {
-        $this->reset('jenis');
-        $this->dataJenis = Jenis_tagihan::where('tipe', $value)->with('tahun')->get();
-
-        if (is_null($this->dataJenis)) {
-            dd($this->dataJenis);
-            $this->jenis = $this->dataJenis['0']->daftar_tgh_id;
-
-            $awal = date_create_from_format('Y-m-d', substr($this->dataJenis['0']->tahun->awal, 0, 8) . '01');
-            $akhir = date_create_from_format('Y-m-d', substr($this->dataJenis['0']->tahun->akhir, 0, 8) . '01');
-            $selisih = date_diff($awal, $akhir);
-
-            $this->tahun = array(
-                'awal' => $awal,
-                'akhir' => $akhir,
-                'selisih' => $selisih->m
-            );
-        }
-    }
-
-    public function data()
-    {
-        $tunggakan = santri::with('kelas');
-
+        $this->reset('data');
         $user = Auth::user();
+        $awal = $this->awal;
+        $akhir = $this->akhir;
+        $sekolah_id = $user->sekolah_id;
+
+        $datasantri = santri::select('*');
+        if (!$user->hasRole('admin'))
+            $datasantri->where('sekolah_id', $user->sekolah_id);
+
+        $santri = $datasantri->get();
+
+
+        $jenistagihan = Jenis_tagihan::with(['tagihan' => function ($query) use ($awal, $akhir, $user) {
+            $query->whereHas('santri', function (Builder $query) use ($user) {
+                if (!$user->hasRole('admin'))
+                    $query->where('sekolah_id', $user->sekolah_id);
+            });
+            $query->where('status', 'belum');
+            $query->where('tempo', '<', date('Y-m-d'));
+        }])
+            ->orderBy('tipe', 'asc');
+
+
+
+
+
+        if (!empty($this->select))
+            $jenistagihan->whereIn('id', $this->select);
 
         if (!$user->hasRole('admin')) {
-            $tunggakan->where('kelas_id', $user->sekolah_id);
-        } else {
-            $tunggakan->with('sekolah');
-        }
-
-        if ($this->periode) {
-            $this->validate([
-                'jenis' => 'required|',
-            ]);
-
-            $jenis = $this->jenis;
-
-            $tunggakan->whereHas('tagihan', function ($query) use ($jenis) {
-                $query->where('jenis_tagihan_id', $jenis);
+            $jenistagihan->where(function (Builder $query) use ($sekolah_id) {
+                $query->Where('sekolah_id', $sekolah_id)
+                    ->orWhere('sekolah_id', null);
             });
         }
-        $jenis = $this->jenis;
-        $this->dataTunggakan = $tunggakan->with(['tagihan' => function ($query) use ($jenis) {
-            if ($this->periode) {
-                $query->where('jenis_tagihan_id', $jenis);
+
+
+        $datatagihan = $jenistagihan->get();
+
+
+        $this->jenistagihan = $datatagihan;
+
+
+
+        $data = [];
+        $i = 1;
+
+
+
+        foreach ($santri as $s) {
+            $datasantri = [];
+            $datasantri['nama'] = $s->nama;
+            $datasantri['kelas'] = $s->kelas->kelas;
+            $datatagihan = [];
+
+
+
+
+
+            foreach ($this->jenistagihan as $j) {
+
+
+
+                $tagihan = Tagihan::where('santri_id', $s->id)
+                    ->where('status', 'belum')
+                    ->where('jenis_tagihan_id', $j->id)
+                    ->where('tempo', '<', date('Y-m-d'))
+                    ->withCount(['bayar AS bayar' => function ($query) {
+                        $query->select(DB::raw('SUM(JUMLAH)'));
+                    }])
+                    ->get();
+
+
+                $datatagihan[] = $tagihan;
             }
-            $query->where('tempo', '<', date('Y-m-d'));
-            $query->where('status', 'belum');
-            $query->withCount(['bayar' => function ($query) {
-                $query->select(DB::raw('sum(jumlah) as dibayar'));
-            }]);
-        }])
-            ->get();
+            $datasantri['tagihan'] = $datatagihan;
+            $data[] = $datasantri;
+            $i++;
+        }
+
+        $this->data = collect($data);
     }
+
 
     public function export()
     {
-        Excel::store(new TunggakanExpor($this->dataTunggakan), 'export\tunggakan.xlsx', 'public');
-        $this->emit('download');
+        $this->datat();
+        $data = $this->data;
+        $tagihan = $this->jenistagihan;
+
+        return Excel::download(new TunggakanExpor($data, $tagihan), 'Laporan Umum ' . date("d-m-Y")  . '.xlsx');
     }
+
+
 
     public function render()
     {
-        return view('livewire.tunggakan.index');
+
+        $user = Auth::user();
+
+        $jenistagihan = Jenis_tagihan::select('*');
+
+        if (!empty($this->select))
+            $jenistagihan->whereIn('id', $this->select);
+
+        if (!$user->hasRole('admin'))
+            $jenistagihan->Where('sekolah_id', $user->sekolah_id)
+                ->orWhere('sekolah_id', null);
+
+        $datatagihan = $jenistagihan->get();
+
+
+        return view('livewire.tunggakan.index', \compact('datatagihan',))
+            ->extends('dashboard.base')
+            ->section('content');
     }
 }
