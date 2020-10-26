@@ -87,18 +87,18 @@ class Index extends Component
 
                 $tagihan = Tagihan::where('santri_id', $s->id)
                     ->where('status', 'belum')
+                    ->select(DB::raw('SUM(jumlah) as jumlah'))
                     ->where('jenis_tagihan_id', $j->id)
                     ->where('tempo', '<', date('Y-m-d'))
                     ->withCount(['bayar AS bayar' => function ($query) {
                         $query->select(DB::raw('SUM(JUMLAH)'));
-                    }])
-                    ->get();
+                    }])->first();
 
-
-                $datatagihan[] = $tagihan;
+                $datatagihan[] = $tagihan->toArray();
             }
             $datasantri['tagihan'] = $datatagihan;
             $data[] = $datasantri;
+
             $i++;
         }
 
@@ -108,11 +108,18 @@ class Index extends Component
 
     public function export()
     {
-        $this->datat();
+        if (empty($this->data))
+            $this->datat();
+
         $data = $this->data;
         $tagihan = $this->jenistagihan;
 
         return Excel::download(new TunggakanExpor($data, $tagihan), 'Laporan Umum ' . date("d-m-Y")  . '.xlsx');
+    }
+
+    public function updatingselect($value)
+    {
+        $this->reset('data');
     }
 
 

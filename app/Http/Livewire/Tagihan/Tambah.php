@@ -173,14 +173,17 @@ class Tambah extends Component
             foreach ($santri as $data) {
                 $santri_id = $data->id;
 
-                $data = array(
-                    'id' => Str::uuid(),
-                    'jenis_tagihan_id' => $this->jenis,
-                    'santri_id' => $santri_id,
-                    'tempo' => $this->tempo,
-                    'jumlah' => $this->biaya,
+                Tagihan::firstOrCreate(
+                    [
+                        'jenis_tagihan_id' => $this->jenis,
+                        'santri_id' => $santri_id,
+                    ],
+                    [
+                        'id' => Str::uuid(),
+                        'tempo' => $this->tempo,
+                        'jumlah' => $this->biaya,
+                    ]
                 );
-                Tagihan::insert($data);
             }
         }
 

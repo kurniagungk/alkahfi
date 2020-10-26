@@ -1,4 +1,3 @@
-<div class="table-responsive">
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
             <tr>
@@ -31,10 +30,10 @@
                 <td>{{$d['nama']}}</td>
                 <td>{{$d['kelas']}}</td>
                 @foreach ($d['tagihan'] as $dt)
-                <td>{{$dt->sum('jumlah') - $dt->sum('bayar') }}</td>
+                <td>{{$dt['jumlah'] - $dt['bayar'] }}</td>
                 @php
-                $jumlah += $dt->sum('jumlah') - $dt->sum('bayar') ;
-                $total += $dt->sum('jumlah') - $dt->sum('bayar') ;
+                $jumlah += $dt['jumlah'] - $dt['bayar'] ;
+                $total += $dt['jumlah'] - $dt['bayar'] ;
                 @endphp
                 @endforeach
                 <td>{{$jumlah}}</td>
@@ -50,5 +49,3 @@
             </tr>
         </tbody>
     </table>
-</div>
-

@@ -55,6 +55,7 @@
 
 
                                         <center>
+                                            <!--
                                             <button wire:click.prefetch="datat" class="btn btn-info btn-icon-split" type="button">
                                                 <span class="icon text-white-50">
                                                     <i class="fas fa-filter"></i>
@@ -64,6 +65,7 @@
                                                 </div>
                                                 <span class="text">Filter</span>
                                             </button>
+                                            -->
                                             <button wire:click.prefetch="export" class="btn btn-warning btn-icon-split" type="button">
                                                 <div wire:loading wire:target="export">
                                                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -88,9 +90,7 @@
                                     </tr>
                                     <tr>
                                         <th colspan="2">Tanggal</th>
-                                        <th>{{$awal}}</th>
-                                        <th>-</th>
-                                        <th>{{$awal}}</th>
+                                        <th>{{date("d-m-Y")}}</th>
                                     </tr>
                                     <tr>
                                         <th>NO</th>
@@ -115,10 +115,10 @@
                                         <td>{{$d['nama']}}</td>
                                         <td>{{$d['kelas']}}</td>
                                         @foreach ($d['tagihan'] as $dt)
-                                        <td>{{$dt->sum('jumlah') - $dt->sum('bayar') }}</td>
+                                        <td>{{$dt['jumlah'] - $dt['bayar'] }}</td>
                                         @php
-                                        $jumlah += $dt->sum('jumlah') - $dt->sum('bayar') ;
-                                        $total += $dt->sum('jumlah') - $dt->sum('bayar') ;
+                                        $jumlah += $dt['jumlah'] - $dt['bayar'] ;
+                                        $total += $dt['jumlah'] - $dt['bayar'] ;
                                         @endphp
                                         @endforeach
                                         <td>{{$jumlah}}</td>
