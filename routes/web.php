@@ -327,8 +327,7 @@ Route::group(['middleware' => ['get.menu']], function () {
             'santri' => SantriController::class,
             'asrama' => asramaController::class,
             'tagihan' => TagihanController::class,
-            'tahun' => TahunAjaran::class,
-            'kelas' => KelasControler::class
+            'tahun' => TahunAjaran::class
         ]);
 
         Route::get('/sekolah', \App\Http\Livewire\Sekolah\Index::class)->name('sekolah');
@@ -338,7 +337,13 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::get('/tagihan/{id}/show', \App\Http\Livewire\Tagihan\Tampil::class)->name('tagihan.tampil');
         Route::get('/transaksi/keluar', \App\Http\Livewire\Transaksi\Keluar::class)->name('transaksi.keluar');
 
+        Route::get('/kelas/naik', \App\Http\Livewire\Kelas\Naik::class)->name('kelas.naik');
+
         Route::resource('transaksi', TransaksiController::class, [
+            'only' => ['index', 'create', 'store']
+        ]);
+
+        Route::resource('kelas', KelasControler::class, [
             'only' => ['index', 'create', 'store']
         ]);
 
