@@ -12,8 +12,6 @@
 
 
 
-
-
     @else
 
 
@@ -80,44 +78,42 @@
             <h4>Tagihan Periode</h4>
         </div>
         <!-- /.box-header -->
-        <div class="box-body">
+        <div class="card-body">
             <br>
-            <div class="col-sm-12">
+            <div class="table-responsive">
 
-                <div class="col-sm-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Tagihan</th>
+                            <th>Tolat Tagihan</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($tagihanPeriode as $data)
+                        @continue($data->total - $data->bayar_count == 0)
+                        <tr>
+                            <td>{{$loop->index+1}}</td>
+                            <td>{{$data->jenis->nama}}</td>
+                            <td>{{FormatRupiah($data->total - $data->bayar_count)}}</td>
+                            <td>
+                                <button wire:click="periode('{{$data->id}}', '{{$data->jenis->nama}}')" class="btn btn-success btn-sm">Detail</button>
+                            </td>
+                        </tr>
 
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Tagihan</th>
-                                <th>Tolat Tagihan</th>
-                                <th>#</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($tagihanPeriode as $data)
-                            @continue($data->total - $data->bayar_count == 0)
-                            <tr>
-                                <td>{{$loop->index+1}}</td>
-                                <td>{{$data->jenis->nama}}</td>
-                                <td>{{FormatRupiah($data->total - $data->bayar_count)}}</td>
-                                <td>
-                                    <button wire:click="periode('{{$data->id}}', '{{$data->jenis->nama}}')" class="btn btn-success btn-sm">Detail</button>
-                                </td>
-                            </tr>
+                        @endforeach
+                    </tbody>
 
-                            @endforeach
-                        </tbody>
+                </table>
 
-                    </table>
+            </div>
+            <br>
 
-                </div>
-                <br>
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
 
-            </div><!-- /.box-body -->
-        </div><!-- /.box -->
-    </div>
 
     @endif
 
