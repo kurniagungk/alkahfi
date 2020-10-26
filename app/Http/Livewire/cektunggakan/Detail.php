@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\cektunggakan;
 
 use Livewire\Component;
-use Illuminate\{Support\Facades\Auth, Support\Facades\DB};
+use Illuminate\Support\Facades\DB;
 use App\{Tagihan, santri};
 
 class Detail extends Component
@@ -28,12 +28,6 @@ class Detail extends Component
     {
 
         $data = santri::where('id', $id);
-
-        $user = Auth::user();
-
-
-        if (!$user->hasRole('admin'))
-            $data->where('sekolah_id', $user->sekolah_id);
 
         $santri = $data->first();
 

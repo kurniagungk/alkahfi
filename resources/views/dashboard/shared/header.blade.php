@@ -11,11 +11,9 @@
         }
         ?>
         <ul class="c-header-nav ml-auto mr-4">
+
+            <li class="c-header-nav-item d-md-down-none mx-2">{{ Auth::user()->name }}</li>
             <!--
-            <li class="c-header-nav-item d-md-down-none mx-2"><a class="c-header-nav-link">
-                    <svg class="c-icon">
-                        <use xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-bell"></use>
-                    </svg></a></li>
             <li class="c-header-nav-item d-md-down-none mx-2"><a class="c-header-nav-link">
                     <svg class="c-icon">
                         <use xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-list-rich"></use>
@@ -27,10 +25,10 @@
     -->
             <li class="c-header-nav-item dropdown"><a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                     <div class="c-avatar"><img class="c-avatar-img" src="{{asset('assets/img/avatars/alkahfi.jpg')}}" alt="user@email.com"></div>
-                </a>
 
-                <div class="dropdown-menu dropdown-menu-right pt-0">
-                    <!--
+
+                    <div class="dropdown-menu dropdown-menu-right pt-0">
+                        <!--
                     <div class="dropdown-header bg-light py-2"><strong>Account</strong></div><a class="dropdown-item" href="#">
                         <svg class="c-icon mr-2">
                             <use xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-bell"></use>
@@ -58,18 +56,18 @@
                             <use xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-file"></use>
                         </svg> Projects<span class="badge badge-primary ml-auto">42</span></a>
     -->
-                    <div class="dropdown-divider"></div><a class="dropdown-item" href="#">
-                        <!--
+                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#">
+                            <!--
                         <svg class="c-icon mr-2">
                             <use xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-lock-locked"></use>
                         </svg> Lock Account</a><a class="dropdown-item" href="#">
     -->
-                        <svg class="c-icon mr-2">
-                            <use xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-account-logout"></use>
-                        </svg>
-                        <form action="/logout" method="POST"> @csrf <button type="submit" class="btn btn-ghost-dark btn-block">Logout</button></form>
-                    </a>
-                </div>
+                            <svg class="c-icon mr-2">
+                                <use xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-account-logout"></use>
+                            </svg>
+                            <form action="/logout" method="POST"> @csrf <button type="submit" class="btn btn-ghost-dark btn-block">Logout</button></form>
+                        </a>
+                    </div>
 
             </li>
         </ul>

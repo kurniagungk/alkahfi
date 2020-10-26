@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\cektunggakan;
 
 use Livewire\Component;
-use Illuminate\{Support\Facades\Auth, Database\Eloquent\Builder};
+use Illuminate\Database\Eloquent\Builder;
 
 use App\santri;
 
@@ -39,11 +39,6 @@ class Index extends Component
                     ->orWhere('nisn', $this->nis);
             });
 
-            $user = Auth::user();
-
-
-            if (!$user->hasRole('admin'))
-                $data->where('sekolah_id', $user->sekolah_id);
 
             $this->profil = $data->first();
             // $this->emit('find');

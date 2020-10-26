@@ -36,10 +36,10 @@
         @if($find)
 
         <div class="col-sm-12">
-            <livewire:cektunggakan.profil :profil="$profil" :key="$nis">
+            <livewire:cektunggakan.profil :profil="$profil" :key="'profil-'.$nis">
         </div>
         <div class="col-sm-12">
-            <livewire:cektunggakan.detail :id="$profil->id" :key="$nis+1">
+            <livewire:cektunggakan.detail :id="$profil->id" :key="'detail-'.$nis">
         </div>
         @else
 
