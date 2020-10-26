@@ -66,7 +66,12 @@
                                 <th>Kelas</th>
                                 <th>JK</th>
                                 <th>
-                                    <center>Pilih</center>
+                                    <center>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <label class="form-check-label" for="exampleCheck1">Semua</label>
+                                        </div>
+                                    </center>
                                 </th>
                             </tr>
                         </thead>
@@ -80,9 +85,14 @@
                                 <td>asd</td>
                                 <td>
                                     <center>
-                                        <label class="c-switch c-switch-label c-switch-pill c-switch-success">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+
+
+                                            <!-- <label class="c-switch c-switch-label c-switch-pill c-switch-success">
                                             <input class="c-switch-input" type="checkbox" checked=""><span class="c-switch-slider" data-checked="On" data-unchecked="Off"></span>
-                                        </label>
+                                        </label> -->
+                                        </div>
                                     </center>
                                 </td>
                             </tr>
