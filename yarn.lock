@@ -846,20 +846,20 @@
     "@coreui/coreui" "^3.0.0-beta.1"
     chart.js "^2.8.0"
 
-"@coreui/coreui@3.0.0-beta.3":
-  version "3.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@coreui/coreui/-/coreui-3.0.0-beta.3.tgz#722e4c3ae73d34a57573cea7fe23f753f99085fc"
-  integrity sha512-oZ6XRJEYvUuGB3lCPrDkIVXGComXC95rvhrEHROSfG+EduJz8VYTfJqtTGmnUqnKUR5FfzCKPJKJksLEM0aDrg==
-
 "@coreui/coreui@^3.0.0-beta.1":
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/@coreui/coreui/-/coreui-3.2.2.tgz#78e392175373779f6c2d613d85a70eb03beaa149"
   integrity sha512-LvQPLTigUeqOsZFmzXSl2Uz3Wx4Y0nvm3MJTVOEoyKl3tGhkBbe7P41He7277jxz3PyoiSX5vbRj8+WMHQIJTg==
 
-"@coreui/icons@1.0.0-beta.3":
-  version "1.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@coreui/icons/-/icons-1.0.0-beta.3.tgz#ecf91d3f91287a13d3a427d8fae6339999248c11"
-  integrity sha512-jaNQSIYPcrC2RxgUqdVGGh4aGz6GaJNODa3cqBw7HTP3AdHm8NyejrgmO/ILmY3J8JldVqdTMfUwegaTc0kQmA==
+"@coreui/coreui@^3.2.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@coreui/coreui/-/coreui-3.3.0.tgz#09e6176025cf2c430130218f915a2e448d21c5c6"
+  integrity sha512-eaLk+u64v1LzgrROrma26fBJK4wU6sW+Nj0DAJNj+7EsSFA2ge5dW2Fmo5knxBipnYZTUnhG/pDA2w1o/BLaaA==
+
+"@coreui/icons@^1.0.0":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@coreui/icons/-/icons-1.0.1.tgz#8af0fe6450904ee1dbb0abf36bf107f35cfecf5e"
+  integrity sha512-DAlvdHRC+HHecdy52vskbNzNKEpu6wHDvSlsHGrwOqNxQl1YLhGEtqAW4sKpyVE3GgysNCywUWZGFlLp8I3LgA==
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
