@@ -178,12 +178,10 @@
                                     </center>
                                 </td>
                                 <td>
-                                    <center>
-                                        <label class="c-switch c-switch-label c-switch-pill c-switch-success">
-                                            <input class="c-switch-input" type="checkbox" checked="">
-                                            <span class="c-switch-slider" data-checked="On" data-unchecked="Off"></span>
-                                        </label>
-                                    </center>
+                                    <label wire class=" c-switch c-switch-label c-switch-pill c-switch-success">
+                                        <input class="c-switch-input" value="{{$data->id}}" type="checkbox" @php if($data->status == 'active') echo'checked' @endphp >
+                                        <span wire:click="status('{{$data->id}}')" class="c-switch-slider"></span>
+                                    </label>
                                 </td>
                             </tr>
                             @endforeach

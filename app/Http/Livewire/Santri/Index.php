@@ -20,9 +20,12 @@ class Index extends Component
     public $selectKelas;
 
 
-    protected $queryString  = [
-        'search' => ['except' => ''],
-        'page' => ['except' => 1],
+    protected $queryString   = [
+        'search',
+        'page',
+        'perpage',
+        'selectKelas'
+
     ];
 
     public function sortBy($field)
@@ -45,6 +48,16 @@ class Index extends Component
     {
         $this->resetPage();
     }
+
+    public function status($id)
+    {
+        $santri = santri::find($id);
+        $santri->status =  $santri->status == 'active' ? 'tidak' : 'active';
+
+        $santri->save();
+    }
+
+
 
     public function updating()
     {

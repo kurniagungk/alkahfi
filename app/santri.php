@@ -32,7 +32,8 @@ class santri extends Model
         'provinsi_id',
         'kabupaten_id',
         'kecamatan_id',
-        'desa_id'
+        'desa_id',
+        'status',
     ];
 
 

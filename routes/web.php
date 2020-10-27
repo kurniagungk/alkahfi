@@ -312,9 +312,6 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::get('/dashboard', \App\Http\Livewire\Dashboard\Index::class);
 
 
-        route::prefix('santri')->group(function () {
-            Route::POST('/GetData', 'SantriController@getBasicData')->name('santri.getData');
-        });
         Route::get('tagihan/tambah', [TagihanController::class, 'tambah'])->name('tagihan.tambah');
         Route::get('/transaksi/cetakb/{santri_id}/{tagihan_id}', [TransaksiController::class, 'printTagihanBulanan'])->name('transaksi.cetak');
         Route::get('/transaksi/cetakc/{tagihan_id}', [TransaksiController::class, 'printTagihanCicil'])->name('transaksi.cetakc');
@@ -328,6 +325,9 @@ Route::group(['middleware' => ['get.menu']], function () {
             'asrama' => asramaController::class,
             'tagihan' => TagihanController::class,
             'tahun' => TahunAjaran::class
+        ]);
+        Route::resource('kelas', KelasControler::class, [
+            'only' => ['index', 'create', 'store', 'edit']
         ]);
 
         Route::get('/sekolah', \App\Http\Livewire\Sekolah\Index::class)->name('sekolah');
@@ -343,13 +343,9 @@ Route::group(['middleware' => ['get.menu']], function () {
             'only' => ['index', 'create', 'store']
         ]);
 
-        Route::resource('kelas', KelasControler::class, [
-            'only' => ['index', 'create', 'store']
-        ]);
 
-        route::prefix('asrama')->group(function () {
-            Route::POST('/getBasicData', 'asramaController@getBasicData')->name('asrama.GetData');
-        });
+
+
 
         route::prefix('laporan')->group(function () {
             Route::get('/umum', \App\Http\Livewire\Laporan\Harian::class);
@@ -370,8 +366,6 @@ Route::group(['middleware' => ['get.menu']], function () {
 
 
 
-        Route::get('/print', 'Laporan@printTagihanBulanan');
-        Route::get('/prints', 'Laporan@printTagihanCicil');
     });
 });
 
