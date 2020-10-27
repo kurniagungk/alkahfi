@@ -82,11 +82,12 @@
         "datatables.net-scroller-bs4": "^2.0.1",
         "datatables.net-searchpanes-bs4": "^1.0.1",
         "laravel-mix": "^5.0.5",
+        "node-forge": "^0.10.0",
+        "object-path": "^0.11.5",
         "pace-progress": "1.0.2",
         "perfect-scrollbar": "1.4.0",
         "popper.js": "^1.16.1",
         "select2": "^4.0.13",
-        "serialize-javascript": "^3.1.0",
         "sweetalert2": "^9.14.0"
     },
     "devDependencies": {
