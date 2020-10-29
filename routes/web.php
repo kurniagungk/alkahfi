@@ -24,7 +24,10 @@ use Illuminate\Support\Facades\{Route, Auth};
 
 Route::group(['middleware' => ['get.menu']], function () {
 
+
     Route::get('/cektunggakan', \App\Http\Livewire\cektunggakan\Index::class);
+
+    Route::get('/cektunggakan/{nis}', [TransaksiController::class, 'cektunggakan']);
 
     Route::get('/', [LoginController::class, 'showLoginForm']);
 

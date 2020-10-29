@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\DaftarTagihan;
 use App\Tagihan, App\Bayar;
 use App\santri;
-use App\asrama;
 use Illuminate\Support\Facades\DB;
 use PDF;
 
@@ -17,6 +16,103 @@ class TransaksiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+    public function cektunggakan($nis)
+    {
+
+        $santri = santri::select('id', 'NISN', 'NISM', 'nama')->where('nism', $nis)->orWhere('nisn', $nis)->first();
+
+        $data = [];
+
+        if (empty($santri))
+            return $data['errors'] = ['status' => 404];
+
+        $TagihanBulanan =  $this->bulan($santri->id);
+        $Tagihanperiode =  $this->tahun($santri->id);
+
+
+
+
+
+        $data['data'] = [
+            'santri' =>  ['Nama = ' . $santri->nama, 'NISN = ' . $santri->NISN],
+            'bulan' => $TagihanBulanan,
+            'periode' => $Tagihanperiode
+        ];
+
+        return $data;
+    }
+
+    public function bulan($id)
+    {
+
+        $TagihanBulanan = Tagihan::select(
+            'jenis_tagihan_id',
+            'santri_id',
+            DB::raw('sum(jumlah) as total'),
+            DB::raw('sum(if(tempo < CURDATE() AND status = "belum" ,jumlah, 0 )) as tunggakan'),
+            DB::raw('sum(if(status = "lunas",jumlah, 0 )) as dibayar'),
+            DB::raw('sum(jumlah) - sum(if(status = "lunas", jumlah, 0)) as status'),
+        )
+            ->where('santri_id', $id)
+            ->with('jenis')
+            ->whereHas('jenis', function ($query) {
+                $query->where('tipe', 1);
+            })
+            ->where('tempo', '<', date('Y-m-d'))
+            ->groupBy('jenis_tagihan_id')
+            ->get();
+        $bulanan = [];
+        $i = 1;
+        foreach ($TagihanBulanan as $b) {
+            if ($b->tunggakan == 0) continue;
+
+            $data[] = $i . ' ' . $b->jenis->nama . ' ' . FormatRupiah($b->total - $b->bayar_count);;
+
+            $bulanan[] = $data;
+            $i++;
+        }
+
+        return $bulanan;
+    }
+
+    public function tahun($id)
+    {
+
+        $tagihanPeriode = Tagihan::select(
+            'id',
+            'jenis_tagihan_id',
+            'santri_id',
+            DB::raw('jumlah as total'),
+            'status',
+        )
+
+            ->where('santri_id', $id)
+            ->with('jenis')
+            ->whereHas('jenis', function ($query) {
+                $query->where('tipe', 2);
+            })
+            ->where('tempo', '<', date('Y-m-d'))
+            ->withCount(['bayar' => function ($query) {
+                $query->select(DB::raw('sum(jumlah) as dibayar'));
+            }])
+            ->get();
+        $bulanan = [];
+        $i = 1;
+
+        foreach ($tagihanPeriode as $d) {
+            if ($d->total - $d->bayar_count == 0) continue;
+
+            $data[] = $i . ' ' . $d->jenis->nama . ' ' . FormatRupiah($d->total - $d->bayar_count);
+            $bulanan[] =  $data;
+            $i++;
+        }
+        return $bulanan;
+    }
+
+
+
     public function index()
     {
         //

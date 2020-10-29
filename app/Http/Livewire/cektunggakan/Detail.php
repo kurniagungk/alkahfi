@@ -56,6 +56,7 @@ class Detail extends Component
             ->whereHas('jenis', function ($query) {
                 $query->where('tipe', 1);
             })
+            ->where('tempo', '<', date('Y-m-d'))
             ->groupBy('jenis_tagihan_id')
             ->get();
 
@@ -66,7 +67,7 @@ class Detail extends Component
             DB::raw('jumlah as total'),
             'status',
         )
-
+            ->where('tempo', '<', date('Y-m-d'))
             ->where('santri_id', $this->santri_id)
             ->with('jenis')
             ->with('bayar')
