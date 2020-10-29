@@ -100,14 +100,14 @@ class TransaksiController extends Controller
             ->get();
         $bulanan = [];
         $i = 1;
-
         foreach ($tagihanPeriode as $d) {
             if ($d->total - $d->bayar_count == 0) continue;
-
+            $data = [];
             $data[] = $i . ' ' . $d->jenis->nama . ' ' . FormatRupiah($d->total - $d->bayar_count);
             $bulanan[] =  $data;
             $i++;
         }
+
         return $bulanan;
     }
 

@@ -1,14 +1,14 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-8">
             <div class="card">
                 <div class="card-header">
                     <h4>Data Santri</h4>
                 </div>
                 <!-- /.box-header -->
                 <div class="card-body">
-                    <div class="form-row align-items-center">
-                        <div class="col-sm-2 my-2 ">
+                    <div class="form-row align-items-center pb-2">
+                        <div class="col-sm-4 my-1 mb-2 ">
                             <label class="sr-only" for="inlineFormInputGroupUsername"></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -20,23 +20,9 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-3 my-1 mx-3">
-                            <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        Sekolah
-                                    </div>
-                                </div>
-                                <select wire:model="selectKelas" class="form-control" name="status">
-                                    <option value="0" selected>- pilih Sekolah -</option>
-                                    <option value="1" selected>- SMP -</option>
-                                </select>
-                            </div>
-                        </div>
 
-                        <div class="col-sm-3 my-1 mx-3">
-                            <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
+                        <div class="col-sm-4 my-1 mx-3">
+
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
@@ -45,17 +31,15 @@
                                 </div>
                                 <select wire:model="selectKelas" class="form-control" name="status">
                                     <option value="0" selected>- pilih kelas -</option>
-                                    <option value="1" selected>- IV -</option>
+                                    @foreach($kelas as $k)
+                                    <option value="{{$k->id}}">{{$k->tingkat}} - {{$k->kelas}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-3">
-                            <a class="btn btn-success" href="/">Naik</a>
-                        </div>
-
                     </div>
-
-                    <table id="TabelSantri" class="table table-responsive-sm" role="grid" aria-describedby="example1_info">
+                    @if(!empty($santri))
+                    <table id="TabelSantri" class="table table-responsive-sm pt-2" role="grid" aria-describedby="example1_info">
                         <thead>
                             <tr>
 
@@ -68,7 +52,7 @@
                                 <th>
                                     <center>
                                         <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            <input wire:model="all" value="1" type="checkbox" class="form-check-input" id="selectall">
                                             <label class="form-check-label" for="exampleCheck1">Semua</label>
                                         </div>
                                     </center>
@@ -76,30 +60,96 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($santri as $s)
                             <tr>
-                                <td>asd</td>
-                                <td>asd</td>
-                                <td>as</td>
-                                <td>sad</td>
-                                <td>asd</td>
-                                <td>asd</td>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$s->nism}}</td>
+                                <td>{{$s->nisn}}</td>
+                                <td>{{$s->nama}}</td>
+                                <td>{{$s->jenis_kelamin}}</td>
+                                <td>{{$s->kelas->tingkat}} - {{$s->kelas->kelas}}</td>
                                 <td>
                                     <center>
                                         <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-
-
-                                            <!-- <label class="c-switch c-switch-label c-switch-pill c-switch-success">
-                                            <input class="c-switch-input" type="checkbox" checked=""><span class="c-switch-slider" data-checked="On" data-unchecked="Off"></span>
-                                        </label> -->
+                                            <input value="{{$s->id}}" name="all" type="checkbox" class="form-check-input all" wire:model="select">
                                         </div>
                                     </center>
                                 </td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
+                    @endif
                 </div>
             </div>
-        </div><!-- /.box-body -->
-    </div><!-- /.box -->
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Pilih Kelas</h4>
+                </div>
+                <!-- /.box-header -->
+                <div class="card-body">
+
+                    <div>
+                        @if (session()->has('message'))
+                        <div class="alert alert-success">
+                            {{ session('message') }}
+                        </div>
+                        @endif
+                    </div>
+
+
+                    @error('select')
+                    <div class="alert alert-danger" role="alert">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                    <div class="form-group row mb-2">
+                        <label for="staticEmail" class="col-sm-4 col-form-label">pilih kelas</label>
+                        <div class="col-sm-8">
+                            <select wire:model="naik" class="form-control @error('naik') is-invalid @enderror" name="status">
+                                <option value="0" selected>- pilih kelas -</option>
+                                @foreach($kelas as $k)
+                                <option value="{{$k->id}}">{{$k->tingkat}} - {{$k->kelas}}</option>
+                                @endforeach
+                            </select>
+                            @error('naik')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row pt-2">
+                        <div class="col text-center">
+                            <button wire:click="naikKelas" class="btn btn btn-primary">Naik Kelas</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
+
+@push('scripts')
+<script>
+    Livewire.on('all', () => {
+        let id = [];
+        $('input[name="all"]').each(function() {
+            id.push($(this).val())
+            this.checked = true;
+        });
+        @this.select = id;
+    })
+    Livewire.on('del', () => {
+        let id = [];
+        $('input[name="all"]').each(function() {
+            this.checked = false;
+        });
+        @this.select = id;
+    })
+</script>
+@endpush
