@@ -13,7 +13,7 @@ class Edit extends Component
     public $kelas;
     public $keterangan;
     public $idt;
-    public $sekolah_id;
+    public $sekolah;
 
     public function mount($id)
     {
@@ -31,14 +31,14 @@ class Edit extends Component
         $this->validate([
             'tingkat' => 'required|',
             'kelas' => 'required|',
-
+            'sekolah' => 'required|exists:sekolah,id'
         ]);
 
         $data = array(
             'tingkat' => $this->tingkat,
             'kelas' => $this->kelas,
             'keterangan' => $this->keterangan ?? '',
-            'sekolah_id' => $this->sekolah_id
+            'sekolah_id' => $this->sekolah
         );
 
         Kelas::where('id', $this->idt)->update($data);
@@ -51,11 +51,11 @@ class Edit extends Component
         $user = Auth::user();
 
         if (!$user->hasRole('admin')) {
-            $sekolah = Sekolah::where('id', $user->sekolah_id)->get();
+            $dataSekolah = Sekolah::where('id', $user->sekolah_id)->get();
         } else {
-            $sekolah = Sekolah::get();
+            $dataSekolah = Sekolah::get();
         }
 
-        return view('livewire.kelas.edit', \compact('sekolah'));
+        return view('livewire.kelas.edit', \compact('dataSekolah'));
     }
 }

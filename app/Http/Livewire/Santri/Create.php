@@ -127,18 +127,18 @@ class Create extends Component
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'date',
             'alamat' => 'required',
-            'sekolah' => 'required',
-            'asrama' => 'required',
+            'sekolah' => 'required|exists:sekolah,id',
+            'asrama' => 'required|exists:asrama,id',
             'telepon' => 'required',
             'jenis_kelamin' => 'required',
             'id_tahun' => 'date',
             'nama_wali' => 'required',
             'photo' => 'image|max:2048',
             'photo' => 'image|max:2048',
-            'provinsi' => 'required',
-            'kabupaten' => 'required',
-            'kecamatan' => 'required',
-            'desa' => 'required'
+            'provinsi' => 'required|exists:wilayah,kode',
+            'kabupaten' => 'required|exists:wilayah,kode',
+            'kecamatan' => 'required|exists:wilayah,kode',
+            'desa' => 'required|exists:wilayah,kode'
 
         ], $messages);
 

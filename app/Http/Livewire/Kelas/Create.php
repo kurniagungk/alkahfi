@@ -13,20 +13,20 @@ class Create extends Component
     public $tingkat;
     public $kelas;
     public $keterangan;
-    public $sekolah_id;
+    public $sekolah;
 
     public function render()
     {
         $user = Auth::user();
 
         if (!$user->hasRole('admin')) {
-            $sekolah = Sekolah::where('id', $user->sekolah_id)->get();
+            $dataSekolah = Sekolah::where('id', $user->sekolah_id)->get();
         } else {
-            $sekolah = Sekolah::get();
+            $dataSekolah = Sekolah::get();
         }
 
 
-        return view('livewire.kelas.create', compact('sekolah'));
+        return view('livewire.kelas.create', compact('dataSekolah'));
     }
 
     public function store()
@@ -34,14 +34,14 @@ class Create extends Component
         $this->validate([
             'tingkat' => 'required|',
             'kelas' => 'required|',
-            'sekolah_id' => 'required'
+            'sekolah' => 'required|exists:sekolah,id'
         ]);
 
         $data = array(
             'tingkat' => $this->tingkat,
             'kelas' => $this->kelas,
             'keterangan' => $this->keterangan ?? '',
-            'sekolah_id' => $this->sekolah_id
+            'sekolah_id' => $this->sekolah
         );
         Kelas::create($data);
         session()->flash('message',   $this->kelas . ' berhasil di tambahkan');

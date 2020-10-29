@@ -32,8 +32,8 @@ class Edit extends Component
         $this->validate([
             'nama' => 'required|',
             'map' => 'required|',
-            'periode' => 'required|',
-            'tahun' => 'required|',
+            'periode' => 'required|in:1,2',
+            'tahun' => 'required|exists:tahun_ajaran,id',
         ]);
 
         $data = array(

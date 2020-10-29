@@ -10,9 +10,9 @@
          <div class="form-group row">
              <label class="col-md-3 col-form-label" for="select1">Sekolah</label>
              <div class="col-md-9">
-                 <select wire:model="sekolah_id" class="custom-select @error('sekolah') is-invalid @enderror" id="select1" name="sekolah">
+                 <select wire:model="sekolah" class="custom-select @error('sekolah') is-invalid @enderror" id="select1" name="sekolah">
                      <option value="0">- Pilih Lembaga -</option>
-                     @foreach($sekolah as $data)
+                     @foreach($dataSekolah as $data)
                      <option value="{{$data->id}}">{{$data->nama}}</option>
                      @endforeach
                  </select>

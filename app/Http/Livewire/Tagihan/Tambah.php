@@ -115,7 +115,7 @@ class Tambah extends Component
 
 
         $this->validate([
-            'jenis' => 'required',
+            'jenis' => 'required|exists:jenis_tagihan,id',
             'tempo' => 'required',
             'biaya' => 'required|numeric',
         ]);
