@@ -301,10 +301,13 @@ Route::group(['middleware' => ['get.menu']], function () {
         'verify' => false, // Email Verification Routes...
     ]);
 
+
+
     Route::group(['middleware' => ['role:admin']], function () {
-        //Route::livewire('setting/user/create', 'setting.create-user')->layout('dashboard.base')->name('user.create');
-        //Route::livewire('setting/user', 'setting.index-user')->layout('dashboard.base')->name('setting.user');
-        //  Route::livewire('setting/user/{id}/edit', 'setting.useredit')->layout('dashboard.base')->name('user.edit');
+
+        Route::get('/setting/user/create', \App\Http\Livewire\Setting\CreateUser::class)->name('user.create');
+        Route::get('/setting/user/{id}/edit', \App\Http\Livewire\Setting\Useredit::class)->name('user.edit');
+        Route::get('/setting/user', \App\Http\Livewire\Setting\IndexUser::class)->name('setting.user');
     });
 
 
@@ -320,6 +323,9 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::get('/transaksi/cetakc/{tagihan_id}', [TransaksiController::class, 'printTagihanCicil'])->name('transaksi.cetakc');
         Route::get('/transaksi/kwitansi/{id}', [TransaksiController::class, 'kwitansiBulanan'])->name('transaksi.kwitansi');
         Route::get('/transaksi/kwitansicicilan/{id}', [TransaksiController::class, 'kwitansicicilan'])->name('transaksi.kwitansicicilan');
+
+
+        Route::get('/kartuujian/create', App\Http\Livewire\Kartuujian\Create::class)->name('transaksi.kwitansicicilan');
 
 
 

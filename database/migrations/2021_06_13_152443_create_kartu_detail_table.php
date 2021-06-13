@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTahunAjaranTable extends Migration
+class CreateKartuDetailTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateTahunAjaranTable extends Migration
      */
     public function up()
     {
-        Schema::create('tahun_ajaran', function (Blueprint $table) {
-            $table->id('id');
-            $table->string('nama');
-            $table->enum('semester', ['genap', 'ganjil']);
-            $table->date('awal');
-            $table->string('akhir');
+        Schema::create('kartu_detail', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('kartu_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('jenis_tagihan_id');
+            $table->integer('lunas');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateTahunAjaranTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tahun_ajaran');
+        Schema::dropIfExists('kartu_detail');
     }
 }

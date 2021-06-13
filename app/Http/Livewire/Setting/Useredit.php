@@ -62,6 +62,7 @@ class Useredit extends Component
 
     public function render()
     {
+
         $role = DB::table('roles')->get();
         $sekolah = Sekolah::get();
 

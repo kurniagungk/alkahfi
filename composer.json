@@ -14,7 +14,7 @@
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.0",
-        "laravel/legacy-factories": "^1.0",
+        "laravel/legacy-factories": "^1.1",
         "laravel/tinker": "^2.3.0",
         "laravel/ui": "^3.0",
         "livewire/livewire": "^2.0",
@@ -41,8 +41,8 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "database/seeds/UsersAndNotesSeeder.php",
-            "database/seeds/MenusTableSeeder.php",
+            "database/seeders/UsersAndNotesSeeder.php",
+            "database/seeders/MenusTableSeeder.php",
             "app/Helpers/Helper.php"
         ]
     },

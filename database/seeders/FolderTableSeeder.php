@@ -1,6 +1,10 @@
 <?php
 
+
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class FolderTableSeeder extends Seeder
 {
@@ -36,7 +40,5 @@ class FolderTableSeeder extends Seeder
             'folder_id' => $rootId,
         ]);
         $id = DB::getPdo()->lastInsertId();
-
-
     }
 }

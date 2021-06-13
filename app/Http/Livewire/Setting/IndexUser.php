@@ -28,8 +28,11 @@ class IndexUser extends Component
 
     public function render()
     {
+
         $user = User::with('roles')->latest()
             ->paginate(10);
-        return view('livewire.setting.index-user', compact('user'));
+
+        return view('livewire.setting.index-user', compact('user'))->extends('dashboard.base')
+            ->section('content');
     }
 }
